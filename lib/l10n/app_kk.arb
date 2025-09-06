@@ -1,7 +1,7 @@
 {
   "@@locale": "kk",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER (KZ)",
+  "brand": "GEO 2026 · BILIM\"D\"LER ",
   "email": "Электрондық пошта",
   "password": "Құпия сөз",
   "signIn": "Кіру",
@@ -11,5 +11,6 @@
   "welcome": "Қош келдіңіз!",
   "signOut": "Шығу",
   "alreadyMember": "Тіркелгіңіз бар ма?",
-  "loginNow": "Кіру"
+  "loginNow": "Кіру",
+  "confirmPassword": "Құпия сөзді растаңыз"
 }

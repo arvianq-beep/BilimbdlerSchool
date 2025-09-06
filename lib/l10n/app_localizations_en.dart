@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER (EN)';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
 
   @override
   String get email => 'Email';
@@ -43,4 +43,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginNow => 'Log in';
+
+  @override
+  String get confirmPassword => 'Confirm password';
 }

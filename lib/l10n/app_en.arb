@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER (EN)",
+  "brand": "GEO 2026 · BILIM\"D\"LER ",
   "email": "Email",
   "password": "Password",
   "signIn": "Sign in",
@@ -11,5 +11,6 @@
   "welcome": "Welcome!",
   "signOut": "Sign out",
   "alreadyMember": "Already have an account?",
-  "loginNow": "Log in"
+  "loginNow": "Log in",
+  "confirmPassword": "Confirm password"
 }

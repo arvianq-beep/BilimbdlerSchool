@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @brand.
   ///
   /// In en, this message translates to:
-  /// **'GEO 2026 · BILIM\"D\"LER (EN)'**
+  /// **'GEO 2026 · BILIM\"D\"LER '**
   String get brand;
 
   /// No description provided for @email.
@@ -171,6 +171,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Log in'**
   String get loginNow;
+
+  /// No description provided for @confirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm password'**
+  String get confirmPassword;
 }
 
 class _AppLocalizationsDelegate

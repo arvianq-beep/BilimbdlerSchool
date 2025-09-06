@@ -36,7 +36,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 900),
     );
 
-    // запускаем последовательно
+    // последовательный запуск
     Future.delayed(const Duration(milliseconds: 250), () {
       if (mounted) _l1C.forward();
     });
@@ -50,8 +50,27 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       if (s == AnimationStatus.completed && mounted) {
         await Future.delayed(const Duration(milliseconds: 400));
         if (!mounted) return;
+
+        // ✨ Переход на LoginOrRegister с анимацией (slide + fade)
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const LoginOrRegister()),
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 800),
+            pageBuilder: (_, __, ___) => const LoginOrRegister(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(1.0, 0.0); // справа
+                  const end = Offset.zero;
+                  final tween = Tween(
+                    begin: begin,
+                    end: end,
+                  ).chain(CurveTween(curve: Curves.easeOutCubic));
+
+                  return SlideTransition(
+                    position: animation.drive(tween),
+                    child: FadeTransition(opacity: animation, child: child),
+                  );
+                },
+          ),
         );
       }
     });
@@ -80,11 +99,10 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
         ),
         child: SafeArea(
           child: Center(
-            // всё по центру
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // логотип: fade + лёгкий scale
+                // Логотип
                 FadeTransition(
                   opacity: CurvedAnimation(
                     parent: _logoC,
@@ -98,19 +116,15 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       ),
                     ),
                     child: Image.asset(
-                      // укажи свой путь:
-                      // 'lib/Images/Logo.png'
-                      // или 'assets/images/Bilimdler_transparent.png'
-                      'lib/Images/Logo.png',
+                      'lib/Images/Logo.png', // ⚡ замени на свой путь
                       width: 220,
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 28),
 
-                // последовательное «написание» строк
+                // Печатающиеся строки
                 TypewriterText(
                   text: 'BILIM“D”LER',
                   controller: _l1C,
@@ -153,12 +167,12 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 }
 
-/// Показывает строку посимвольно + лёгкое fade/slide
+/// Посимвольный вывод текста + fade/slide
 class TypewriterText extends StatelessWidget {
   final String text;
   final TextStyle style;
   final AnimationController controller;
-  final double slide; // пикселей сдвига при появлении
+  final double slide;
   final Curve curve;
 
   const TypewriterText({
@@ -172,7 +186,7 @@ class TypewriterText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final runes = text.runes.toList(); // корректно для кириллицы/кавычек
+    final runes = text.runes.toList();
     final anim = CurvedAnimation(parent: controller, curve: curve);
 
     return AnimatedBuilder(

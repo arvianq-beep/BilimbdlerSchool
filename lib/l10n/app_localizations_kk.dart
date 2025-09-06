@@ -12,7 +12,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER (KZ)';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
 
   @override
   String get email => 'Электрондық пошта';
@@ -43,4 +43,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get loginNow => 'Кіру';
+
+  @override
+  String get confirmPassword => 'Құпия сөзді растаңыз';
 }

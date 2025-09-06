@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/l10n/locale_provider.dart';
-import 'package:provider/provider.dart';
 
 class LanguageButton extends StatelessWidget {
-  const LanguageButton({super.key});
+  final bool showIcon; // 👈 параметр для включения/выключения иконки
+  const LanguageButton({super.key, this.showIcon = true});
 
   @override
   Widget build(BuildContext context) {
-    final localeProvider = context.watch<LocaleProvider>();
-    Locale current = localeProvider.locale;
+    Locale current = Localizations.localeOf(context);
 
     return DropdownButton<Locale>(
       value: current,
       underline: const SizedBox(),
-      icon: const Icon(Icons.language),
+      icon: showIcon ? const Icon(Icons.language) : const SizedBox.shrink(),
       items: const [
         DropdownMenuItem(value: Locale('kk'), child: Text("Қазақша")),
         DropdownMenuItem(value: Locale('ru'), child: Text("Русский")),
@@ -21,7 +19,8 @@ class LanguageButton extends StatelessWidget {
       ],
       onChanged: (locale) {
         if (locale != null) {
-          localeProvider.setLocale(locale); // ✅ переключает язык
+          // ⚡ здесь вызови метод для смены языка
+          // например через Provider или свой LocaleNotifier
         }
       },
     );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/Auth/header.dart';
 import 'package:flutter_bilimdler/Components/My_Button.dart';
 import 'package:flutter_bilimdler/Components/My_Textfield.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
+import 'package:flutter_bilimdler/l10n/language_button.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -14,8 +16,16 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
   void register() {
+    if (passwordController.text != confirmPasswordController.text) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Пароли не совпадают!")));
+      return;
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text("Registered: ${emailController.text}")),
     );
@@ -25,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -38,7 +49,12 @@ class _RegisterPageState extends State<RegisterPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(t.registerNow, style: TextStyle(color: cs.inversePrimary)),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(right: 12),
+            child: LanguageButton(), // 🌐 вернули кнопку выбора языка
+          ),
+        ],
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -46,45 +62,31 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                t.registerNow,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: cs.inversePrimary,
-                ),
-              ),
-              const SizedBox(height: 24),
+              AuthHeader(title: t.registerNow),
 
-              // Горизонтальная форма
-              Row(
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: MyTextfield(
-                      controller: emailController,
-                      hintText: t.email,
-                      obscureText: false,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    flex: 3,
-                    child: MyTextfield(
-                      controller: passwordController,
-                      hintText: t.password,
-                      obscureText: true,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    flex: 2,
-                    child: MyButton(onTap: register, text: t.registerNow),
-                  ),
-                ],
+              MyTextfield(
+                controller: emailController,
+                hintText: t.email,
+                obscureText: false,
               ),
+              const SizedBox(height: 12),
 
-              const SizedBox(height: 24),
+              MyTextfield(
+                controller: passwordController,
+                hintText: t.password,
+                obscureText: true,
+              ),
+              const SizedBox(height: 12),
+
+              MyTextfield(
+                controller: confirmPasswordController,
+                hintText: t.confirmPassword, // ✅ локализованное поле
+                obscureText: true,
+              ),
+              const SizedBox(height: 20),
+
+              MyButton(onTap: register, text: t.registerNow),
+              const SizedBox(height: 20),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

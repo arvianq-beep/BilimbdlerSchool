@@ -12,10 +12,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER (RU)';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
 
   @override
-  String get email => 'Эл. почта';
+  String get email => 'Электронная почта';
 
   @override
   String get password => 'Пароль';
@@ -24,7 +24,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get signIn => 'Войти';
 
   @override
-  String get continueAsGuest => 'Продолжить как гость';
+  String get continueAsGuest => 'Войти как гость';
 
   @override
   String get notMember => 'Нет аккаунта?';
@@ -43,4 +43,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get loginNow => 'Войти';
+
+  @override
+  String get confirmPassword => 'Подтвердите пароль';
 }
