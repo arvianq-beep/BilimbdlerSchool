@@ -22,7 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (passwordController.text != confirmPasswordController.text) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text("Пароли не совпадают!")));
+      ).showSnackBar(const SnackBar(content: Text("Пароли не совпадают!")));
       return;
     }
 
@@ -50,65 +50,71 @@ class _RegisterPageState extends State<RegisterPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: LanguageButton(), // 🌐 вернули кнопку выбора языка
-          ),
+          Padding(padding: EdgeInsets.only(right: 12), child: LanguageButton()),
         ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AuthHeader(title: t.registerNow),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20.0),
+        child: Align(
+          alignment: Alignment.topCenter, // 👈 форма прижата к верху
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 360),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // 🔹 Заголовок сверху
+                AuthHeader(title: t.registerNow),
 
-              MyTextfield(
-                controller: emailController,
-                hintText: t.email,
-                obscureText: false,
-              ),
-              const SizedBox(height: 12),
+                // 🔹 Сразу поля формы
+                MyTextfield(
+                  controller: emailController,
+                  hintText: t.email,
+                  obscureText: false,
+                ),
+                const SizedBox(height: 10),
 
-              MyTextfield(
-                controller: passwordController,
-                hintText: t.password,
-                obscureText: true,
-              ),
-              const SizedBox(height: 12),
+                MyTextfield(
+                  controller: passwordController,
+                  hintText: t.password,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 10),
 
-              MyTextfield(
-                controller: confirmPasswordController,
-                hintText: t.confirmPassword, // ✅ локализованное поле
-                obscureText: true,
-              ),
-              const SizedBox(height: 20),
+                MyTextfield(
+                  controller: confirmPasswordController,
+                  hintText: t.confirmPassword,
+                  obscureText: true,
+                ),
+                const SizedBox(height: 16),
 
-              MyButton(onTap: register, text: t.registerNow),
-              const SizedBox(height: 20),
+                MyButton(onTap: register, text: t.registerNow),
+                const SizedBox(height: 16),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    t.alreadyMember,
-                    style: TextStyle(color: cs.inversePrimary),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: Text(
-                      t.loginNow,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: cs.inversePrimary,
+                // 🔹 Внизу переключатель
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      t.alreadyMember,
+                      style: TextStyle(color: cs.inversePrimary),
+                    ),
+                    const SizedBox(width: 6),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        t.loginNow,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: cs.inversePrimary,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),

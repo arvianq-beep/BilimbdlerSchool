@@ -22,6 +22,11 @@ class _LoginPageState extends State<LoginPage> {
     MaterialPageRoute(builder: (_) => const HomePage()),
   );
 
+  void continueAsGuest() => Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (_) => const HomePage()),
+  );
+
   @override
   void dispose() {
     emailController.dispose();
@@ -55,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Левая часть с иконкой и брендом
+                    // Левая часть с брендом
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -105,6 +110,11 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               const SizedBox(height: 20),
                               MyButton(onTap: login, text: t.signIn),
+                              const SizedBox(height: 12),
+                              OutlinedButton(
+                                onPressed: continueAsGuest,
+                                child: Text(t.continueAsGuest),
+                              ),
                               const SizedBox(height: 16),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -157,6 +167,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(height: 14),
                           MyButton(onTap: login, text: t.signIn),
+                          const SizedBox(height: 12),
+                          OutlinedButton(
+                            onPressed: continueAsGuest,
+                            child: Text(t.continueAsGuest),
+                          ),
                         ],
                       ),
                     ),
