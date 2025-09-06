@@ -8,5 +8,8 @@
   "continueAsGuest": "Continue as guest",
   "notMember": "Not a member?",
   "registerNow": "Register now",
-  "welcome": "Welcome!"
+  "welcome": "Welcome!",
+  "signOut": "Sign out",
+  "alreadyMember": "Already have an account?",
+  "loginNow": "Log in"
 }

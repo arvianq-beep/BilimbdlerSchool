@@ -9,10 +9,10 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'Білімдлер';
+  String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'ГЕО 2026 · БІЛИМ\"D\"ЛЕР (RU)';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER (RU)';
 
   @override
   String get email => 'Эл. почта';
@@ -34,4 +34,13 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get welcome => 'Добро пожаловать!';
+
+  @override
+  String get signOut => 'Выйти';
+
+  @override
+  String get alreadyMember => 'Уже есть аккаунт?';
+
+  @override
+  String get loginNow => 'Войти';
 }

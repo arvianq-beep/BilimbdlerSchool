@@ -9,10 +9,10 @@ class AppLocalizationsKk extends AppLocalizations {
   AppLocalizationsKk([String locale = 'kk']) : super(locale);
 
   @override
-  String get appTitle => 'Білімдлер';
+  String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'ГЕО 2026 · БІЛІМ\"D\"ЛЕР (KK)';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER (KZ)';
 
   @override
   String get email => 'Электрондық пошта';
@@ -24,14 +24,23 @@ class AppLocalizationsKk extends AppLocalizations {
   String get signIn => 'Кіру';
 
   @override
-  String get continueAsGuest => 'Қонақ ретінде жалғастыру';
+  String get continueAsGuest => 'Қонақ ретінде кіру';
 
   @override
-  String get notMember => 'Мүше емессіз бе?';
+  String get notMember => 'Аккаунтыңыз жоқ па?';
 
   @override
-  String get registerNow => 'Қазір тіркелу';
+  String get registerNow => 'Тіркелу';
 
   @override
   String get welcome => 'Қош келдіңіз!';
+
+  @override
+  String get signOut => 'Шығу';
+
+  @override
+  String get alreadyMember => 'Тіркелгіңіз бар ма?';
+
+  @override
+  String get loginNow => 'Кіру';
 }

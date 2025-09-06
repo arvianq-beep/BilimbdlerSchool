@@ -34,4 +34,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get welcome => 'Welcome!';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
+  String get alreadyMember => 'Already have an account?';
+
+  @override
+  String get loginNow => 'Log in';
 }

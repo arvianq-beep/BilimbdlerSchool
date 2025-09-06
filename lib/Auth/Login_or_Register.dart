@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Pages/Login_Page.dart';
-import 'package:flutter_bilimdler/Pages/Register_Page.dart';
+import 'package:flutter_bilimdler/Pages/login_page.dart';
+import 'package:flutter_bilimdler/Pages/register_page.dart';
 
 class LoginOrRegister extends StatefulWidget {
   const LoginOrRegister({super.key});
@@ -11,6 +11,7 @@ class LoginOrRegister extends StatefulWidget {
 
 class _LoginOrRegisterState extends State<LoginOrRegister> {
   bool showLoginPage = true;
+
   void togglePages() {
     setState(() {
       showLoginPage = !showLoginPage;

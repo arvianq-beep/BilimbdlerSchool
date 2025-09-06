@@ -1,12 +1,15 @@
 {
   "@@locale": "kk",
-  "appTitle": "Білімдлер",
-  "brand": "ГЕО 2026 · БІЛІМ\"D\"ЛЕР (KK)",
+  "appTitle": "Bilimdler",
+  "brand": "GEO 2026 · BILIM\"D\"LER (KZ)",
   "email": "Электрондық пошта",
   "password": "Құпия сөз",
   "signIn": "Кіру",
-  "continueAsGuest": "Қонақ ретінде жалғастыру",
-  "notMember": "Мүше емессіз бе?",
-  "registerNow": "Қазір тіркелу",
-  "welcome": "Қош келдіңіз!"
+  "continueAsGuest": "Қонақ ретінде кіру",
+  "notMember": "Аккаунтыңыз жоқ па?",
+  "registerNow": "Тіркелу",
+  "welcome": "Қош келдіңіз!",
+  "signOut": "Шығу",
+  "alreadyMember": "Тіркелгіңіз бар ма?",
+  "loginNow": "Кіру"
 }

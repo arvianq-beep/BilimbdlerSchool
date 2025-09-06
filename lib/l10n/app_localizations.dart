@@ -153,6 +153,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome!'**
   String get welcome;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// No description provided for @alreadyMember.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have an account?'**
+  String get alreadyMember;
+
+  /// No description provided for @loginNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in'**
+  String get loginNow;
 }
 
 class _AppLocalizationsDelegate

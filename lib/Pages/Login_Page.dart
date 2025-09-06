@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
+import 'package:flutter_bilimdler/Auth/header.dart';
 import 'package:flutter_bilimdler/Components/My_Button.dart';
 import 'package:flutter_bilimdler/Components/My_Textfield.dart';
-import 'package:flutter_bilimdler/Pages/Home_Page.dart';
+import 'package:flutter_bilimdler/Pages/home_page.dart';
+
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/l10n/language_button.dart';
 
@@ -46,31 +46,28 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: const [LanguageButton()], // переключатель языка — только тут
+        actions: const [LanguageButton()],
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.all(24.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.public, size: 80, color: cs.inversePrimary),
-              const SizedBox(height: 16),
-              Text(t.brand, style: TextStyle(color: cs.inversePrimary)),
-              const SizedBox(height: 24),
+              AuthHeader(title: t.signIn),
 
               MyTextfield(
                 controller: emailController,
                 hintText: t.email,
                 obscureText: false,
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               MyTextfield(
                 controller: passwordController,
                 hintText: t.password,
                 obscureText: true,
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 20),
 
               MyButton(onTap: login, text: t.signIn),
               const SizedBox(height: 8),

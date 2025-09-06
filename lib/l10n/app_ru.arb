@@ -1,12 +1,15 @@
 {
   "@@locale": "ru",
-  "appTitle": "Білімдлер",
-  "brand": "ГЕО 2026 · БІЛИМ\"D\"ЛЕР (RU)",
+  "appTitle": "Bilimdler",
+  "brand": "GEO 2026 · BILIM\"D\"LER (RU)",
   "email": "Эл. почта",
   "password": "Пароль",
   "signIn": "Войти",
   "continueAsGuest": "Продолжить как гость",
   "notMember": "Нет аккаунта?",
   "registerNow": "Зарегистрироваться",
-  "welcome": "Добро пожаловать!"
+  "welcome": "Добро пожаловать!",
+  "signOut": "Выйти",
+  "alreadyMember": "Уже есть аккаунт?",
+  "loginNow": "Войти"
 }
