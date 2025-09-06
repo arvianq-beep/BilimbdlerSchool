@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Auth/Login_or_Register.dart';
+import 'package:flutter_bilimdler/l10n/app_localizations.dart';
+
+import 'package:provider/provider.dart';
+
+import '../Auth/Login_or_Register.dart';
+import '../l10n/locale_provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -9,10 +14,10 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
+  bool _languageSelected = false;
+
+  void _goNextPage() {
+    Future.delayed(const Duration(seconds: 3), () {
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const LoginOrRegister()),
@@ -22,10 +27,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    // адаптивный размер логотипа
-    final screenW = MediaQuery.of(context).size.width;
-    final double logoSize = screenW * 0.5; // 50% ширины экрана
-    final double clampedSize = logoSize.clamp(140.0, 220.0); // пределы 140..220
+    final t = AppLocalizations.of(context)!;
+    final localeProvider = context.read<LocaleProvider>();
 
     return Scaffold(
       body: Container(
@@ -36,41 +39,69 @@ class _SplashPageState extends State<SplashPage> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // круглый логотип, изображение вписано без обрезки
-                Container(
-                  width: clampedSize,
-                  height: clampedSize,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white24, width: 2),
-                    boxShadow: const [
-                      BoxShadow(blurRadius: 16, color: Colors.black26),
-                    ],
-                  ),
-                  child: Image.asset(
-                    'lib/images/Bilimdler.png',
-                    fit: BoxFit
-                        .contain, // ничего не режем, вписываем внутрь круга
-                  ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // логотип
+              Image.asset('lib/Images/Bilimdler.png'),
+              const SizedBox(height: 20),
+
+              // приветствие
+              Text(
+                t.welcome,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'Қош келдіңіз!',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
+              ),
+
+              const SizedBox(height: 40),
+
+              // выбор языка
+              if (!_languageSelected)
+                Column(
+                  children: [
+                    const Text(
+                      "Choose language / Тілді таңдаңыз / Выберите язык",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 12,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            localeProvider.setLocale(const Locale('kk'));
+                            setState(() => _languageSelected = true);
+                            _goNextPage();
+                          },
+                          child: const Text("Қазақша"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            localeProvider.setLocale(const Locale('ru'));
+                            setState(() => _languageSelected = true);
+                            _goNextPage();
+                          },
+                          child: const Text("Русский"),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            localeProvider.setLocale(const Locale('en'));
+                            setState(() => _languageSelected = true);
+                            _goNextPage();
+                          },
+                          child: const Text("English"),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              else
+                const CircularProgressIndicator(color: Colors.white),
+            ],
           ),
         ),
       ),
