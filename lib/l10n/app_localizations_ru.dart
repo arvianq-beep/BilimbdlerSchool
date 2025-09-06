@@ -9,17 +9,29 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'ГЕО 2026 · BILIM\"D\"LER';
+  String get appTitle => 'Білімдлер';
 
   @override
-  String get welcome => 'Добро пожаловать!';
+  String get brand => 'ГЕО 2026 · БІЛИМ\"D\"ЛЕР (RU)';
+
+  @override
+  String get email => 'Эл. почта';
+
+  @override
+  String get password => 'Пароль';
 
   @override
   String get signIn => 'Войти';
 
   @override
-  String get guest => 'Войти как гость';
+  String get continueAsGuest => 'Продолжить как гость';
 
   @override
-  String get register => 'Зарегистрироваться';
+  String get notMember => 'Нет аккаунта?';
+
+  @override
+  String get registerNow => 'Зарегистрироваться';
+
+  @override
+  String get welcome => 'Добро пожаловать!';
 }

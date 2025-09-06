@@ -9,17 +9,29 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appTitle => 'GEO 2026 · BILIM\"D\"LER';
+  String get appTitle => 'Bilimdler';
+
+  @override
+  String get brand => 'GEO 2026 · BILIM\"D\"LER (EN)';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get continueAsGuest => 'Continue as guest';
+
+  @override
+  String get notMember => 'Not a member?';
+
+  @override
+  String get registerNow => 'Register now';
 
   @override
   String get welcome => 'Welcome!';
-
-  @override
-  String get signIn => 'Sign In';
-
-  @override
-  String get guest => 'Continue as Guest';
-
-  @override
-  String get register => 'Register now';
 }

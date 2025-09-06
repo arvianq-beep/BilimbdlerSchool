@@ -1,8 +1,12 @@
 {
   "@@locale": "kk",
-  "appTitle": "ГЕО 2026 · BILIM\"D\"LER",
-  "welcome": "Қош келдіңіз!",
+  "appTitle": "Білімдлер",
+  "brand": "ГЕО 2026 · БІЛІМ\"D\"ЛЕР (KK)",
+  "email": "Электрондық пошта",
+  "password": "Құпия сөз",
   "signIn": "Кіру",
-  "guest": "Қонақ ретінде кіру",
-  "register": "Тіркелу"
+  "continueAsGuest": "Қонақ ретінде жалғастыру",
+  "notMember": "Мүше емессіз бе?",
+  "registerNow": "Қазір тіркелу",
+  "welcome": "Қош келдіңіз!"
 }

@@ -12,9 +12,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.20.2   # обновлено!
+  intl: ^0.20.2
   cupertino_icons: ^1.0.8
   provider: ^6.0.5
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
@@ -23,6 +24,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  generate: true   # исправлено
+  generate: true
+
   assets:
-    - lib/images/
+    - lib/Images/     # если используешь эту папку для логотипа
