@@ -36,6 +36,7 @@ class _SplashPageState extends State<SplashPage> {
           gradient: LinearGradient(
             colors: [Color(0xFF101012), Color(0xFF0F1A24)],
             begin: Alignment.topCenter,
+
             end: Alignment.bottomCenter,
           ),
         ),
