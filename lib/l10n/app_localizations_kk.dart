@@ -12,13 +12,13 @@ class AppLocalizationsKk extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
+  String get brand => 'ГЕО 2026 · БІЛІМ\"D\"ЛЕР';
 
   @override
-  String get email => 'Электрондық пошта';
+  String get email => 'Email';
 
   @override
-  String get password => 'Құпия сөз';
+  String get password => 'Құпиясөз';
 
   @override
   String get signIn => 'Кіру';
@@ -39,11 +39,47 @@ class AppLocalizationsKk extends AppLocalizations {
   String get signOut => 'Шығу';
 
   @override
-  String get alreadyMember => 'Тіркелгіңіз бар ма?';
+  String get alreadyMember => 'Аккаунтыңыз бар ма?';
 
   @override
   String get loginNow => 'Кіру';
 
   @override
-  String get confirmPassword => 'Құпия сөзді растаңыз';
+  String get confirmPassword => 'Құпиясөзді растаңыз';
+
+  @override
+  String get weakPassword => 'Құпиясөз кемінде 6 таңбадан тұруы керек';
+
+  @override
+  String get emailInUse => 'Бұл email бұрыннан қолданылуда';
+
+  @override
+  String get invalidEmail => 'Email дұрыс емес';
+
+  @override
+  String get userNotFound => 'Мұндай email табылмады';
+
+  @override
+  String get wrongPassword => 'Құпиясөз қате';
+
+  @override
+  String get tooManyRequests =>
+      'Тым көп әрекет жасалды, кейінірек қайталап көріңіз';
+
+  @override
+  String get unknownError => 'Белгісіз қате орын алды';
+
+  @override
+  String get enterEmailPassword => 'Email мен құпиясөзді енгізіңіз';
+
+  @override
+  String get passwordsNotMatch => 'Құпиясөздер сәйкес келмейді';
+
+  @override
+  String verificationEmailSent(Object email) {
+    return 'Растау хаты $email поштасына жіберілді';
+  }
+
+  @override
+  String get verifyYourEmail => 'Жүйеге кірмес бұрын email-ді растаңыз';
 }

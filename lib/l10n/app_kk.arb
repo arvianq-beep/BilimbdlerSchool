@@ -1,16 +1,32 @@
 {
   "@@locale": "kk",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER ",
-  "email": "Электрондық пошта",
-  "password": "Құпия сөз",
+  "brand": "ГЕО 2026 · БІЛІМ\"D\"ЛЕР",
+  "email": "Email",
+  "password": "Құпиясөз",
   "signIn": "Кіру",
   "continueAsGuest": "Қонақ ретінде кіру",
   "notMember": "Аккаунтыңыз жоқ па?",
   "registerNow": "Тіркелу",
   "welcome": "Қош келдіңіз!",
   "signOut": "Шығу",
-  "alreadyMember": "Тіркелгіңіз бар ма?",
+  "alreadyMember": "Аккаунтыңыз бар ма?",
   "loginNow": "Кіру",
-  "confirmPassword": "Құпия сөзді растаңыз"
+  "confirmPassword": "Құпиясөзді растаңыз",
+  "weakPassword": "Құпиясөз кемінде 6 таңбадан тұруы керек",
+  "emailInUse": "Бұл email бұрыннан қолданылуда",
+  "invalidEmail": "Email дұрыс емес",
+  "userNotFound": "Мұндай email табылмады",
+  "wrongPassword": "Құпиясөз қате",
+  "tooManyRequests": "Тым көп әрекет жасалды, кейінірек қайталап көріңіз",
+  "unknownError": "Белгісіз қате орын алды",
+  "enterEmailPassword": "Email мен құпиясөзді енгізіңіз",
+  "passwordsNotMatch": "Құпиясөздер сәйкес келмейді",
+  "verificationEmailSent": "Растау хаты {email} поштасына жіберілді",
+  "@verificationEmailSent": {
+    "placeholders": {
+      "email": {}
+    }
+  },
+  "verifyYourEmail": "Жүйеге кірмес бұрын email-ді растаңыз"
 }

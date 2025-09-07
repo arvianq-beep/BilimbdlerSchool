@@ -1,8 +1,8 @@
 {
   "@@locale": "ru",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER ",
-  "email": "Электронная почта",
+  "brand": "ГЕО 2026 · БИЛИМ\"D\"ЛЕР",
+  "email": "Email",
   "password": "Пароль",
   "signIn": "Войти",
   "continueAsGuest": "Войти как гость",
@@ -12,5 +12,24 @@
   "signOut": "Выйти",
   "alreadyMember": "Уже есть аккаунт?",
   "loginNow": "Войти",
-  "confirmPassword": "Подтвердите пароль"
+  "confirmPassword": "Подтвердите пароль",
+  "weakPassword": "Пароль должен содержать минимум 6 символов",
+  "emailInUse": "Этот email уже используется",
+  "invalidEmail": "Неверный email адрес",
+  "userNotFound": "Пользователь с таким email не найден",
+  "wrongPassword": "Неверный пароль",
+  "tooManyRequests": "Слишком много попыток, попробуйте позже",
+  "unknownError": "Произошла неизвестная ошибка",
+  "enterEmailPassword": "Введите email и пароль",
+  "passwordsNotMatch": "Пароли не совпадают",
+  "verificationEmailSent": "Письмо с подтверждением отправлено на {email}",
+  "@verificationEmailSent": {
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "user@example.com"
+      }
+    }
+  },
+  "verifyYourEmail": "Пожалуйста, подтвердите ваш email перед входом"
 }

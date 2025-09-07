@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @brand.
   ///
   /// In en, this message translates to:
-  /// **'GEO 2026 · BILIM\"D\"LER '**
+  /// **'GEO 2026 · BILIM\"D\"LER'**
   String get brand;
 
   /// No description provided for @email.
@@ -177,6 +177,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Confirm password'**
   String get confirmPassword;
+
+  /// No description provided for @weakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password must be at least 6 characters'**
+  String get weakPassword;
+
+  /// No description provided for @emailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use'**
+  String get emailInUse;
+
+  /// No description provided for @invalidEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email address'**
+  String get invalidEmail;
+
+  /// No description provided for @userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No user found with this email'**
+  String get userNotFound;
+
+  /// No description provided for @wrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password'**
+  String get wrongPassword;
+
+  /// No description provided for @tooManyRequests.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts, try again later'**
+  String get tooManyRequests;
+
+  /// No description provided for @unknownError.
+  ///
+  /// In en, this message translates to:
+  /// **'An unknown error occurred'**
+  String get unknownError;
+
+  /// No description provided for @enterEmailPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter email and password'**
+  String get enterEmailPassword;
+
+  /// No description provided for @passwordsNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get passwordsNotMatch;
+
+  /// No description provided for @verificationEmailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email sent to {email}'**
+  String verificationEmailSent(Object email);
+
+  /// No description provided for @verifyYourEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please verify your email before logging in'**
+  String get verifyYourEmail;
 }
 
 class _AppLocalizationsDelegate

@@ -12,10 +12,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
+  String get brand => 'ГЕО 2026 · БИЛИМ\"D\"ЛЕР';
 
   @override
-  String get email => 'Электронная почта';
+  String get email => 'Эл. почта';
 
   @override
   String get password => 'Пароль';
@@ -24,13 +24,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get signIn => 'Войти';
 
   @override
-  String get continueAsGuest => 'Войти как гость';
+  String get continueAsGuest => 'Продолжить как гость';
 
   @override
-  String get notMember => 'Нет аккаунта?';
+  String get notMember => 'Еще нет аккаунта?';
 
   @override
-  String get registerNow => 'Зарегистрироваться';
+  String get registerNow => 'Зарегистрируйтесь';
 
   @override
   String get welcome => 'Добро пожаловать!';
@@ -46,4 +46,40 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get confirmPassword => 'Подтвердите пароль';
+
+  @override
+  String get weakPassword => 'Пароль должен быть не менее 6 символов';
+
+  @override
+  String get emailInUse => 'Этот email уже используется';
+
+  @override
+  String get invalidEmail => 'Некорректный адрес электронной почты';
+
+  @override
+  String get userNotFound => 'Пользователь с таким email не найден';
+
+  @override
+  String get wrongPassword => 'Неверный пароль';
+
+  @override
+  String get tooManyRequests => 'Слишком много попыток, попробуйте позже';
+
+  @override
+  String get unknownError => 'Произошла неизвестная ошибка';
+
+  @override
+  String get enterEmailPassword => 'Введите email и пароль';
+
+  @override
+  String get passwordsNotMatch => 'Пароли не совпадают';
+
+  @override
+  String verificationEmailSent(Object email) {
+    return 'Письмо для подтверждения отправлено на $email';
+  }
+
+  @override
+  String get verifyYourEmail =>
+      'Пожалуйста, подтвердите ваш email перед входом';
 }

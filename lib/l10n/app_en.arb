@@ -1,7 +1,7 @@
 {
   "@@locale": "en",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER ",
+  "brand": "GEO 2026 · BILIM\"D\"LER",
   "email": "Email",
   "password": "Password",
   "signIn": "Sign in",
@@ -12,5 +12,24 @@
   "signOut": "Sign out",
   "alreadyMember": "Already have an account?",
   "loginNow": "Log in",
-  "confirmPassword": "Confirm password"
+  "confirmPassword": "Confirm password",
+  "weakPassword": "Password must be at least 6 characters",
+  "emailInUse": "This email is already in use",
+  "invalidEmail": "Invalid email address",
+  "userNotFound": "No user found with this email",
+  "wrongPassword": "Wrong password",
+  "tooManyRequests": "Too many attempts, try again later",
+  "unknownError": "An unknown error occurred",
+  "enterEmailPassword": "Enter email and password",
+  "passwordsNotMatch": "Passwords do not match",
+  "verificationEmailSent": "Verification email sent to {email}",
+  "@verificationEmailSent": {
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "user@example.com"
+      }
+    }
+  },
+  "verifyYourEmail": "Please verify your email before logging in"
 }

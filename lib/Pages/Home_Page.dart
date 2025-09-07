@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Auth/Login_or_Register.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter_bilimdler/Themes/Themes_Provider.dart';
-
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/l10n/language_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  void logout(BuildContext context) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const LoginOrRegister()),
-    );
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    if (context.mounted) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginOrRegister()),
+      );
+    }
   }
 
   @override
