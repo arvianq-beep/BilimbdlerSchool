@@ -40,5 +40,26 @@
     }
   },
   "resendVerification": "Resend verification email",
-  "verificationEmailResent": "Verification email resent"
+  "verificationEmailResent": "Verification email resent",
+
+  "guestIdDisplay": "Guest ID: {id}",
+  "@guestIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "AB12CD34" }
+    }
+  },
+  "userIdDisplay": "User ID: {id}",
+  "@userIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "1F2A3B4C" }
+    }
+  },
+
+  "profileTitle": "Profile",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "save": "Save",
+  "saved": "Saved",
+  "enterNameOrSurname": "Enter first or last name",
+  "youCanSearchByName": "You can search users by first/last name."
 }

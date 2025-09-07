@@ -40,5 +40,26 @@
     }
   },
   "resendVerification": "Растау хатын қайта жіберу",
-  "verificationEmailResent": "Растау хаты қайта жіберілді"
+  "verificationEmailResent": "Растау хаты қайта жіберілді",
+
+  "guestIdDisplay": "Қонақ ID: {id}",
+  "@guestIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "AB12CD34" }
+    }
+  },
+  "userIdDisplay": "Пайдаланушы ID: {id}",
+  "@userIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "1F2A3B4C" }
+    }
+  },
+
+  "profileTitle": "Профиль",
+  "firstName": "Аты",
+  "lastName": "Тегі",
+  "save": "Сақтау",
+  "saved": "Сақталды",
+  "enterNameOrSurname": "Есім немесе текті енгізіңіз",
+  "youCanSearchByName": "Пайдаланушыларды есімі мен тегі бойынша іздеуге болады."
 }

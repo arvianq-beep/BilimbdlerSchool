@@ -285,6 +285,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Verification email resent'**
   String get verificationEmailResent;
+
+  /// No description provided for @guestIdDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest ID: {id}'**
+  String guestIdDisplay(String id);
+
+  /// No description provided for @userIdDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'User ID: {id}'**
+  String userIdDisplay(String id);
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @firstName.
+  ///
+  /// In en, this message translates to:
+  /// **'First name'**
+  String get firstName;
+
+  /// No description provided for @lastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Last name'**
+  String get lastName;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get saved;
+
+  /// No description provided for @enterNameOrSurname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter first or last name'**
+  String get enterNameOrSurname;
+
+  /// No description provided for @youCanSearchByName.
+  ///
+  /// In en, this message translates to:
+  /// **'You can search users by first/last name.'**
+  String get youCanSearchByName;
 }
 
 class _AppLocalizationsDelegate

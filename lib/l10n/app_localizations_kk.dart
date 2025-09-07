@@ -104,4 +104,36 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get verificationEmailResent => 'Растау хаты қайта жіберілді';
+
+  @override
+  String guestIdDisplay(String id) {
+    return 'Қонақ ID: $id';
+  }
+
+  @override
+  String userIdDisplay(String id) {
+    return 'Пайдаланушы ID: $id';
+  }
+
+  @override
+  String get profileTitle => 'Профиль';
+
+  @override
+  String get firstName => 'Аты';
+
+  @override
+  String get lastName => 'Тегі';
+
+  @override
+  String get save => 'Сақтау';
+
+  @override
+  String get saved => 'Сақталды';
+
+  @override
+  String get enterNameOrSurname => 'Есім немесе текті енгізіңіз';
+
+  @override
+  String get youCanSearchByName =>
+      'Пайдаланушыларды есімі мен тегі бойынша іздеуге болады.';
 }

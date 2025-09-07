@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // ⬅️ чтобы ловить FirebaseAuthException
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bilimdler/Auth/auth_service.dart';
 
 import '../Components/my_button.dart';
 import '../Components/my_textfield.dart';
 import 'home_page.dart';
+import 'edit_profile_page.dart'; // гость пойдёт сюда
 import '../l10n/app_localizations.dart';
 import '../l10n/language_button.dart';
 
@@ -22,6 +23,13 @@ class _LoginPageState extends State<LoginPage> {
 
   bool loading = false;
   String? errorKey;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   Future<void> _login() async {
     final email = emailController.text.trim();
@@ -60,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
             errorKey = 'userNotFound';
             break;
           case 'wrong-password':
-            errorKey = 'badEmailOrPassword'; // показываем общий текст
+            errorKey = 'badEmailOrPassword';
             break;
           case 'invalid-email':
             errorKey = 'invalidEmail';
@@ -68,16 +76,12 @@ class _LoginPageState extends State<LoginPage> {
           case 'too-many-requests':
             errorKey = 'tooManyRequests';
             break;
-
-          // частые современные варианты для неверной связки email/пароль
           case 'invalid-credential':
           case 'INVALID_LOGIN_CREDENTIALS':
           case 'account-exists-with-different-credential':
           case 'operation-not-allowed':
             errorKey = 'badEmailOrPassword';
             break;
-
-          // прочее — тоже как «неверный e-mail или пароль»
           default:
             errorKey = 'badEmailOrPassword';
         }
@@ -91,11 +95,12 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _resetPassword() async {
     final email = emailController.text.trim();
+    final t = AppLocalizations.of(context)!;
 
     if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.pleaseEnterEmail)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.pleaseEnterEmail)));
       return;
     }
 
@@ -103,13 +108,10 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await AuthService.resetPassword(email);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.resetEmailSent(email)),
-        ),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.resetEmailSent(email))));
     } on FirebaseAuthException catch (e) {
-      final t = AppLocalizations.of(context)!;
       String msg;
       switch (e.code) {
         case 'user-not-found':
@@ -125,23 +127,58 @@ class _LoginPageState extends State<LoginPage> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
     } catch (_) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(AppLocalizations.of(context)!.unknownError)),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.unknownError)));
     } finally {
       if (mounted) setState(() => loading = false);
     }
   }
 
   Future<void> _resendVerificationEmail() async {
+    final t = AppLocalizations.of(context)!;
     setState(() => loading = true);
     try {
       await AuthService.sendEmailVerification();
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.verificationEmailResent),
-        ),
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.verificationEmailResent)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.unknownError)));
+    } finally {
+      if (mounted) setState(() => loading = false);
+    }
+  }
+
+  Future<void> continueAsGuest() async {
+    if (loading) return;
+    setState(() => loading = true);
+    try {
+      final localeCode = Localizations.localeOf(
+        context,
+      ).languageCode; // kk|ru|en
+      await AuthService.signInAnonymously(locale: localeCode);
+
+      final profile = await AuthService.getCurrentProfile();
+      final guestId = profile?['guestId'] as String?;
+      final t = AppLocalizations.of(context)!;
+
+      if (!mounted) return;
+      if (guestId != null) {
+        // Локализованная подпись из l10n
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(t.guestIdDisplay(guestId))));
+      }
+
+      // Гостя ведём на экран ввода имени/фамилии
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const EditProfilePage()),
       );
     } catch (_) {
       if (!mounted) return;
@@ -153,20 +190,12 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void continueAsGuest() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const HomePage()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      // ⬇️ как на RegisterPage
       backgroundColor: cs.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -230,7 +259,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 8),
 
               OutlinedButton(
-                onPressed: continueAsGuest,
+                onPressed: loading ? null : continueAsGuest,
                 child: Text(t.continueAsGuest),
               ),
 
@@ -272,11 +301,11 @@ class _LoginPageState extends State<LoginPage> {
         return t.tooManyRequests;
       case 'verifyYourEmail':
         return t.verifyYourEmail;
-      case 'badEmailOrPassword': // ⬅️ новый общий текст
-      case 'wrongPassword': // на всякий случай оставим совместимость
+      case 'badEmailOrPassword':
+      case 'wrongPassword':
         return t.badEmailOrPassword;
       default:
-        return t.badEmailOrPassword; // вместо «unknown» — общий текст
+        return t.badEmailOrPassword;
     }
   }
 }

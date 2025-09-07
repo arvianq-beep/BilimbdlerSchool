@@ -105,4 +105,36 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get verificationEmailResent =>
       'Письмо с подтверждением отправлено повторно';
+
+  @override
+  String guestIdDisplay(String id) {
+    return 'Гость ID: $id';
+  }
+
+  @override
+  String userIdDisplay(String id) {
+    return 'ID пользователя: $id';
+  }
+
+  @override
+  String get profileTitle => 'Профиль';
+
+  @override
+  String get firstName => 'Имя';
+
+  @override
+  String get lastName => 'Фамилия';
+
+  @override
+  String get save => 'Сохранить';
+
+  @override
+  String get saved => 'Сохранено';
+
+  @override
+  String get enterNameOrSurname => 'Введите имя или фамилию';
+
+  @override
+  String get youCanSearchByName =>
+      'Можно искать пользователей по имени и фамилии.';
 }

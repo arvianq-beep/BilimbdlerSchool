@@ -104,4 +104,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verificationEmailResent => 'Verification email resent';
+
+  @override
+  String guestIdDisplay(String id) {
+    return 'Guest ID: $id';
+  }
+
+  @override
+  String userIdDisplay(String id) {
+    return 'User ID: $id';
+  }
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get firstName => 'First name';
+
+  @override
+  String get lastName => 'Last name';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get saved => 'Saved';
+
+  @override
+  String get enterNameOrSurname => 'Enter first or last name';
+
+  @override
+  String get youCanSearchByName => 'You can search users by first/last name.';
 }

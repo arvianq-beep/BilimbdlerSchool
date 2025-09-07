@@ -40,5 +40,26 @@
     }
   },
   "resendVerification": "Отправить письмо повторно",
-  "verificationEmailResent": "Письмо с подтверждением отправлено повторно"
+  "verificationEmailResent": "Письмо с подтверждением отправлено повторно",
+
+  "guestIdDisplay": "Гость ID: {id}",
+  "@guestIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "AB12CD34" }
+    }
+  },
+  "userIdDisplay": "ID пользователя: {id}",
+  "@userIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "1F2A3B4C" }
+    }
+  },
+
+  "profileTitle": "Профиль",
+  "firstName": "Имя",
+  "lastName": "Фамилия",
+  "save": "Сохранить",
+  "saved": "Сохранено",
+  "enterNameOrSurname": "Введите имя или фамилию",
+  "youCanSearchByName": "Можно искать пользователей по имени и фамилии."
 }
