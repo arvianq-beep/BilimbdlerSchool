@@ -17,6 +17,16 @@ dependencies:
   provider: ^6.0.5
   shared_preferences: ^2.2.2
 
+  # 🔥 Firebase — актуальные, совместимые с Flutter 3.35.x
+  firebase_core: ^4.1.0
+  firebase_auth: ^6.0.2
+  cloud_firestore: ^6.0.1
+
+  # web-реализации (совпадают по мажорным)
+  firebase_core_web: ^3.1.0
+  firebase_auth_web: ^6.0.2
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -25,6 +35,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-
   assets:
-    - lib/Images/     # если используешь эту папку для логотипа
+    - lib/Images/
