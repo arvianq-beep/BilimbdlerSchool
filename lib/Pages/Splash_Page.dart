@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Auth/Login_or_Register.dart';
+import 'package:flutter_bilimdler/Auth/Login_or_Register.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
