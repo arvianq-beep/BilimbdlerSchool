@@ -15,9 +15,11 @@
   "confirmPassword": "Confirm password",
   "weakPassword": "Password must be at least 6 characters",
   "emailInUse": "This email is already in use",
+  "emailAlreadyInUse": "This email is already in use",
   "invalidEmail": "Invalid email address",
   "userNotFound": "No user found with this email",
   "wrongPassword": "Wrong password",
+  "badEmailOrPassword": "Wrong email or password",
   "tooManyRequests": "Too many attempts, try again later",
   "unknownError": "An unknown error occurred",
   "enterEmailPassword": "Enter email and password",
@@ -25,11 +27,18 @@
   "verificationEmailSent": "Verification email sent to {email}",
   "@verificationEmailSent": {
     "placeholders": {
-      "email": {
-        "type": "String",
-        "example": "user@example.com"
-      }
+      "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Please verify your email before logging in"
+  "verifyYourEmail": "Please verify your email before logging in",
+  "forgotPassword": "Forgot password?",
+  "pleaseEnterEmail": "Please enter your email",
+  "resetEmailSent": "Password reset email sent to {email}",
+  "@resetEmailSent": {
+    "placeholders": {
+      "email": { "type": "String", "example": "user@example.com" }
+    }
+  },
+  "resendVerification": "Resend verification email",
+  "verificationEmailResent": "Verification email resent"
 }

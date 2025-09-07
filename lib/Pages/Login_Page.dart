@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // ⬅️ чтобы ловить FirebaseAuthException
 import 'package:flutter_bilimdler/Auth/auth_service.dart';
+
 import '../Components/my_button.dart';
 import '../Components/my_textfield.dart';
 import 'home_page.dart';
@@ -50,30 +52,102 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
       );
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
+      final code = e.code;
       setState(() {
-        if (e is Exception) {
-          final code = (e as dynamic).code; // FirebaseAuthException
-          switch (code) {
-            case 'user-not-found':
-              errorKey = 'userNotFound';
-              break;
-            case 'wrong-password':
-              errorKey = 'wrongPassword';
-              break;
-            case 'invalid-email':
-              errorKey = 'invalidEmail';
-              break;
-            case 'too-many-requests':
-              errorKey = 'tooManyRequests';
-              break;
-            default:
-              errorKey = 'unknownError';
-          }
-        } else {
-          errorKey = 'unknownError';
+        switch (code) {
+          case 'user-not-found':
+            errorKey = 'userNotFound';
+            break;
+          case 'wrong-password':
+            errorKey = 'badEmailOrPassword'; // показываем общий текст
+            break;
+          case 'invalid-email':
+            errorKey = 'invalidEmail';
+            break;
+          case 'too-many-requests':
+            errorKey = 'tooManyRequests';
+            break;
+
+          // частые современные варианты для неверной связки email/пароль
+          case 'invalid-credential':
+          case 'INVALID_LOGIN_CREDENTIALS':
+          case 'account-exists-with-different-credential':
+          case 'operation-not-allowed':
+            errorKey = 'badEmailOrPassword';
+            break;
+
+          // прочее — тоже как «неверный e-mail или пароль»
+          default:
+            errorKey = 'badEmailOrPassword';
         }
       });
+    } catch (_) {
+      setState(() => errorKey = 'badEmailOrPassword');
+    } finally {
+      if (mounted) setState(() => loading = false);
+    }
+  }
+
+  Future<void> _resetPassword() async {
+    final email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.pleaseEnterEmail)),
+      );
+      return;
+    }
+
+    setState(() => loading = true);
+    try {
+      await AuthService.resetPassword(email);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.resetEmailSent(email)),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      final t = AppLocalizations.of(context)!;
+      String msg;
+      switch (e.code) {
+        case 'user-not-found':
+          msg = t.userNotFound;
+          break;
+        case 'invalid-email':
+          msg = t.invalidEmail;
+          break;
+        default:
+          msg = t.unknownError;
+      }
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.unknownError)),
+      );
+    } finally {
+      if (mounted) setState(() => loading = false);
+    }
+  }
+
+  Future<void> _resendVerificationEmail() async {
+    setState(() => loading = true);
+    try {
+      await AuthService.sendEmailVerification();
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.verificationEmailResent),
+        ),
+      );
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(AppLocalizations.of(context)!.unknownError)),
+      );
     } finally {
       if (mounted) setState(() => loading = false);
     }
@@ -92,7 +166,8 @@ class _LoginPageState extends State<LoginPage> {
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: cs.surface,
+      // ⬇️ как на RegisterPage
+      backgroundColor: cs.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -109,34 +184,58 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 16),
               Text(t.brand, style: TextStyle(color: cs.inversePrimary)),
               const SizedBox(height: 24),
+
               MyTextfield(
                 controller: emailController,
                 hintText: t.email,
                 obscureText: false,
               ),
               const SizedBox(height: 10),
+
               MyTextfield(
                 controller: passwordController,
                 hintText: t.password,
                 obscureText: true,
               ),
-              const SizedBox(height: 12),
-              if (errorKey != null)
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: loading ? null : _resetPassword,
+                  child: Text(t.forgotPassword),
+                ),
+              ),
+
+              const SizedBox(height: 8),
+
+              if (errorKey != null) ...[
                 Text(
                   _localizedError(t, errorKey!),
                   style: const TextStyle(color: Colors.red),
                 ),
+                if (errorKey == 'verifyYourEmail')
+                  TextButton(
+                    onPressed: loading ? null : _resendVerificationEmail,
+                    child: Text(t.resendVerification),
+                  ),
+              ],
+
               const SizedBox(height: 12),
+
               MyButton(
                 onTap: () => !loading ? _login() : null,
                 text: loading ? '...' : t.signIn,
               ),
+
               const SizedBox(height: 8),
+
               OutlinedButton(
                 onPressed: continueAsGuest,
                 child: Text(t.continueAsGuest),
               ),
+
               const SizedBox(height: 24),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -167,16 +266,17 @@ class _LoginPageState extends State<LoginPage> {
         return t.enterEmailPassword;
       case 'userNotFound':
         return t.userNotFound;
-      case 'wrongPassword':
-        return t.wrongPassword;
       case 'invalidEmail':
         return t.invalidEmail;
       case 'tooManyRequests':
         return t.tooManyRequests;
       case 'verifyYourEmail':
         return t.verifyYourEmail;
+      case 'badEmailOrPassword': // ⬅️ новый общий текст
+      case 'wrongPassword': // на всякий случай оставим совместимость
+        return t.badEmailOrPassword;
       default:
-        return t.unknownError;
+        return t.badEmailOrPassword; // вместо «unknown» — общий текст
     }
   }
 }

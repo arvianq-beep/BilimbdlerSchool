@@ -12,13 +12,13 @@ class AppLocalizationsKk extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER ';
+  String get brand => 'GEO 2026 · BILIM\"D\"LER';
 
   @override
   String get email => 'Электрондық пошта';
 
   @override
-  String get password => 'Құпия сөз';
+  String get password => 'Құпиясөз';
 
   @override
   String get signIn => 'Кіру';
@@ -27,7 +27,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get continueAsGuest => 'Қонақ ретінде кіру';
 
   @override
-  String get notMember => 'Аккаунтыңыз жоқ па?';
+  String get notMember => 'Әлі тіркелмегенсіз бе?';
 
   @override
   String get registerNow => 'Тіркелу';
@@ -45,40 +45,63 @@ class AppLocalizationsKk extends AppLocalizations {
   String get loginNow => 'Кіру';
 
   @override
-  String get confirmPassword => 'Құпия сөзді растаңыз';
+  String get confirmPassword => 'Құпиясөзді растау';
 
   @override
-  String get weakPassword => 'Password must be at least 6 characters';
+  String get weakPassword => 'Құпиясөз кемінде 6 таңба болуы керек';
 
   @override
-  String get emailInUse => 'This email is already in use';
+  String get emailInUse => 'Бұл e-mail бұрын тіркелген';
 
   @override
-  String get invalidEmail => 'Invalid email address';
+  String get emailAlreadyInUse => 'Бұл e-mail бұрын тіркелген';
 
   @override
-  String get userNotFound => 'No user found with this email';
+  String get invalidEmail => 'Жарамсыз e-mail';
 
   @override
-  String get wrongPassword => 'Wrong password';
+  String get userNotFound => 'Бұл e-mail бойынша пайдаланушы табылмады';
 
   @override
-  String get tooManyRequests => 'Too many attempts, try again later';
+  String get wrongPassword => 'Қате құпиясөз';
 
   @override
-  String get unknownError => 'An unknown error occurred';
+  String get badEmailOrPassword => 'Жарамсыз e-mail немесе құпиясөз';
 
   @override
-  String get enterEmailPassword => 'Enter email and password';
+  String get tooManyRequests => 'Өте көп әрекет, кейінірек көріңіз';
 
   @override
-  String get passwordsNotMatch => 'Passwords do not match';
+  String get unknownError => 'Белгісіз қате орын алды';
+
+  @override
+  String get enterEmailPassword => 'E-mail мен құпиясөзді енгізіңіз';
+
+  @override
+  String get passwordsNotMatch => 'Құпиясөздер сәйкес келмейді';
 
   @override
   String verificationEmailSent(String email) {
-    return 'Verification email sent to $email';
+    return 'Растау хаты $email мекенжайына жіберілді';
   }
 
   @override
-  String get verifyYourEmail => 'Please verify your email before logging in';
+  String get verifyYourEmail => 'Кіру үшін e-mail-ді растаңыз';
+
+  @override
+  String get forgotPassword => 'Құпиясөзді ұмыттыңыз ба?';
+
+  @override
+  String get pleaseEnterEmail => 'E-mail енгізіңіз';
+
+  @override
+  String resetEmailSent(String email) {
+    return 'Құпиясөзді қалпына келтіру хаты $email адресіне жіберілді';
+  }
+
+  @override
+  String get resendVerification => 'Растау хатын қайта жіберу';
+
+  @override
+  String get verificationEmailResent => 'Растау хаты қайта жіберілді';
 }

@@ -190,6 +190,12 @@ abstract class AppLocalizations {
   /// **'This email is already in use'**
   String get emailInUse;
 
+  /// No description provided for @emailAlreadyInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use'**
+  String get emailAlreadyInUse;
+
   /// No description provided for @invalidEmail.
   ///
   /// In en, this message translates to:
@@ -207,6 +213,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wrong password'**
   String get wrongPassword;
+
+  /// No description provided for @badEmailOrPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong email or password'**
+  String get badEmailOrPassword;
 
   /// No description provided for @tooManyRequests.
   ///
@@ -243,6 +255,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please verify your email before logging in'**
   String get verifyYourEmail;
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @pleaseEnterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get pleaseEnterEmail;
+
+  /// No description provided for @resetEmailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset email sent to {email}'**
+  String resetEmailSent(String email);
+
+  /// No description provided for @resendVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend verification email'**
+  String get resendVerification;
+
+  /// No description provided for @verificationEmailResent.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification email resent'**
+  String get verificationEmailResent;
 }
 
 class _AppLocalizationsDelegate

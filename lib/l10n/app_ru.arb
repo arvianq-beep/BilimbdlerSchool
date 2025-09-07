@@ -1,8 +1,8 @@
 {
   "@@locale": "ru",
   "appTitle": "Bilimdler",
-  "brand": "ГЕО 2026 · БИЛИМ\"Д\"ЛЕР",
-  "email": "Электронная почта",
+  "brand": "GEO 2026 · BILIM\"D\"LER",
+  "email": "E-mail",
   "password": "Пароль",
   "signIn": "Войти",
   "continueAsGuest": "Продолжить как гость",
@@ -14,22 +14,31 @@
   "loginNow": "Войти",
   "confirmPassword": "Подтвердите пароль",
   "weakPassword": "Пароль должен содержать не менее 6 символов",
-  "emailInUse": "Этот адрес уже используется",
-  "invalidEmail": "Некорректный адрес",
-  "userNotFound": "Пользователь с таким email не найден",
+  "emailInUse": "Этот e-mail уже используется",
+  "emailAlreadyInUse": "Этот e-mail уже используется",
+  "invalidEmail": "Некорректный e-mail",
+  "userNotFound": "Пользователь с таким e-mail не найден",
   "wrongPassword": "Неверный пароль",
+  "badEmailOrPassword": "Неверный e-mail или пароль",
   "tooManyRequests": "Слишком много попыток, попробуйте позже",
   "unknownError": "Произошла неизвестная ошибка",
-  "enterEmailPassword": "Введите email и пароль",
+  "enterEmailPassword": "Введите e-mail и пароль",
   "passwordsNotMatch": "Пароли не совпадают",
   "verificationEmailSent": "Письмо с подтверждением отправлено на {email}",
   "@verificationEmailSent": {
     "placeholders": {
-      "email": {
-        "type": "String",
-        "example": "user@example.com"
-      }
+      "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Пожалуйста, подтвердите вашу почту перед входом"
+  "verifyYourEmail": "Пожалуйста, подтвердите e-mail перед входом",
+  "forgotPassword": "Забыли пароль?",
+  "pleaseEnterEmail": "Введите e-mail",
+  "resetEmailSent": "Письмо для сброса пароля отправлено на {email}",
+  "@resetEmailSent": {
+    "placeholders": {
+      "email": { "type": "String", "example": "user@example.com" }
+    }
+  },
+  "resendVerification": "Отправить письмо повторно",
+  "verificationEmailResent": "Письмо с подтверждением отправлено повторно"
 }

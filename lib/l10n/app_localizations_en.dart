@@ -54,6 +54,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailInUse => 'This email is already in use';
 
   @override
+  String get emailAlreadyInUse => 'This email is already in use';
+
+  @override
   String get invalidEmail => 'Invalid email address';
 
   @override
@@ -61,6 +64,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wrongPassword => 'Wrong password';
+
+  @override
+  String get badEmailOrPassword => 'Wrong email or password';
 
   @override
   String get tooManyRequests => 'Too many attempts, try again later';
@@ -81,4 +87,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get verifyYourEmail => 'Please verify your email before logging in';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get pleaseEnterEmail => 'Please enter your email';
+
+  @override
+  String resetEmailSent(String email) {
+    return 'Password reset email sent to $email';
+  }
+
+  @override
+  String get resendVerification => 'Resend verification email';
+
+  @override
+  String get verificationEmailResent => 'Verification email resent';
 }
