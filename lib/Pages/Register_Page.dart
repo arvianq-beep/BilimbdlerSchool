@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter_bilimdler/Auth/header.dart';
 import 'package:flutter_bilimdler/Components/My_Button.dart';
 import 'package:flutter_bilimdler/Components/My_Textfield.dart';
@@ -18,17 +20,64 @@ class _RegisterPageState extends State<RegisterPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  void register() {
-    if (passwordController.text != confirmPasswordController.text) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Пароли не совпадают!")));
+  bool loading = false;
+  String? errorKey;
+
+  Future<void> register() async {
+    final email = emailController.text.trim();
+    final pass = passwordController.text.trim();
+    final confirmPass = confirmPasswordController.text.trim();
+
+    if (email.isEmpty || pass.isEmpty) {
+      setState(() => errorKey = 'enterEmailPassword');
+      return;
+    }
+    if (pass != confirmPass) {
+      setState(() => errorKey = 'passwordsNotMatch');
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Registered: ${emailController.text}")),
-    );
+    setState(() {
+      loading = true;
+      errorKey = null;
+    });
+
+    try {
+      final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+
+      await cred.user?.sendEmailVerification();
+
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("На почту отправлено письмо для подтверждения."),
+        ),
+      );
+
+      await FirebaseAuth.instance.signOut();
+      widget.onTap?.call();
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        switch (e.code) {
+          case 'email-already-in-use':
+            errorKey = 'emailAlreadyInUse';
+            break;
+          case 'invalid-email':
+            errorKey = 'invalidEmail';
+            break;
+          case 'weak-password':
+            errorKey = 'weakPassword';
+            break;
+          default:
+            errorKey = 'unknownError';
+        }
+      });
+    } finally {
+      if (mounted) setState(() => loading = false);
+    }
   }
 
   @override
@@ -56,16 +105,14 @@ class _RegisterPageState extends State<RegisterPage> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Align(
-          alignment: Alignment.topCenter, // 👈 форма прижата к верху
+          alignment: Alignment.topCenter,
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 360),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // 🔹 Заголовок сверху
                 AuthHeader(title: t.registerNow),
 
-                // 🔹 Сразу поля формы
                 MyTextfield(
                   controller: emailController,
                   hintText: t.email,
@@ -87,10 +134,20 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 16),
 
-                MyButton(onTap: register, text: t.registerNow),
+                if (errorKey != null)
+                  Text(
+                    _localizedError(t, errorKey!),
+                    style: const TextStyle(color: Colors.red),
+                  ),
+                const SizedBox(height: 12),
+
+                // ✅ onTap теперь async — ошибок не будет
+                MyButton(
+                  onTap: !loading ? () async => await register() : null,
+                  text: loading ? '...' : t.registerNow,
+                ),
                 const SizedBox(height: 16),
 
-                // 🔹 Внизу переключатель
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -111,13 +168,28 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
-
-                const SizedBox(height: 20),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  String _localizedError(AppLocalizations t, String key) {
+    switch (key) {
+      case 'enterEmailPassword':
+        return t.enterEmailPassword;
+      case 'passwordsNotMatch':
+        return "Пароли не совпадают!";
+      case 'emailAlreadyInUse':
+        return "Такой e-mail уже зарегистрирован";
+      case 'weakPassword':
+        return "Слишком слабый пароль";
+      case 'invalidEmail':
+        return t.invalidEmail;
+      default:
+        return t.unknownError;
+    }
   }
 }

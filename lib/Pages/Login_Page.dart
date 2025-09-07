@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Components/My_Button.dart';
-import 'package:flutter_bilimdler/Components/My_Textfield.dart';
-import 'package:flutter_bilimdler/Pages/home_page.dart';
-import 'package:flutter_bilimdler/l10n/app_localizations.dart';
-import 'package:flutter_bilimdler/l10n/language_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../Components/my_button.dart';
+import '../Components/my_textfield.dart';
+import 'home_page.dart';
+import '../l10n/app_localizations.dart';
+import '../l10n/language_button.dart';
 
 class LoginPage extends StatefulWidget {
+  final VoidCallback? onTap;
   const LoginPage({super.key, this.onTap});
-  final void Function()? onTap;
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -17,189 +19,166 @@ class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void login() => Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (_) => const HomePage()),
-  );
+  bool loading = false;
+  String? errorKey;
 
-  void continueAsGuest() => Navigator.pushReplacement(
-    context,
-    MaterialPageRoute(builder: (_) => const HomePage()),
-  );
+  Future<void> _login() async {
+    final email = emailController.text.trim();
+    final pass = passwordController.text;
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
+    if (email.isEmpty || pass.isEmpty) {
+      setState(() => errorKey = 'enterEmailPassword');
+      return;
+    }
+
+    setState(() {
+      loading = true;
+      errorKey = null;
+    });
+
+    try {
+      final userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: pass,
+      );
+
+      final user = userCred.user;
+
+      if (user != null && !user.emailVerified) {
+        await FirebaseAuth.instance.signOut();
+        setState(() => errorKey = 'verifyYourEmail');
+        return;
+      }
+
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        switch (e.code) {
+          case 'user-not-found':
+            errorKey = 'userNotFound';
+            break;
+          case 'wrong-password':
+            errorKey = 'wrongPassword';
+            break;
+          case 'invalid-email':
+            errorKey = 'invalidEmail';
+            break;
+          case 'too-many-requests':
+            errorKey = 'tooManyRequests';
+            break;
+          default:
+            errorKey = 'unknownError';
+        }
+      });
+    } catch (_) {
+      setState(() => errorKey = 'unknownError');
+    } finally {
+      if (mounted) setState(() => loading = false);
+    }
+  }
+
+  void continueAsGuest() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const HomePage()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
-      backgroundColor: cs.background,
+      backgroundColor: cs.surface,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 12),
-            child: LanguageButton(), // 🌐 с иконкой планеты
-          ),
+          Padding(padding: EdgeInsets.only(right: 12), child: LanguageButton()),
         ],
       ),
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: isLandscape
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Левая часть с брендом
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const SizedBox(height: 16),
-                          Text(
-                            t.brand,
-                            style: TextStyle(
-                              color: cs.inversePrimary,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 40),
-                    // Правая часть с формой
-                    Expanded(
-                      flex: 2,
-                      child: Center(
-                        child: ConstrainedBox(
-                          constraints: const BoxConstraints(maxWidth: 400),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                t.signIn,
-                                style: TextStyle(
-                                  fontSize: 26,
-                                  fontWeight: FontWeight.bold,
-                                  color: cs.inversePrimary,
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              MyTextfield(
-                                controller: emailController,
-                                hintText: t.email,
-                                obscureText: false,
-                              ),
-                              const SizedBox(height: 12),
-                              MyTextfield(
-                                controller: passwordController,
-                                hintText: t.password,
-                                obscureText: true,
-                              ),
-                              const SizedBox(height: 20),
-                              MyButton(onTap: login, text: t.signIn),
-                              const SizedBox(height: 12),
-                              OutlinedButton(
-                                onPressed: continueAsGuest,
-                                child: Text(t.continueAsGuest),
-                              ),
-                              const SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    t.notMember,
-                                    style: TextStyle(color: cs.inversePrimary),
-                                  ),
-                                  const SizedBox(width: 8),
-                                  GestureDetector(
-                                    onTap: widget.onTap,
-                                    child: Text(
-                                      t.registerNow,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: cs.inversePrimary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.public, size: 80, color: cs.inversePrimary),
-                    const SizedBox(height: 16),
-                    Text(t.brand, style: TextStyle(color: cs.inversePrimary)),
-                    const SizedBox(height: 24),
-                    ConstrainedBox(
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      child: Column(
-                        children: [
-                          MyTextfield(
-                            controller: emailController,
-                            hintText: t.email,
-                            obscureText: false,
-                          ),
-                          const SizedBox(height: 10),
-                          MyTextfield(
-                            controller: passwordController,
-                            hintText: t.password,
-                            obscureText: true,
-                          ),
-                          const SizedBox(height: 14),
-                          MyButton(onTap: login, text: t.signIn),
-                          const SizedBox(height: 12),
-                          OutlinedButton(
-                            onPressed: continueAsGuest,
-                            child: Text(t.continueAsGuest),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          t.notMember,
-                          style: TextStyle(color: cs.inversePrimary),
-                        ),
-                        const SizedBox(width: 8),
-                        GestureDetector(
-                          onTap: widget.onTap,
-                          child: Text(
-                            t.registerNow,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: cs.inversePrimary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+          child: Column(
+            children: [
+              Icon(Icons.public, size: 80, color: cs.inversePrimary),
+              const SizedBox(height: 16),
+              Text(t.brand, style: TextStyle(color: cs.inversePrimary)),
+              const SizedBox(height: 24),
+              MyTextfield(
+                controller: emailController,
+                hintText: t.email,
+                obscureText: false,
+              ),
+              const SizedBox(height: 10),
+              MyTextfield(
+                controller: passwordController,
+                hintText: t.password,
+                obscureText: true,
+              ),
+              const SizedBox(height: 12),
+              if (errorKey != null)
+                Text(
+                  _localizedError(t, errorKey!),
+                  style: const TextStyle(color: Colors.red),
                 ),
+              const SizedBox(height: 12),
+              MyButton(
+                onTap: () => !loading ? _login() : null,
+                text: loading ? '...' : t.signIn,
+              ),
+              const SizedBox(height: 8),
+              OutlinedButton(
+                onPressed: continueAsGuest,
+                child: Text(t.continueAsGuest),
+              ),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(t.notMember, style: TextStyle(color: cs.inversePrimary)),
+                  const SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: widget.onTap,
+                    child: Text(
+                      t.registerNow,
+                      style: TextStyle(
+                        color: cs.inversePrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  String _localizedError(AppLocalizations t, String key) {
+    switch (key) {
+      case 'enterEmailPassword':
+        return t.enterEmailPassword;
+      case 'userNotFound':
+        return t.userNotFound;
+      case 'wrongPassword':
+        return t.wrongPassword;
+      case 'invalidEmail':
+        return t.invalidEmail;
+      case 'tooManyRequests':
+        return t.tooManyRequests;
+      case 'verifyYourEmail':
+        return t.verifyYourEmail;
+      default:
+        return t.unknownError;
+    }
   }
 }

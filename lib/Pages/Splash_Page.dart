@@ -138,7 +138,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                 ),
                 const SizedBox(height: 6),
                 TypewriterText(
-                  text: 'MEKENI',
+                  text: 'MEKENINE',
                   controller: _l2C,
                   style: const TextStyle(
                     fontSize: 18,

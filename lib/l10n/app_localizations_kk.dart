@@ -46,4 +46,39 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get confirmPassword => 'Құпия сөзді растаңыз';
+
+  @override
+  String get weakPassword => 'Password must be at least 6 characters';
+
+  @override
+  String get emailInUse => 'This email is already in use';
+
+  @override
+  String get invalidEmail => 'Invalid email address';
+
+  @override
+  String get userNotFound => 'No user found with this email';
+
+  @override
+  String get wrongPassword => 'Wrong password';
+
+  @override
+  String get tooManyRequests => 'Too many attempts, try again later';
+
+  @override
+  String get unknownError => 'An unknown error occurred';
+
+  @override
+  String get enterEmailPassword => 'Enter email and password';
+
+  @override
+  String get passwordsNotMatch => 'Passwords do not match';
+
+  @override
+  String verificationEmailSent(String email) {
+    return 'Verification email sent to $email';
+  }
+
+  @override
+  String get verifyYourEmail => 'Please verify your email before logging in';
 }
