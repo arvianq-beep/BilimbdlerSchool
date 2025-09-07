@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Auth/Login_or_Register.dart';
+import '../Auth/Login_or_Register.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -14,6 +15,9 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   late final AnimationController _l2C;
   late final AnimationController _l3C;
 
+  bool _navigated = false;
+  Timer? _fallbackTimer;
+
   @override
   void initState() {
     super.initState();
@@ -22,7 +26,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 900),
     )..forward();
-
     _l1C = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
@@ -36,7 +39,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 900),
     );
 
-    // последовательный запуск
     Future.delayed(const Duration(milliseconds: 250), () {
       if (mounted) _l1C.forward();
     });
@@ -46,38 +48,45 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     _l2C.addStatusListener((s) {
       if (s == AnimationStatus.completed) _l3C.forward();
     });
+
     _l3C.addStatusListener((s) async {
       if (s == AnimationStatus.completed && mounted) {
         await Future.delayed(const Duration(milliseconds: 400));
-        if (!mounted) return;
-
-        // ✨ Переход на LoginOrRegister с анимацией (slide + fade)
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder(
-            transitionDuration: const Duration(milliseconds: 800),
-            pageBuilder: (_, __, ___) => const LoginOrRegister(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  const begin = Offset(1.0, 0.0); // справа
-                  const end = Offset.zero;
-                  final tween = Tween(
-                    begin: begin,
-                    end: end,
-                  ).chain(CurveTween(curve: Curves.easeOutCubic));
-
-                  return SlideTransition(
-                    position: animation.drive(tween),
-                    child: FadeTransition(opacity: animation, child: child),
-                  );
-                },
-          ),
-        );
+        _goNext();
       }
     });
+
+    _fallbackTimer = Timer(const Duration(seconds: 5), _goNext);
+  }
+
+  void _goNext() {
+    if (!mounted || _navigated) return;
+    _navigated = true;
+    _fallbackTimer?.cancel();
+
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: const Duration(milliseconds: 800),
+        pageBuilder: (_, __, ___) => const LoginOrRegister(),
+        transitionsBuilder: (context, animation, __, child) {
+          const begin = Offset(1.0, 0.0);
+          const end = Offset.zero;
+          final tween = Tween(
+            begin: begin,
+            end: end,
+          ).chain(CurveTween(curve: Curves.easeOutCubic));
+          return SlideTransition(
+            position: animation.drive(tween),
+            child: FadeTransition(opacity: animation, child: child),
+          );
+        },
+      ),
+    );
   }
 
   @override
   void dispose() {
+    _fallbackTimer?.cancel();
     _logoC.dispose();
     _l1C.dispose();
     _l2C.dispose();
@@ -102,7 +111,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Логотип
                 FadeTransition(
                   opacity: CurvedAnimation(
                     parent: _logoC,
@@ -116,15 +124,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       ),
                     ),
                     child: Image.asset(
-                      'lib/Images/Logo.png', // ⚡ замени на свой путь
+                      'lib/Images/Logo.png',
                       width: 220,
                       fit: BoxFit.contain,
                     ),
                   ),
                 ),
                 const SizedBox(height: 28),
-
-                // Печатающиеся строки
                 TypewriterText(
                   text: 'BILIM“D”LER',
                   controller: _l1C,
@@ -167,7 +173,6 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   }
 }
 
-/// Посимвольный вывод текста + fade/slide
 class TypewriterText extends StatelessWidget {
   final String text;
   final TextStyle style;

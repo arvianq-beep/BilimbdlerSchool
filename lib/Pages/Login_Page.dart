@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter_bilimdler/Auth/auth_service.dart';
 import '../Components/my_button.dart';
 import '../Components/my_textfield.dart';
 import 'home_page.dart';
@@ -37,15 +36,11 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     try {
-      final userCred = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: pass,
-      );
-
+      final userCred = await AuthService.signIn(email, pass);
       final user = userCred.user;
 
       if (user != null && !user.emailVerified) {
-        await FirebaseAuth.instance.signOut();
+        await AuthService.signOut();
         setState(() => errorKey = 'verifyYourEmail');
         return;
       }
@@ -55,27 +50,30 @@ class _LoginPageState extends State<LoginPage> {
         context,
         MaterialPageRoute(builder: (_) => const HomePage()),
       );
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       setState(() {
-        switch (e.code) {
-          case 'user-not-found':
-            errorKey = 'userNotFound';
-            break;
-          case 'wrong-password':
-            errorKey = 'wrongPassword';
-            break;
-          case 'invalid-email':
-            errorKey = 'invalidEmail';
-            break;
-          case 'too-many-requests':
-            errorKey = 'tooManyRequests';
-            break;
-          default:
-            errorKey = 'unknownError';
+        if (e is Exception) {
+          final code = (e as dynamic).code; // FirebaseAuthException
+          switch (code) {
+            case 'user-not-found':
+              errorKey = 'userNotFound';
+              break;
+            case 'wrong-password':
+              errorKey = 'wrongPassword';
+              break;
+            case 'invalid-email':
+              errorKey = 'invalidEmail';
+              break;
+            case 'too-many-requests':
+              errorKey = 'tooManyRequests';
+              break;
+            default:
+              errorKey = 'unknownError';
+          }
+        } else {
+          errorKey = 'unknownError';
         }
       });
-    } catch (_) {
-      setState(() => errorKey = 'unknownError');
     } finally {
       if (mounted) setState(() => loading = false);
     }

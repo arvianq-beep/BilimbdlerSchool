@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bilimdler/l10n/locale_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'package:provider/provider.dart';
+import 'Themes/Themes_Provider.dart';
+import 'l10n/locale_provider.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 import 'Pages/splash_page.dart';
-import 'Themes/Themes_Provider.dart';
-import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await SystemChrome.setPreferredOrientations([
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Только горизонталь
+  await SystemChrome.setPreferredOrientations(const [
     DeviceOrientation.landscapeLeft,
     DeviceOrientation.landscapeRight,
   ]);
@@ -20,7 +27,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ThemesProvider()),
-        ChangeNotifierProvider(create: (_) => LocaleProvider()), // ✅ добавили
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ],
       child: const MyApp(),
     ),
@@ -32,15 +39,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = context.watch<ThemesProvider>();
-    final localeProvider = context.watch<LocaleProvider>();
+    final theme = context.watch<ThemesProvider>().themeData;
+    final locale = context.watch<LocaleProvider>().locale;
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Bilimdler',
-      theme: themeProvider.themeData,
-      locale: localeProvider.locale, // ✅ теперь язык меняется
-      supportedLocales: const [Locale('en'), Locale('ru'), Locale('kk')],
+      debugShowCheckedModeBanner: false,
+      theme: theme,
+      locale: locale,
+      supportedLocales: const [Locale('kk'), Locale('ru'), Locale('en')],
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

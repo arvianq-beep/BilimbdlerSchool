@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:flutter_bilimdler/Auth/auth_service.dart'; // ⬅️ используем сервис
 import 'package:flutter_bilimdler/Auth/header.dart';
 import 'package:flutter_bilimdler/Components/My_Button.dart';
 import 'package:flutter_bilimdler/Components/My_Textfield.dart';
@@ -8,8 +9,9 @@ import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/l10n/language_button.dart';
 
 class RegisterPage extends StatefulWidget {
-  final void Function()? onTap;
-  const RegisterPage({super.key, required this.onTap});
+  final VoidCallback?
+  onTap; // можно передавать переключатель из Login_or_Register
+  const RegisterPage({super.key, this.onTap});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -25,8 +27,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Future<void> register() async {
     final email = emailController.text.trim();
-    final pass = passwordController.text.trim();
-    final confirmPass = confirmPasswordController.text.trim();
+    final pass = passwordController.text;
+    final confirmPass = confirmPasswordController.text;
 
     if (email.isEmpty || pass.isEmpty) {
       setState(() => errorKey = 'enterEmailPassword');
@@ -43,22 +45,30 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     try {
-      final cred = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: pass,
-      );
+      // Создаём аккаунт и документ в Firestore через сервис
+      await AuthService.signUp(email, pass);
 
-      await cred.user?.sendEmailVerification();
+      // Отправляем письмо подтверждения
+      await AuthService.sendEmailVerification();
 
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("На почту отправлено письмо для подтверждения."),
+          content: Text('На почту отправлено письмо для подтверждения.'),
         ),
       );
 
-      await FirebaseAuth.instance.signOut();
-      widget.onTap?.call();
+      // Выходим из аккаунта до подтверждения
+      await AuthService.signOut();
+
+      // Возврат к логину:
+      // 1) если страница открыта через Login_or_Register — дергаем переключатель
+      // 2) иначе — просто закрываем текущую страницу
+      if (widget.onTap != null) {
+        widget.onTap!();
+      } else if (Navigator.canPop(context)) {
+        Navigator.pop(context);
+      }
     } on FirebaseAuthException catch (e) {
       setState(() {
         switch (e.code) {
@@ -71,10 +81,16 @@ class _RegisterPageState extends State<RegisterPage> {
           case 'weak-password':
             errorKey = 'weakPassword';
             break;
+          case 'operation-not-allowed':
+            // Например, если в консоли Firebase выключен Email/Password
+            errorKey = 'operationNotAllowed';
+            break;
           default:
             errorKey = 'unknownError';
         }
       });
+    } catch (_) {
+      setState(() => errorKey = 'unknownError');
     } finally {
       if (mounted) setState(() => loading = false);
     }
@@ -141,9 +157,11 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 const SizedBox(height: 12),
 
-                // ✅ onTap теперь async — ошибок не будет
+                // ВАЖНО: всегда передаём не-null функцию, чтобы не было ошибок типов
                 MyButton(
-                  onTap: !loading ? () async => await register() : null,
+                  onTap: () {
+                    if (!loading) register();
+                  },
                   text: loading ? '...' : t.registerNow,
                 ),
                 const SizedBox(height: 16),
@@ -157,7 +175,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     const SizedBox(width: 6),
                     GestureDetector(
-                      onTap: widget.onTap,
+                      onTap: widget
+                          .onTap, // переключатель из обёртки Login_or_Register
                       child: Text(
                         t.loginNow,
                         style: TextStyle(
@@ -181,13 +200,15 @@ class _RegisterPageState extends State<RegisterPage> {
       case 'enterEmailPassword':
         return t.enterEmailPassword;
       case 'passwordsNotMatch':
-        return "Пароли не совпадают!";
+        return 'Пароли не совпадают!';
       case 'emailAlreadyInUse':
-        return "Такой e-mail уже зарегистрирован";
+        return 'Такой e-mail уже зарегистрирован';
       case 'weakPassword':
-        return "Слишком слабый пароль";
+        return 'Слишком слабый пароль';
       case 'invalidEmail':
         return t.invalidEmail;
+      case 'operationNotAllowed':
+        return 'Email/Password выключен в Firebase Console (Authentication → Sign-in method).';
       default:
         return t.unknownError;
     }
