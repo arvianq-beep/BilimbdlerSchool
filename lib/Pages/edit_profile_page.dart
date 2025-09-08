@@ -81,40 +81,82 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
+  InputDecoration _decoration(BuildContext context, String label) {
+    final cs = Theme.of(context).colorScheme;
+    return InputDecoration(
+      labelText: label,
+      filled: true,
+      // делаем поля «чуть светлее», как ты задал в dark theme
+      fillColor: cs.tertiary,
+      labelStyle: TextStyle(color: cs.onSurfaceVariant),
+      hintStyle: TextStyle(color: cs.onSurfaceVariant),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: cs.outlineVariant),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: cs.primary, width: 1.6),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final t = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.profileTitle)),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(
-              controller: firstNameC,
-              decoration: InputDecoration(labelText: t.firstName),
-            ),
-            const SizedBox(height: 12),
-            TextField(
-              controller: lastNameC,
-              decoration: InputDecoration(labelText: t.lastName),
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                onPressed: saving ? null : _save,
-                child: Text(saving ? '...' : t.save),
+      backgroundColor: cs.background, // такой же глубокий фон, как на HomePage
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        title: Text(
+          t.profileTitle,
+          style: TextStyle(
+            color: cs.inversePrimary, // как на твоём HomePage
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: IconThemeData(color: cs.inversePrimary),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              TextField(
+                controller: firstNameC,
+                style: TextStyle(color: cs.onSurface),
+                decoration: _decoration(context, t.firstName),
+                textInputAction: TextInputAction.next,
               ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              t.youCanSearchByName,
-              style: TextStyle(color: cs.onSurfaceVariant),
-            ),
-          ],
+              const SizedBox(height: 12),
+              TextField(
+                controller: lastNameC,
+                style: TextStyle(color: cs.onSurface),
+                decoration: _decoration(context, t.lastName),
+                onSubmitted: (_) => _save(),
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: saving ? null : _save,
+                  child: Text(saving ? '...' : t.save),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                t.youCanSearchByName,
+                style: TextStyle(color: cs.onSurfaceVariant),
+              ),
+            ],
+          ),
         ),
       ),
     );

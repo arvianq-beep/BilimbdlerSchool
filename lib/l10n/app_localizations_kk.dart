@@ -12,7 +12,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER';
+  String get brand => 'BILIM\"D\"LER';
 
   @override
   String get email => 'Электрондық пошта';
@@ -27,7 +27,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get continueAsGuest => 'Қонақ ретінде кіру';
 
   @override
-  String get notMember => 'Әлі тіркелмегенсіз бе?';
+  String get notMember => 'Тіркелмегенсіз бе?';
 
   @override
   String get registerNow => 'Тіркелу';
@@ -39,7 +39,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get signOut => 'Шығу';
 
   @override
-  String get alreadyMember => 'Тіркелгіңіз бар ма?';
+  String get alreadyMember => 'Тіркелгі бар ма?';
 
   @override
   String get loginNow => 'Кіру';
@@ -48,51 +48,51 @@ class AppLocalizationsKk extends AppLocalizations {
   String get confirmPassword => 'Құпиясөзді растау';
 
   @override
-  String get weakPassword => 'Құпиясөз кемінде 6 таңба болуы керек';
+  String get weakPassword => 'Құпиясөз кемінде 6 таңба болуы тиіс';
 
   @override
-  String get emailInUse => 'Бұл e-mail бұрын тіркелген';
+  String get emailInUse => 'Бұл email бұрыннан тіркелген';
 
   @override
-  String get emailAlreadyInUse => 'Бұл e-mail бұрын тіркелген';
+  String get emailAlreadyInUse => 'Бұл email бұрыннан тіркелген';
 
   @override
-  String get invalidEmail => 'Жарамсыз e-mail';
+  String get invalidEmail => 'Жарамсыз email';
 
   @override
-  String get userNotFound => 'Бұл e-mail бойынша пайдаланушы табылмады';
+  String get userNotFound => 'Бұл email бойынша пайдаланушы табылмады';
 
   @override
-  String get wrongPassword => 'Қате құпиясөз';
+  String get wrongPassword => 'Құпиясөз қате';
 
   @override
-  String get badEmailOrPassword => 'Жарамсыз e-mail немесе құпиясөз';
+  String get badEmailOrPassword => 'Email немесе құпиясөз қате';
 
   @override
-  String get tooManyRequests => 'Өте көп әрекет, кейінірек көріңіз';
+  String get tooManyRequests => 'Әрекет тым көп, кейінірек қайталап көріңіз';
 
   @override
   String get unknownError => 'Белгісіз қате орын алды';
 
   @override
-  String get enterEmailPassword => 'E-mail мен құпиясөзді енгізіңіз';
+  String get enterEmailPassword => 'Email мен құпиясөзді енгізіңіз';
 
   @override
   String get passwordsNotMatch => 'Құпиясөздер сәйкес келмейді';
 
   @override
   String verificationEmailSent(String email) {
-    return 'Растау хаты $email мекенжайына жіберілді';
+    return 'Растау хаты $email адресіне жіберілді';
   }
 
   @override
-  String get verifyYourEmail => 'Кіру үшін e-mail-ді растаңыз';
+  String get verifyYourEmail => 'Кіру алдында email-ді растаңыз';
 
   @override
   String get forgotPassword => 'Құпиясөзді ұмыттыңыз ба?';
 
   @override
-  String get pleaseEnterEmail => 'E-mail енгізіңіз';
+  String get pleaseEnterEmail => 'Email енгізіңіз';
 
   @override
   String resetEmailSent(String email) {
@@ -100,7 +100,7 @@ class AppLocalizationsKk extends AppLocalizations {
   }
 
   @override
-  String get resendVerification => 'Растау хатын қайта жіберу';
+  String get resendVerification => 'Растауды қайта жіберу';
 
   @override
   String get verificationEmailResent => 'Растау хаты қайта жіберілді';
@@ -131,9 +131,33 @@ class AppLocalizationsKk extends AppLocalizations {
   String get saved => 'Сақталды';
 
   @override
-  String get enterNameOrSurname => 'Есім немесе текті енгізіңіз';
+  String get enterNameOrSurname => 'Аты немесе тегін енгізіңіз';
 
   @override
   String get youCanSearchByName =>
-      'Пайдаланушыларды есімі мен тегі бойынша іздеуге болады.';
+      'Пайдаланушыларды аты/тегі бойынша іздеуге болады.';
+
+  @override
+  String get startGame => 'Ойынды бастау';
+
+  @override
+  String get subjects => 'Пәндер';
+
+  @override
+  String get settings => 'Баптаулар';
+
+  @override
+  String get sound => 'Дыбыс';
+
+  @override
+  String get vibration => 'Діріл';
+
+  @override
+  String get theme => 'Тақырып';
+
+  @override
+  String get chooseSubject => 'Пәнді таңдаңыз';
+
+  @override
+  String get toggleTheme => 'Тақырыпты ауыстыру';
 }

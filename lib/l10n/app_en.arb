@@ -1,7 +1,8 @@
 {
   "@@locale": "en",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER",
+  "brand": "BILIM\"D\"LER",
+
   "email": "Email",
   "password": "Password",
   "signIn": "Sign in",
@@ -24,6 +25,7 @@
   "unknownError": "An unknown error occurred",
   "enterEmailPassword": "Enter email and password",
   "passwordsNotMatch": "Passwords do not match",
+
   "verificationEmailSent": "Verification email sent to {email}",
   "@verificationEmailSent": {
     "placeholders": {
@@ -33,6 +35,7 @@
   "verifyYourEmail": "Please verify your email before logging in",
   "forgotPassword": "Forgot password?",
   "pleaseEnterEmail": "Please enter your email",
+
   "resetEmailSent": "Password reset email sent to {email}",
   "@resetEmailSent": {
     "placeholders": {
@@ -61,5 +64,14 @@
   "save": "Save",
   "saved": "Saved",
   "enterNameOrSurname": "Enter first or last name",
-  "youCanSearchByName": "You can search users by first/last name."
+  "youCanSearchByName": "You can search users by first/last name.",
+
+  "startGame": "Start game",
+  "subjects": "Subjects",
+  "settings": "Settings",
+  "sound": "Sound",
+  "vibration": "Vibration",
+  "theme": "Theme",
+  "chooseSubject": "Choose a subject",
+  "toggleTheme": "Toggle theme"
 }

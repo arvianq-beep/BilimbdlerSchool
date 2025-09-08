@@ -12,7 +12,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'GEO 2026 · BILIM\"D\"LER';
+  String get brand => 'BILIM\"D\"LER';
 
   @override
   String get email => 'Email';
@@ -135,4 +135,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get youCanSearchByName => 'You can search users by first/last name.';
+
+  @override
+  String get startGame => 'Start game';
+
+  @override
+  String get subjects => 'Subjects';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get sound => 'Sound';
+
+  @override
+  String get vibration => 'Vibration';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get chooseSubject => 'Choose a subject';
+
+  @override
+  String get toggleTheme => 'Toggle theme';
 }

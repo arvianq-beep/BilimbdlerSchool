@@ -1,45 +1,48 @@
 {
   "@@locale": "kk",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER",
+  "brand": "BILIM\"D\"LER",
+
   "email": "Электрондық пошта",
   "password": "Құпиясөз",
   "signIn": "Кіру",
   "continueAsGuest": "Қонақ ретінде кіру",
-  "notMember": "Әлі тіркелмегенсіз бе?",
+  "notMember": "Тіркелмегенсіз бе?",
   "registerNow": "Тіркелу",
   "welcome": "Қош келдіңіз!",
   "signOut": "Шығу",
-  "alreadyMember": "Тіркелгіңіз бар ма?",
+  "alreadyMember": "Тіркелгі бар ма?",
   "loginNow": "Кіру",
   "confirmPassword": "Құпиясөзді растау",
-  "weakPassword": "Құпиясөз кемінде 6 таңба болуы керек",
-  "emailInUse": "Бұл e-mail бұрын тіркелген",
-  "emailAlreadyInUse": "Бұл e-mail бұрын тіркелген",
-  "invalidEmail": "Жарамсыз e-mail",
-  "userNotFound": "Бұл e-mail бойынша пайдаланушы табылмады",
-  "wrongPassword": "Қате құпиясөз",
-  "badEmailOrPassword": "Жарамсыз e-mail немесе құпиясөз",
-  "tooManyRequests": "Өте көп әрекет, кейінірек көріңіз",
+  "weakPassword": "Құпиясөз кемінде 6 таңба болуы тиіс",
+  "emailInUse": "Бұл email бұрыннан тіркелген",
+  "emailAlreadyInUse": "Бұл email бұрыннан тіркелген",
+  "invalidEmail": "Жарамсыз email",
+  "userNotFound": "Бұл email бойынша пайдаланушы табылмады",
+  "wrongPassword": "Құпиясөз қате",
+  "badEmailOrPassword": "Email немесе құпиясөз қате",
+  "tooManyRequests": "Әрекет тым көп, кейінірек қайталап көріңіз",
   "unknownError": "Белгісіз қате орын алды",
-  "enterEmailPassword": "E-mail мен құпиясөзді енгізіңіз",
+  "enterEmailPassword": "Email мен құпиясөзді енгізіңіз",
   "passwordsNotMatch": "Құпиясөздер сәйкес келмейді",
-  "verificationEmailSent": "Растау хаты {email} мекенжайына жіберілді",
+
+  "verificationEmailSent": "Растау хаты {email} адресіне жіберілді",
   "@verificationEmailSent": {
     "placeholders": {
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Кіру үшін e-mail-ді растаңыз",
+  "verifyYourEmail": "Кіру алдында email-ді растаңыз",
   "forgotPassword": "Құпиясөзді ұмыттыңыз ба?",
-  "pleaseEnterEmail": "E-mail енгізіңіз",
+  "pleaseEnterEmail": "Email енгізіңіз",
+
   "resetEmailSent": "Құпиясөзді қалпына келтіру хаты {email} адресіне жіберілді",
   "@resetEmailSent": {
     "placeholders": {
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "resendVerification": "Растау хатын қайта жіберу",
+  "resendVerification": "Растауды қайта жіберу",
   "verificationEmailResent": "Растау хаты қайта жіберілді",
 
   "guestIdDisplay": "Қонақ ID: {id}",
@@ -60,6 +63,15 @@
   "lastName": "Тегі",
   "save": "Сақтау",
   "saved": "Сақталды",
-  "enterNameOrSurname": "Есім немесе текті енгізіңіз",
-  "youCanSearchByName": "Пайдаланушыларды есімі мен тегі бойынша іздеуге болады."
+  "enterNameOrSurname": "Аты немесе тегін енгізіңіз",
+  "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздеуге болады.",
+
+  "startGame": "Ойынды бастау",
+  "subjects": "Пәндер",
+  "settings": "Баптаулар",
+  "sound": "Дыбыс",
+  "vibration": "Діріл",
+  "theme": "Тақырып",
+  "chooseSubject": "Пәнді таңдаңыз",
+  "toggleTheme": "Тақырыпты ауыстыру"
 }

@@ -1,38 +1,41 @@
 {
   "@@locale": "ru",
   "appTitle": "Bilimdler",
-  "brand": "GEO 2026 · BILIM\"D\"LER",
-  "email": "E-mail",
+  "brand": "БИЛИМ\"D\"ЛЕР",
+
+  "email": "Email",
   "password": "Пароль",
   "signIn": "Войти",
-  "continueAsGuest": "Продолжить как гость",
+  "continueAsGuest": "Войти как гость",
   "notMember": "Нет аккаунта?",
   "registerNow": "Зарегистрироваться",
   "welcome": "Добро пожаловать!",
   "signOut": "Выйти",
   "alreadyMember": "Уже есть аккаунт?",
   "loginNow": "Войти",
-  "confirmPassword": "Подтвердите пароль",
-  "weakPassword": "Пароль должен содержать не менее 6 символов",
-  "emailInUse": "Этот e-mail уже используется",
-  "emailAlreadyInUse": "Этот e-mail уже используется",
-  "invalidEmail": "Некорректный e-mail",
-  "userNotFound": "Пользователь с таким e-mail не найден",
+  "confirmPassword": "Повторите пароль",
+  "weakPassword": "Пароль должен быть не короче 6 символов",
+  "emailInUse": "Этот email уже используется",
+  "emailAlreadyInUse": "Этот email уже используется",
+  "invalidEmail": "Неверный адрес email",
+  "userNotFound": "Пользователь с таким email не найден",
   "wrongPassword": "Неверный пароль",
-  "badEmailOrPassword": "Неверный e-mail или пароль",
+  "badEmailOrPassword": "Неверный email или пароль",
   "tooManyRequests": "Слишком много попыток, попробуйте позже",
   "unknownError": "Произошла неизвестная ошибка",
-  "enterEmailPassword": "Введите e-mail и пароль",
+  "enterEmailPassword": "Введите email и пароль",
   "passwordsNotMatch": "Пароли не совпадают",
+
   "verificationEmailSent": "Письмо с подтверждением отправлено на {email}",
   "@verificationEmailSent": {
     "placeholders": {
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Пожалуйста, подтвердите e-mail перед входом",
+  "verifyYourEmail": "Подтвердите email перед входом",
   "forgotPassword": "Забыли пароль?",
-  "pleaseEnterEmail": "Введите e-mail",
+  "pleaseEnterEmail": "Введите email",
+
   "resetEmailSent": "Письмо для сброса пароля отправлено на {email}",
   "@resetEmailSent": {
     "placeholders": {
@@ -40,9 +43,9 @@
     }
   },
   "resendVerification": "Отправить письмо повторно",
-  "verificationEmailResent": "Письмо с подтверждением отправлено повторно",
+  "verificationEmailResent": "Письмо подтверждения отправлено повторно",
 
-  "guestIdDisplay": "Гость ID: {id}",
+  "guestIdDisplay": "ID гостя: {id}",
   "@guestIdDisplay": {
     "placeholders": {
       "id": { "type": "String", "example": "AB12CD34" }
@@ -61,5 +64,14 @@
   "save": "Сохранить",
   "saved": "Сохранено",
   "enterNameOrSurname": "Введите имя или фамилию",
-  "youCanSearchByName": "Можно искать пользователей по имени и фамилии."
+  "youCanSearchByName": "Вы можете искать пользователей по имени/фамилии.",
+
+  "startGame": "Начать игру",
+  "subjects": "Предметы",
+  "settings": "Настройки",
+  "sound": "Звук",
+  "vibration": "Вибрация",
+  "theme": "Тема",
+  "chooseSubject": "Выберите предмет",
+  "toggleTheme": "Переключить тему"
 }

@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @brand.
   ///
   /// In en, this message translates to:
-  /// **'GEO 2026 · BILIM\"D\"LER'**
+  /// **'BILIM\"D\"LER'**
   String get brand;
 
   /// No description provided for @email.
@@ -339,6 +339,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You can search users by first/last name.'**
   String get youCanSearchByName;
+
+  /// No description provided for @startGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Start game'**
+  String get startGame;
+
+  /// No description provided for @subjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Subjects'**
+  String get subjects;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @sound.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound'**
+  String get sound;
+
+  /// No description provided for @vibration.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibration'**
+  String get vibration;
+
+  /// No description provided for @theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get theme;
+
+  /// No description provided for @chooseSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a subject'**
+  String get chooseSubject;
+
+  /// No description provided for @toggleTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Toggle theme'**
+  String get toggleTheme;
 }
 
 class _AppLocalizationsDelegate
