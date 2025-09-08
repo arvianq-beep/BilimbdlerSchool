@@ -18,19 +18,19 @@ class AppLocalizationsKk extends AppLocalizations {
   String get email => 'Электрондық пошта';
 
   @override
-  String get password => 'Құпиясөз';
+  String get password => 'Құпия сөз';
 
   @override
   String get signIn => 'Кіру';
 
   @override
-  String get continueAsGuest => 'Қонақ ретінде кіру';
+  String get continueAsGuest => 'Қонақ ретінде жалғастыру';
 
   @override
   String get notMember => 'Тіркелмегенсіз бе?';
 
   @override
-  String get registerNow => 'Тіркелу';
+  String get registerNow => 'Қазір тіркелу';
 
   @override
   String get welcome => 'Қош келдіңіз!';
@@ -39,68 +39,69 @@ class AppLocalizationsKk extends AppLocalizations {
   String get signOut => 'Шығу';
 
   @override
-  String get alreadyMember => 'Тіркелгі бар ма?';
+  String get alreadyMember => 'Бұрын тіркелгенсіз бе?';
 
   @override
   String get loginNow => 'Кіру';
 
   @override
-  String get confirmPassword => 'Құпиясөзді растау';
+  String get confirmPassword => 'Құпия сөзді растау';
 
   @override
-  String get weakPassword => 'Құпиясөз кемінде 6 таңба болуы тиіс';
+  String get weakPassword => 'Құпия сөз кемінде 6 таңба болуы керек';
 
   @override
-  String get emailInUse => 'Бұл email бұрыннан тіркелген';
+  String get emailInUse => 'Бұл электрондық пошта бұрын қолданылған';
 
   @override
-  String get emailAlreadyInUse => 'Бұл email бұрыннан тіркелген';
+  String get emailAlreadyInUse => 'Бұл электрондық пошта бұрын қолданылған';
 
   @override
-  String get invalidEmail => 'Жарамсыз email';
+  String get invalidEmail => 'Жарамсыз электрондық пошта';
 
   @override
-  String get userNotFound => 'Бұл email бойынша пайдаланушы табылмады';
+  String get userNotFound => 'Осы поштамен пайдаланушы табылмады';
 
   @override
-  String get wrongPassword => 'Құпиясөз қате';
+  String get wrongPassword => 'Қате құпия сөз';
 
   @override
-  String get badEmailOrPassword => 'Email немесе құпиясөз қате';
+  String get badEmailOrPassword => 'Қате электрондық пошта не құпия сөз';
 
   @override
-  String get tooManyRequests => 'Әрекет тым көп, кейінірек қайталап көріңіз';
+  String get tooManyRequests => 'Тым көп әрекет, кейінірек қайталап көріңіз';
 
   @override
   String get unknownError => 'Белгісіз қате орын алды';
 
   @override
-  String get enterEmailPassword => 'Email мен құпиясөзді енгізіңіз';
+  String get enterEmailPassword =>
+      'Электрондық пошта мен құпия сөзді енгізіңіз';
 
   @override
-  String get passwordsNotMatch => 'Құпиясөздер сәйкес келмейді';
+  String get passwordsNotMatch => 'Құпия сөздер сәйкес келмейді';
 
   @override
   String verificationEmailSent(String email) {
-    return 'Растау хаты $email адресіне жіберілді';
+    return 'Растау хаты $email поштасына жіберілді';
   }
 
   @override
-  String get verifyYourEmail => 'Кіру алдында email-ді растаңыз';
+  String get verifyYourEmail => 'Кіру алдында электрондық поштаңызды растаңыз';
 
   @override
-  String get forgotPassword => 'Құпиясөзді ұмыттыңыз ба?';
+  String get forgotPassword => 'Құпия сөзді ұмыттыңыз ба?';
 
   @override
-  String get pleaseEnterEmail => 'Email енгізіңіз';
+  String get pleaseEnterEmail => 'Электрондық поштаңызды енгізіңіз';
 
   @override
   String resetEmailSent(String email) {
-    return 'Құпиясөзді қалпына келтіру хаты $email адресіне жіберілді';
+    return 'Құпия сөзді қалпына келтіру хаты $email поштасына жіберілді';
   }
 
   @override
-  String get resendVerification => 'Растауды қайта жіберу';
+  String get resendVerification => 'Растау хатын қайта жіберу';
 
   @override
   String get verificationEmailResent => 'Растау хаты қайта жіберілді';
@@ -135,7 +136,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get youCanSearchByName =>
-      'Пайдаланушыларды аты/тегі бойынша іздеуге болады.';
+      'Пайдаланушыларды аты/тегі бойынша іздей аласыз.';
 
   @override
   String get startGame => 'Ойынды бастау';
@@ -160,4 +161,18 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get toggleTheme => 'Тақырыпты ауыстыру';
+
+  @override
+  String get geography => 'География';
+
+  @override
+  String get physicalGeography => 'Физикалық география';
+
+  @override
+  String get economicGeography => 'Экономикалық география';
+
+  @override
+  String comingSoon(String title) {
+    return 'Жақында: $title';
+  }
 }

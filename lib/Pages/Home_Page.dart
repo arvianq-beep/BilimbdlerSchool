@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/subject/geography.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -373,10 +374,15 @@ class HomePage extends StatelessWidget {
   }
 
   void _goToSubject(BuildContext c, String key, String label) {
-    Navigator.push(
-      c,
-      MaterialPageRoute(builder: (_) => SubjectScreen(title: label)),
-    );
+    Widget page;
+    switch (key) {
+      case 'geo':
+        page = const GeographyPage(); // 👈 География
+        break;
+      default:
+        page = SubjectScreen(title: label); // заглушка для остальных
+    }
+    Navigator.push(c, MaterialPageRoute(builder: (_) => page));
   }
 
   Widget _logoCircle(BuildContext c) => SizedBox(

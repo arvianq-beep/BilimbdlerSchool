@@ -4,45 +4,45 @@
   "brand": "BILIM\"D\"LER",
 
   "email": "Электрондық пошта",
-  "password": "Құпиясөз",
+  "password": "Құпия сөз",
   "signIn": "Кіру",
-  "continueAsGuest": "Қонақ ретінде кіру",
+  "continueAsGuest": "Қонақ ретінде жалғастыру",
   "notMember": "Тіркелмегенсіз бе?",
-  "registerNow": "Тіркелу",
+  "registerNow": "Қазір тіркелу",
   "welcome": "Қош келдіңіз!",
   "signOut": "Шығу",
-  "alreadyMember": "Тіркелгі бар ма?",
+  "alreadyMember": "Бұрын тіркелгенсіз бе?",
   "loginNow": "Кіру",
-  "confirmPassword": "Құпиясөзді растау",
-  "weakPassword": "Құпиясөз кемінде 6 таңба болуы тиіс",
-  "emailInUse": "Бұл email бұрыннан тіркелген",
-  "emailAlreadyInUse": "Бұл email бұрыннан тіркелген",
-  "invalidEmail": "Жарамсыз email",
-  "userNotFound": "Бұл email бойынша пайдаланушы табылмады",
-  "wrongPassword": "Құпиясөз қате",
-  "badEmailOrPassword": "Email немесе құпиясөз қате",
-  "tooManyRequests": "Әрекет тым көп, кейінірек қайталап көріңіз",
+  "confirmPassword": "Құпия сөзді растау",
+  "weakPassword": "Құпия сөз кемінде 6 таңба болуы керек",
+  "emailInUse": "Бұл электрондық пошта бұрын қолданылған",
+  "emailAlreadyInUse": "Бұл электрондық пошта бұрын қолданылған",
+  "invalidEmail": "Жарамсыз электрондық пошта",
+  "userNotFound": "Осы поштамен пайдаланушы табылмады",
+  "wrongPassword": "Қате құпия сөз",
+  "badEmailOrPassword": "Қате электрондық пошта не құпия сөз",
+  "tooManyRequests": "Тым көп әрекет, кейінірек қайталап көріңіз",
   "unknownError": "Белгісіз қате орын алды",
-  "enterEmailPassword": "Email мен құпиясөзді енгізіңіз",
-  "passwordsNotMatch": "Құпиясөздер сәйкес келмейді",
+  "enterEmailPassword": "Электрондық пошта мен құпия сөзді енгізіңіз",
+  "passwordsNotMatch": "Құпия сөздер сәйкес келмейді",
 
-  "verificationEmailSent": "Растау хаты {email} адресіне жіберілді",
+  "verificationEmailSent": "Растау хаты {email} поштасына жіберілді",
   "@verificationEmailSent": {
     "placeholders": {
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Кіру алдында email-ді растаңыз",
-  "forgotPassword": "Құпиясөзді ұмыттыңыз ба?",
-  "pleaseEnterEmail": "Email енгізіңіз",
+  "verifyYourEmail": "Кіру алдында электрондық поштаңызды растаңыз",
+  "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+  "pleaseEnterEmail": "Электрондық поштаңызды енгізіңіз",
 
-  "resetEmailSent": "Құпиясөзді қалпына келтіру хаты {email} адресіне жіберілді",
+  "resetEmailSent": "Құпия сөзді қалпына келтіру хаты {email} поштасына жіберілді",
   "@resetEmailSent": {
     "placeholders": {
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "resendVerification": "Растауды қайта жіберу",
+  "resendVerification": "Растау хатын қайта жіберу",
   "verificationEmailResent": "Растау хаты қайта жіберілді",
 
   "guestIdDisplay": "Қонақ ID: {id}",
@@ -64,7 +64,7 @@
   "save": "Сақтау",
   "saved": "Сақталды",
   "enterNameOrSurname": "Аты немесе тегін енгізіңіз",
-  "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздеуге болады.",
+  "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздей аласыз.",
 
   "startGame": "Ойынды бастау",
   "subjects": "Пәндер",
@@ -73,5 +73,16 @@
   "vibration": "Діріл",
   "theme": "Тақырып",
   "chooseSubject": "Пәнді таңдаңыз",
-  "toggleTheme": "Тақырыпты ауыстыру"
+  "toggleTheme": "Тақырыпты ауыстыру",
+
+  "geography": "География",
+  "physicalGeography": "Физикалық география",
+  "economicGeography": "Экономикалық география",
+
+  "comingSoon": "Жақында: {title}",
+  "@comingSoon": {
+    "placeholders": {
+      "title": { "type": "String", "example": "Физикалық география" }
+    }
+  }
 }

@@ -12,10 +12,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get appTitle => 'Bilimdler';
 
   @override
-  String get brand => 'БИЛИМ\"D\"ЛЕР';
+  String get brand => 'BILIM\"D\"LER';
 
   @override
-  String get email => 'Email';
+  String get email => 'Эл. почта';
 
   @override
   String get password => 'Пароль';
@@ -24,13 +24,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get signIn => 'Войти';
 
   @override
-  String get continueAsGuest => 'Войти как гость';
+  String get continueAsGuest => 'Продолжить как гость';
 
   @override
-  String get notMember => 'Нет аккаунта?';
+  String get notMember => 'Ещё нет аккаунта?';
 
   @override
-  String get registerNow => 'Зарегистрироваться';
+  String get registerNow => 'Зарегистрируйтесь';
 
   @override
   String get welcome => 'Добро пожаловать!';
@@ -45,28 +45,28 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loginNow => 'Войти';
 
   @override
-  String get confirmPassword => 'Повторите пароль';
+  String get confirmPassword => 'Подтвердите пароль';
 
   @override
-  String get weakPassword => 'Пароль должен быть не короче 6 символов';
+  String get weakPassword => 'Пароль должен содержать не менее 6 символов';
 
   @override
-  String get emailInUse => 'Этот email уже используется';
+  String get emailInUse => 'Этот адрес уже используется';
 
   @override
-  String get emailAlreadyInUse => 'Этот email уже используется';
+  String get emailAlreadyInUse => 'Этот адрес уже используется';
 
   @override
-  String get invalidEmail => 'Неверный адрес email';
+  String get invalidEmail => 'Некорректный адрес эл. почты';
 
   @override
-  String get userNotFound => 'Пользователь с таким email не найден';
+  String get userNotFound => 'Пользователь с таким адресом не найден';
 
   @override
   String get wrongPassword => 'Неверный пароль';
 
   @override
-  String get badEmailOrPassword => 'Неверный email или пароль';
+  String get badEmailOrPassword => 'Неверная почта или пароль';
 
   @override
   String get tooManyRequests => 'Слишком много попыток, попробуйте позже';
@@ -75,7 +75,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get unknownError => 'Произошла неизвестная ошибка';
 
   @override
-  String get enterEmailPassword => 'Введите email и пароль';
+  String get enterEmailPassword => 'Введите эл. почту и пароль';
 
   @override
   String get passwordsNotMatch => 'Пароли не совпадают';
@@ -86,13 +86,13 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get verifyYourEmail => 'Подтвердите email перед входом';
+  String get verifyYourEmail => 'Пожалуйста, подтвердите почту перед входом';
 
   @override
   String get forgotPassword => 'Забыли пароль?';
 
   @override
-  String get pleaseEnterEmail => 'Введите email';
+  String get pleaseEnterEmail => 'Введите адрес эл. почты';
 
   @override
   String resetEmailSent(String email) {
@@ -104,7 +104,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get verificationEmailResent =>
-      'Письмо подтверждения отправлено повторно';
+      'Письмо с подтверждением отправлено повторно';
 
   @override
   String guestIdDisplay(String id) {
@@ -136,7 +136,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get youCanSearchByName =>
-      'Вы можете искать пользователей по имени/фамилии.';
+      'Можно искать пользователей по имени/фамилии.';
 
   @override
   String get startGame => 'Начать игру';
@@ -161,4 +161,18 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get toggleTheme => 'Переключить тему';
+
+  @override
+  String get geography => 'География';
+
+  @override
+  String get physicalGeography => 'Физическая география';
+
+  @override
+  String get economicGeography => 'Экономическая география';
+
+  @override
+  String comingSoon(String title) {
+    return 'Скоро будет: $title';
+  }
 }

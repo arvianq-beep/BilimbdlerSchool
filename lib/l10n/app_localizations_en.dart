@@ -159,4 +159,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toggleTheme => 'Toggle theme';
+
+  @override
+  String get geography => 'Geography';
+
+  @override
+  String get physicalGeography => 'Physical geography';
+
+  @override
+  String get economicGeography => 'Economic geography';
+
+  @override
+  String comingSoon(String title) {
+    return 'Coming soon: $title';
+  }
 }

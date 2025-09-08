@@ -1,29 +1,29 @@
 {
   "@@locale": "ru",
   "appTitle": "Bilimdler",
-  "brand": "БИЛИМ\"D\"ЛЕР",
+  "brand": "BILIM\"D\"LER",
 
-  "email": "Email",
+  "email": "Эл. почта",
   "password": "Пароль",
   "signIn": "Войти",
-  "continueAsGuest": "Войти как гость",
-  "notMember": "Нет аккаунта?",
-  "registerNow": "Зарегистрироваться",
+  "continueAsGuest": "Продолжить как гость",
+  "notMember": "Ещё нет аккаунта?",
+  "registerNow": "Зарегистрируйтесь",
   "welcome": "Добро пожаловать!",
   "signOut": "Выйти",
   "alreadyMember": "Уже есть аккаунт?",
   "loginNow": "Войти",
-  "confirmPassword": "Повторите пароль",
-  "weakPassword": "Пароль должен быть не короче 6 символов",
-  "emailInUse": "Этот email уже используется",
-  "emailAlreadyInUse": "Этот email уже используется",
-  "invalidEmail": "Неверный адрес email",
-  "userNotFound": "Пользователь с таким email не найден",
+  "confirmPassword": "Подтвердите пароль",
+  "weakPassword": "Пароль должен содержать не менее 6 символов",
+  "emailInUse": "Этот адрес уже используется",
+  "emailAlreadyInUse": "Этот адрес уже используется",
+  "invalidEmail": "Некорректный адрес эл. почты",
+  "userNotFound": "Пользователь с таким адресом не найден",
   "wrongPassword": "Неверный пароль",
-  "badEmailOrPassword": "Неверный email или пароль",
+  "badEmailOrPassword": "Неверная почта или пароль",
   "tooManyRequests": "Слишком много попыток, попробуйте позже",
   "unknownError": "Произошла неизвестная ошибка",
-  "enterEmailPassword": "Введите email и пароль",
+  "enterEmailPassword": "Введите эл. почту и пароль",
   "passwordsNotMatch": "Пароли не совпадают",
 
   "verificationEmailSent": "Письмо с подтверждением отправлено на {email}",
@@ -32,9 +32,9 @@
       "email": { "type": "String", "example": "user@example.com" }
     }
   },
-  "verifyYourEmail": "Подтвердите email перед входом",
+  "verifyYourEmail": "Пожалуйста, подтвердите почту перед входом",
   "forgotPassword": "Забыли пароль?",
-  "pleaseEnterEmail": "Введите email",
+  "pleaseEnterEmail": "Введите адрес эл. почты",
 
   "resetEmailSent": "Письмо для сброса пароля отправлено на {email}",
   "@resetEmailSent": {
@@ -43,7 +43,7 @@
     }
   },
   "resendVerification": "Отправить письмо повторно",
-  "verificationEmailResent": "Письмо подтверждения отправлено повторно",
+  "verificationEmailResent": "Письмо с подтверждением отправлено повторно",
 
   "guestIdDisplay": "ID гостя: {id}",
   "@guestIdDisplay": {
@@ -64,7 +64,7 @@
   "save": "Сохранить",
   "saved": "Сохранено",
   "enterNameOrSurname": "Введите имя или фамилию",
-  "youCanSearchByName": "Вы можете искать пользователей по имени/фамилии.",
+  "youCanSearchByName": "Можно искать пользователей по имени/фамилии.",
 
   "startGame": "Начать игру",
   "subjects": "Предметы",
@@ -73,5 +73,16 @@
   "vibration": "Вибрация",
   "theme": "Тема",
   "chooseSubject": "Выберите предмет",
-  "toggleTheme": "Переключить тему"
+  "toggleTheme": "Переключить тему",
+
+  "geography": "География",
+  "physicalGeography": "Физическая география",
+  "economicGeography": "Экономическая география",
+
+  "comingSoon": "Скоро будет: {title}",
+  "@comingSoon": {
+    "placeholders": {
+      "title": { "type": "String", "example": "Физическая география" }
+    }
+  }
 }

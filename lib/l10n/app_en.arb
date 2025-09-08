@@ -73,5 +73,16 @@
   "vibration": "Vibration",
   "theme": "Theme",
   "chooseSubject": "Choose a subject",
-  "toggleTheme": "Toggle theme"
+  "toggleTheme": "Toggle theme",
+
+  "geography": "Geography",
+  "physicalGeography": "Physical geography",
+  "economicGeography": "Economic geography",
+
+  "comingSoon": "Coming soon: {title}",
+  "@comingSoon": {
+    "placeholders": {
+      "title": { "type": "String", "example": "Physical geography" }
+    }
+  }
 }

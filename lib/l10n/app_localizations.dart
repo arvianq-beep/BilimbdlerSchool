@@ -387,6 +387,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Toggle theme'**
   String get toggleTheme;
+
+  /// No description provided for @geography.
+  ///
+  /// In en, this message translates to:
+  /// **'Geography'**
+  String get geography;
+
+  /// No description provided for @physicalGeography.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical geography'**
+  String get physicalGeography;
+
+  /// No description provided for @economicGeography.
+  ///
+  /// In en, this message translates to:
+  /// **'Economic geography'**
+  String get economicGeography;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon: {title}'**
+  String comingSoon(String title);
 }
 
 class _AppLocalizationsDelegate
