@@ -1,6 +1,7 @@
 // lib/subjects/geography.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
+import 'physicalGeography.dart';
 
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
@@ -84,25 +85,7 @@ class GeographyPage extends StatelessWidget {
 
 /// --- Заглушки разделов: потом заменишь на реальные страницы ---
 
-class PhysicalGeographyPage extends StatelessWidget {
-  const PhysicalGeographyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    final cs = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.background,
-      appBar: AppBar(title: Text(t.physicalGeography)),
-      body: Center(
-        child: Text(
-          t.comingSoon(t.physicalGeography),
-          style: TextStyle(color: cs.onSurface, fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
+// PhysicalGeographyPage is implemented in lib/subject/physicalGeography.dart
 
 class EconomicGeographyPage extends StatelessWidget {
   const EconomicGeographyPage({super.key});
