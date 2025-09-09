@@ -55,6 +55,9 @@ add_subdirectory("runner")
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
+## Suppress deprecation warnings coming from third-party CMake projects
+## (e.g., firebase_cpp_sdk) to keep Windows configure logs clean.
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
 include(flutter/generated_plugins.cmake)
 
 

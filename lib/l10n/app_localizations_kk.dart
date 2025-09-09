@@ -172,6 +172,36 @@ class AppLocalizationsKk extends AppLocalizations {
   String get economicGeography => 'Экономикалық география';
 
   @override
+  String get mountains => 'Таулар';
+
+  @override
+  String get lakes => 'Көлдер';
+
+  @override
+  String get deserts => 'Шөлдер';
+
+  @override
+  String get rivers => 'Өзендер';
+
+  @override
+  String get reserves => 'Қорықтар';
+
+  @override
+  String get testLabel => 'Тест';
+
+  @override
+  String get regions => 'Облыстар';
+
+  @override
+  String get cities => 'Қалалар';
+
+  @override
+  String get factories => 'Зауыттар';
+
+  @override
+  String get legend => 'Шартты белгілер';
+
+  @override
   String comingSoon(String title) {
     return 'Жақында: $title';
   }

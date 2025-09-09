@@ -79,6 +79,18 @@
   "physicalGeography": "Physical geography",
   "economicGeography": "Economic geography",
 
+  "mountains": "Mountains",
+  "lakes": "Lakes",
+  "deserts": "Deserts",
+  "rivers": "Rivers",
+  "reserves": "Nature reserves",
+  "testLabel": "Test",
+
+  "regions": "Regions",
+  "cities": "Cities",
+  "factories": "Factories",
+  "legend": "Map legend",
+
   "comingSoon": "Coming soon: {title}",
   "@comingSoon": {
     "placeholders": {

@@ -9,6 +9,7 @@ import 'package:vector_math/vector_math_64.dart' show Matrix4;
 import 'package:flutter/services.dart' show rootBundle, HapticFeedback;
 import 'package:confetti/confetti.dart';
 import '../l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // This page shows an interactive SVG map of Kazakhstan.
 // Users must click the requested region; correct guesses turn green,
@@ -17,14 +18,14 @@ import '../l10n/app_localizations.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:path_drawing/path_drawing.dart';
 
-class PhysicalGeographyPage extends StatefulWidget {
-  const PhysicalGeographyPage({super.key});
+class EconomicGeographyPage extends StatefulWidget {
+  const EconomicGeographyPage({super.key});
 
   @override
-  State<PhysicalGeographyPage> createState() => _PhysicalGeographyPageState();
+  State<EconomicGeographyPage> createState() => _EconomicGeographyPageState();
 }
 
-class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
+class _EconomicGeographyPageState extends State<EconomicGeographyPage> {
   // Region IDs present in the SVG (<path id="...">)
   final List<String> _regionIds = const [
     'KZ10','KZ11','KZ15','KZ19','KZ23','KZ27','KZ31','KZ33','KZ35','KZ39',
@@ -46,6 +47,22 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
     super.initState();
     _remaining = _regionIds.toList()..shuffle();
     _nextTarget();
+    // Show rules once before first play
+    unawaited(_maybeShowFirstTimeRules());
+  }
+
+  Future<void> _maybeShowFirstTimeRules() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      const key = 'econ_geo_rules_shown_v1';
+      final shown = prefs.getBool(key) ?? false;
+      if (!shown && mounted) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => _showRulesDialog(context));
+        await prefs.setBool(key, true);
+      }
+    } catch (_) {
+      // If prefs fail, do nothing; game continues.
+    }
   }
 
   @override
@@ -113,7 +130,7 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.physicalGeography),
+        title: Text(t.economicGeography),
         actions: [
           IconButton(
             tooltip: _rulesButtonLabel(context),
@@ -125,98 +142,89 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
-              children: [
-                // Top bar with score + target in a card
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: cs.surface,
-                      borderRadius: BorderRadius.zero,
-                      boxShadow: [
-                        BoxShadow(
-                          color: cs.shadow.withOpacity(0.08),
-                          blurRadius: 10,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                      border: Border.all(color: cs.outlineVariant),
+            // Fullscreen map
+            Positioned.fill(
+              child: KazakhstanSvgMap(
+                svgAssetPath: 'lib/Images/kazakhstan.svg',
+                onTapRegion: _onTapRegion,
+                colorForRegion: (id) {
+                  if (_correct.contains(id)) return Colors.green.withOpacity(0.7);
+                  if (_wrong.contains(id)) return Colors.red.withOpacity(0.6);
+                  return cs.primaryContainer.withOpacity(0.6);
+                },
+                strokeColor: cs.outline,
+              ),
+            ),
+            // Overlay top bar
+            Positioned(
+              left: 12,
+              right: 12,
+              top: 12,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: cs.surface.withOpacity(0.92),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: cs.outlineVariant),
+                  boxShadow: [
+                    BoxShadow(
+                      color: cs.shadow.withOpacity(0.08),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: cs.primaryContainer,
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                              child: Text(
-                                _scoreLabel(context, _score),
-                                style: TextStyle(
-                                  color: cs.onPrimaryContainer,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                            const Spacer(),
-                            FilledButton.tonal(
-                              onPressed: _restart,
-                              child: Text(_restartLabel(context)),
-                            ),
-                          ],
+                  ],
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: cs.primaryContainer,
+                        borderRadius: BorderRadius.circular(999),
+                      ),
+                      child: Text(
+                        _scoreLabel(context, _score),
+                        style: TextStyle(
+                          color: cs.onPrimaryContainer,
+                          fontWeight: FontWeight.w700,
                         ),
-                        const SizedBox(height: 10),
-                        Text.rich(
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    if (!finished)
+                      Expanded(
+                        child: Text.rich(
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: finished
-                                    ? ''
-                                    : _selectRegionLabel(context, ''),
+                                text: _selectRegionLabel(context, ''),
                                 style: TextStyle(
                                   color: cs.onSurface,
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              if (!finished)
-                                TextSpan(
-                                  text: targetName,
-                                  style: TextStyle(
-                                    color: cs.primary,
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 18,
-                                  ),
+                              TextSpan(
+                                text: targetName,
+                                style: TextStyle(
+                                  color: cs.primary,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16,
                                 ),
+                              ),
                             ],
                           ),
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      ],
+                      ),
+                    const Spacer(),
+                    FilledButton.tonal(
+                      onPressed: _restart,
+                      child: Text(_restartLabel(context)),
                     ),
-                  ),
+                  ],
                 ),
-                // Map area
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: KazakhstanSvgMap(
-                      svgAssetPath: 'lib/Images/kazakhstan.svg',
-                      onTapRegion: _onTapRegion,
-                      colorForRegion: (id) {
-                        if (_correct.contains(id)) return Colors.green.withOpacity(0.7);
-                        if (_wrong.contains(id)) return Colors.red.withOpacity(0.6);
-                        return cs.primaryContainer.withOpacity(0.6);
-                      },
-                      strokeColor: cs.outline,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             // Confetti overlay (top center)
             Positioned.fill(

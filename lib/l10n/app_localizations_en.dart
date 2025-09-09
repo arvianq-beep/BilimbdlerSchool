@@ -170,6 +170,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get economicGeography => 'Economic geography';
 
   @override
+  String get mountains => 'Mountains';
+
+  @override
+  String get lakes => 'Lakes';
+
+  @override
+  String get deserts => 'Deserts';
+
+  @override
+  String get rivers => 'Rivers';
+
+  @override
+  String get reserves => 'Nature reserves';
+
+  @override
+  String get testLabel => 'Test';
+
+  @override
+  String get regions => 'Regions';
+
+  @override
+  String get cities => 'Cities';
+
+  @override
+  String get factories => 'Factories';
+
+  @override
+  String get legend => 'Map legend';
+
+  @override
   String comingSoon(String title) {
     return 'Coming soon: $title';
   }

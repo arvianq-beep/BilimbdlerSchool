@@ -36,5 +36,16 @@ target_link_libraries(${BINARY_NAME} PRIVATE flutter flutter_wrapper_app)
 target_link_libraries(${BINARY_NAME} PRIVATE "dwmapi.lib")
 target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
 
+# Suppress MSVC LNK4099 warnings (missing PDBs in third-party libs like Firestore).
+if(MSVC)
+  target_link_options(${BINARY_NAME} PRIVATE /ignore:4099)
+  # Ensure MSVC C++ runtime libraries are explicitly linked to satisfy
+  # std::* intrinsics referenced by prebuilt Firebase libraries.
+  target_link_libraries(${BINARY_NAME} PRIVATE
+    $<$<CONFIG:Debug>:msvcprtd;ucrtd;vcruntimed>
+    $<$<NOT:$<CONFIG:Debug>>:msvcprt;ucrt;vcruntime>
+  )
+endif()
+
 # Run the Flutter tool portions of the build. This must not be removed.
 add_dependencies(${BINARY_NAME} flutter_assemble)

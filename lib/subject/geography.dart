@@ -1,7 +1,8 @@
 // lib/subjects/geography.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
-import 'physicalGeography.dart';
+import 'physical_geography_menu.dart';
+import 'economic_geography_menu.dart';
 
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
@@ -50,7 +51,7 @@ class GeographyPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const PhysicalGeographyPage(),
+                            builder: (_) => const PhysicalGeographyMenuPage(),
                           ),
                         );
                       },
@@ -65,7 +66,7 @@ class GeographyPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const EconomicGeographyPage(),
+                            builder: (_) => const EconomicGeographyMenuPage(),
                           ),
                         );
                       },
@@ -87,22 +88,5 @@ class GeographyPage extends StatelessWidget {
 
 // PhysicalGeographyPage is implemented in lib/subject/physicalGeography.dart
 
-class EconomicGeographyPage extends StatelessWidget {
-  const EconomicGeographyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    final cs = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.background,
-      appBar: AppBar(title: Text(t.economicGeography)),
-      body: Center(
-        child: Text(
-          t.comingSoon(t.economicGeography),
-          style: TextStyle(color: cs.onSurface, fontSize: 18),
-        ),
-      ),
-    );
-  }
-}
+// Экран Экономической географии вынесен в
+// lib/subject/economic_geography_menu.dart

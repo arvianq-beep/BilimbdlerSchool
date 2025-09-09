@@ -79,6 +79,18 @@
   "physicalGeography": "Физикалық география",
   "economicGeography": "Экономикалық география",
 
+  "mountains": "Таулар",
+  "lakes": "Көлдер",
+  "deserts": "Шөлдер",
+  "rivers": "Өзендер",
+  "reserves": "Қорықтар",
+  "testLabel": "Тест",
+
+  "regions": "Облыстар",
+  "cities": "Қалалар",
+  "factories": "Зауыттар",
+  "legend": "Шартты белгілер",
+
   "comingSoon": "Жақында: {title}",
   "@comingSoon": {
     "placeholders": {

@@ -79,6 +79,18 @@
   "physicalGeography": "Физическая география",
   "economicGeography": "Экономическая география",
 
+  "mountains": "Горы",
+  "lakes": "Озера",
+  "deserts": "Пустыни",
+  "rivers": "Реки",
+  "reserves": "Заповедники",
+  "testLabel": "Тест",
+
+  "regions": "Области",
+  "cities": "Города",
+  "factories": "Заводы",
+  "legend": "Условные знаки",
+
   "comingSoon": "Скоро будет: {title}",
   "@comingSoon": {
     "placeholders": {
