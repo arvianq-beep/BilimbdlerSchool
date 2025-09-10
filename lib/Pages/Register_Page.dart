@@ -24,6 +24,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool loading = false;
   String? errorKey;
+  bool _passwordObscured = true;
+  bool _confirmObscured = true;
 
   Future<void> register() async {
     final email = emailController.text.trim();
@@ -139,14 +141,34 @@ class _RegisterPageState extends State<RegisterPage> {
                 MyTextfield(
                   controller: passwordController,
                   hintText: t.password,
-                  obscureText: true,
+                  obscureText: _passwordObscured,
+                  suffixIcon: IconButton(
+                    onPressed: () => setState(() {
+                      _passwordObscured = !_passwordObscured;
+                    }),
+                    icon: Icon(
+                      _passwordObscured
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
 
                 MyTextfield(
                   controller: confirmPasswordController,
                   hintText: t.confirmPassword,
-                  obscureText: true,
+                  obscureText: _confirmObscured,
+                  suffixIcon: IconButton(
+                    onPressed: () => setState(() {
+                      _confirmObscured = !_confirmObscured;
+                    }),
+                    icon: Icon(
+                      _confirmObscured
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16),
 

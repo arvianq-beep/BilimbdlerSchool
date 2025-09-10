@@ -175,4 +175,37 @@ class AppLocalizationsRu extends AppLocalizations {
   String comingSoon(String title) {
     return 'Скоро будет: $title';
   }
+
+  @override
+  String get mountains => 'Горы';
+
+  @override
+  String get lakes => 'Озера';
+
+  @override
+  String get deserts => 'Пустыни';
+
+  @override
+  String get rivers => 'Реки';
+
+  @override
+  String get reserves => 'Заповедники';
+
+  @override
+  String get testLabel => 'Тест';
+
+  @override
+  String get regions => 'Области';
+
+  @override
+  String get cities => 'Города';
+
+  @override
+  String get symbols => 'Условные знаки';
+
+  @override
+  String get factories => 'Заводы';
+
+  @override
+  String get symbolsTest => 'Условные знаки тест';
 }

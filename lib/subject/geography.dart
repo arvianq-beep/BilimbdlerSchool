@@ -1,7 +1,8 @@
 // lib/subjects/geography.dart
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
-import 'physicalGeography.dart';
+import 'physical_geography_menu.dart';
+import 'economic_geography_menu.dart';
 
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
@@ -50,7 +51,7 @@ class GeographyPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const PhysicalGeographyPage(),
+                            builder: (_) => const PhysicalGeographyMenuPage(),
                           ),
                         );
                       },
@@ -65,7 +66,7 @@ class GeographyPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const EconomicGeographyPage(),
+                            builder: (_) => const EconomicGeographyMenuPage(),
                           ),
                         );
                       },
@@ -85,7 +86,7 @@ class GeographyPage extends StatelessWidget {
 
 /// --- Заглушки разделов: потом заменишь на реальные страницы ---
 
-// PhysicalGeographyPage is implemented in lib/subject/physicalGeography.dart
+// PhysicalGeographyPage is implemented in lib/subject/region_economic_geography.dart
 
 class EconomicGeographyPage extends StatelessWidget {
   const EconomicGeographyPage({super.key});

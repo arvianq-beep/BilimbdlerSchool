@@ -84,5 +84,18 @@
     "placeholders": {
       "title": { "type": "String", "example": "Physical geography" }
     }
-  }
+  },
+
+  "mountains": "Mountains",
+  "lakes": "Lakes",
+  "deserts": "Deserts",
+  "rivers": "Rivers",
+  "reserves": "Reserves",
+  "testLabel": "Test",
+
+  "regions": "Regions",
+  "cities": "Cities",
+  "symbols": "Symbols",
+  "factories": "Factories",
+  "symbolsTest": "Symbols test"
 }

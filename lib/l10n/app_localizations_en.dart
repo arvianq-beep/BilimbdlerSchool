@@ -173,4 +173,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String comingSoon(String title) {
     return 'Coming soon: $title';
   }
+
+  @override
+  String get mountains => 'Mountains';
+
+  @override
+  String get lakes => 'Lakes';
+
+  @override
+  String get deserts => 'Deserts';
+
+  @override
+  String get rivers => 'Rivers';
+
+  @override
+  String get reserves => 'Reserves';
+
+  @override
+  String get testLabel => 'Test';
+
+  @override
+  String get regions => 'Regions';
+
+  @override
+  String get cities => 'Cities';
+
+  @override
+  String get symbols => 'Symbols';
+
+  @override
+  String get factories => 'Factories';
+
+  @override
+  String get symbolsTest => 'Symbols test';
 }

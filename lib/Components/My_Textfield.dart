@@ -4,12 +4,14 @@ class MyTextfield extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
   final bool obscureText;
+  final Widget? suffixIcon;
 
   const MyTextfield({
     super.key,
     required this.controller,
     required this.hintText,
     required this.obscureText,
+    this.suffixIcon,
   });
 
   @override
@@ -24,6 +26,7 @@ class MyTextfield extends StatelessWidget {
           horizontal: 12,
           vertical: 12,
         ),
+        suffixIcon: suffixIcon,
       ),
     );
   }

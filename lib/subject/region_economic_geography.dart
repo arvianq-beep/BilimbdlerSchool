@@ -25,6 +25,7 @@ class PhysicalGeographyPage extends StatefulWidget {
 }
 
 class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
+  static bool _rulesShownOnce = false;
   // Region IDs present in the SVG (<path id="...">)
   final List<String> _regionIds = const [
     'KZ10','KZ11','KZ15','KZ19','KZ23','KZ27','KZ31','KZ33','KZ35','KZ39',
@@ -46,6 +47,13 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
     super.initState();
     _remaining = _regionIds.toList()..shuffle();
     _nextTarget();
+    // Show rules on first open
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_rulesShownOnce) {
+        _rulesShownOnce = true;
+        _showRulesDialog(context);
+      }
+    });
   }
 
   @override
@@ -113,7 +121,7 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(t.physicalGeography),
+        title: Text(AppLocalizations.of(context)!.regions),
         actions: [
           IconButton(
             tooltip: _rulesButtonLabel(context),
@@ -208,11 +216,11 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                       svgAssetPath: 'lib/Images/kazakhstan.svg',
                       onTapRegion: _onTapRegion,
                       colorForRegion: (id) {
-                        if (_correct.contains(id)) return Colors.green.withOpacity(0.7);
-                        if (_wrong.contains(id)) return Colors.red.withOpacity(0.6);
-                        return cs.primaryContainer.withOpacity(0.6);
+                        if (_correct.contains(id)) return cs.primary.withOpacity(0.75);
+                        if (_wrong.contains(id)) return Theme.of(context).colorScheme.error.withOpacity(0.6);
+                        return cs.primaryContainer.withOpacity(0.55);
                       },
-                      strokeColor: cs.outline,
+                      strokeColor: cs.onSurface.withOpacity(0.35),
                     ),
                   ),
                 ),

@@ -411,6 +411,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Coming soon: {title}'**
   String comingSoon(String title);
+
+  /// No description provided for @mountains.
+  ///
+  /// In en, this message translates to:
+  /// **'Mountains'**
+  String get mountains;
+
+  /// No description provided for @lakes.
+  ///
+  /// In en, this message translates to:
+  /// **'Lakes'**
+  String get lakes;
+
+  /// No description provided for @deserts.
+  ///
+  /// In en, this message translates to:
+  /// **'Deserts'**
+  String get deserts;
+
+  /// No description provided for @rivers.
+  ///
+  /// In en, this message translates to:
+  /// **'Rivers'**
+  String get rivers;
+
+  /// No description provided for @reserves.
+  ///
+  /// In en, this message translates to:
+  /// **'Reserves'**
+  String get reserves;
+
+  /// No description provided for @testLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get testLabel;
+
+  /// No description provided for @regions.
+  ///
+  /// In en, this message translates to:
+  /// **'Regions'**
+  String get regions;
+
+  /// No description provided for @cities.
+  ///
+  /// In en, this message translates to:
+  /// **'Cities'**
+  String get cities;
+
+  /// No description provided for @symbols.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols'**
+  String get symbols;
+
+  /// No description provided for @factories.
+  ///
+  /// In en, this message translates to:
+  /// **'Factories'**
+  String get factories;
+
+  /// No description provided for @symbolsTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols test'**
+  String get symbolsTest;
 }
 
 class _AppLocalizationsDelegate

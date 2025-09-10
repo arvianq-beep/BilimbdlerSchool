@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   bool loading = false;
   String? errorKey;
+  bool _passwordObscured = true;
 
   @override
   void dispose() {
@@ -224,7 +225,17 @@ class _LoginPageState extends State<LoginPage> {
               MyTextfield(
                 controller: passwordController,
                 hintText: t.password,
-                obscureText: true,
+                obscureText: _passwordObscured,
+                suffixIcon: IconButton(
+                  onPressed: () => setState(() {
+                    _passwordObscured = !_passwordObscured;
+                  }),
+                  icon: Icon(
+                    _passwordObscured
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
               ),
 
               Align(

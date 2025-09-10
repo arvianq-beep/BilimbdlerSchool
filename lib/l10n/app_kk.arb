@@ -84,5 +84,16 @@
     "placeholders": {
       "title": { "type": "String", "example": "Физикалық география" }
     }
-  }
+  },
+  "mountains": "Таулар",
+  "lakes": "Көлдер",
+  "deserts": "Шөлдер",
+  "rivers": "Өзендер",
+  "reserves": "Қорықтар",
+  "testLabel": "Тест",
+  "regions": "Облыстар",
+  "cities": "Қалалар",
+  "symbols": "Шартты белгілер",
+  "factories": "Зауыттар",
+  "symbolsTest": "Шартты белгілер тест"
 }
