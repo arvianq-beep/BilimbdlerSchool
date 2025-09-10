@@ -231,9 +231,7 @@ class _LoginPageState extends State<LoginPage> {
                     _passwordObscured = !_passwordObscured;
                   }),
                   icon: Icon(
-                    _passwordObscured
-                        ? Icons.visibility_off
-                        : Icons.visibility,
+                    _passwordObscured ? Icons.visibility_off : Icons.visibility,
                   ),
                 ),
               ),

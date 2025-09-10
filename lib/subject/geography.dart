@@ -1,11 +1,116 @@
-// lib/subjects/geography.dart
+// lib/subject/geography.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/Pages/room_lobby_page.dart';
+import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
 import 'physical_geography_menu.dart';
 import 'economic_geography_menu.dart';
 
+enum _Mode { solo, group }
+
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
+
+  Future<_Mode?> _askMode(BuildContext context) {
+    return showDialog<_Mode>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Как играть?'),
+        content: const Text(
+          'Один — сразу в предмет.\nГруппа — создастся комната и начнёте вместе.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, _Mode.solo),
+            child: const Text('Один'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx, _Mode.group),
+            child: const Text('Группа'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<int?> _askLimit(BuildContext context) async {
+    int value = 2;
+    return showDialog<int>(
+      context: context,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setState) => AlertDialog(
+          title: const Text('Сколько участников?'),
+          content: DropdownButton<int>(
+            value: value,
+            isExpanded: true,
+            items:
+                const [2, 3, 4, 5, 6, 7] // <— как просил
+                    .map(
+                      (v) =>
+                          DropdownMenuItem(value: v, child: Text(v.toString())),
+                    )
+                    .toList(),
+            onChanged: (v) => setState(() => value = v ?? 2),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Отмена'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, value),
+              child: const Text('Ок'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _openSubject(
+    BuildContext context, {
+    required String subject,
+    required Widget targetPage,
+  }) async {
+    final mode = await _askMode(context);
+    if (mode == null) return;
+
+    if (mode == _Mode.solo) {
+      if (!context.mounted) return;
+      Navigator.push(context, MaterialPageRoute(builder: (_) => targetPage));
+      return;
+    }
+
+    final limit = await _askLimit(context);
+    if (limit == null) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      final ref = await RoomService.createRoom(
+        maxMembers: limit,
+        subject: subject, // <—
+      );
+      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => RoomLobbyPage(roomId: ref.id)),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Не удалось создать комнату: $e')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +123,6 @@ class GeographyPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
-        // без заголовка — только системная кнопка "назад"
         automaticallyImplyLeading: true,
         title: const SizedBox.shrink(),
       ),
@@ -27,7 +131,6 @@ class GeographyPage extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              // большой заголовок по центру
               Expanded(
                 child: Center(
                   child: Text(
@@ -42,19 +145,15 @@ class GeographyPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // две кнопки снизу
               Row(
                 children: [
                   Expanded(
                     child: FilledButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const PhysicalGeographyMenuPage(),
-                          ),
-                        );
-                      },
+                      onPressed: () => _openSubject(
+                        context,
+                        subject: 'physical',
+                        targetPage: const PhysicalGeographyMenuPage(),
+                      ),
                       icon: const Icon(Icons.public),
                       label: Text(t.physicalGeography),
                     ),
@@ -62,14 +161,11 @@ class GeographyPage extends StatelessWidget {
                   const SizedBox(width: 12),
                   Expanded(
                     child: FilledButton.tonalIcon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const EconomicGeographyMenuPage(),
-                          ),
-                        );
-                      },
+                      onPressed: () => _openSubject(
+                        context,
+                        subject: 'economic',
+                        targetPage: const EconomicGeographyMenuPage(),
+                      ),
                       icon: const Icon(Icons.trending_up),
                       label: Text(t.economicGeography),
                     ),
@@ -78,30 +174,6 @@ class GeographyPage extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-/// --- Заглушки разделов: потом заменишь на реальные страницы ---
-
-// PhysicalGeographyPage is implemented in lib/subject/region_economic_geography.dart
-
-class EconomicGeographyPage extends StatelessWidget {
-  const EconomicGeographyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    final cs = Theme.of(context).colorScheme;
-    return Scaffold(
-      backgroundColor: cs.background,
-      appBar: AppBar(title: Text(t.economicGeography)),
-      body: Center(
-        child: Text(
-          t.comingSoon(t.economicGeography),
-          style: TextStyle(color: cs.onSurface, fontSize: 18),
         ),
       ),
     );
