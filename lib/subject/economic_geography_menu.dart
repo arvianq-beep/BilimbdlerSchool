@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import 'region_economic_geography.dart';
+import 'cities_economic_geography.dart';
 
 /// Экономическая география — меню из 6 пунктов.
 class EconomicGeographyMenuPage extends StatelessWidget {
@@ -153,7 +154,7 @@ class _MenuSquare extends StatelessWidget {
 class CitiesPage extends StatelessWidget {
   const CitiesPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: 'города');
+  Widget build(BuildContext context) => const CitiesEconomicGeographyPage();
 }
 
 class SymbolsPage extends StatelessWidget {
