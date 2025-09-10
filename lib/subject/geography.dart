@@ -1,15 +1,69 @@
 // lib/subject/geography.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Pages/room_lobby_page.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
+
 import '../l10n/app_localizations.dart';
 import 'physical_geography_menu.dart';
 import 'economic_geography_menu.dart';
+import '../Pages/room_lobby_page.dart'; // если у тебя лобби в /rooms, поменяй путь
 
 enum _Mode { solo, group }
 
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
+
+  // ===== ВОЙТИ ПО КОДУ (нижняя кнопка вызывает это) =====
+  Future<void> _joinByCode(BuildContext context) async {
+    final code = await showDialog<String>(
+      context: context,
+      builder: (ctx) {
+        final c = TextEditingController();
+        return AlertDialog(
+          title: const Text('Войти по коду'),
+          content: TextField(
+            controller: c,
+            textCapitalization: TextCapitalization.characters,
+            decoration: const InputDecoration(hintText: 'ABC123'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text('Отмена'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, c.text.trim().toUpperCase()),
+              child: const Text('Войти'),
+            ),
+          ],
+        );
+      },
+    );
+    if (code == null || code.isEmpty) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+
+    try {
+      final ref = await RoomService.joinByCode(code);
+      if (context.mounted) Navigator.pop(context); // закрыть лоадер
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => RoomLobbyPage(roomId: ref.id)),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Ошибка: $e')));
+      }
+    }
+  }
 
   Future<_Mode?> _askMode(BuildContext context) {
     return showDialog<_Mode>(
@@ -43,13 +97,11 @@ class GeographyPage extends StatelessWidget {
           content: DropdownButton<int>(
             value: value,
             isExpanded: true,
-            items:
-                const [2, 3, 4, 5, 6, 7] // <— как просил
-                    .map(
-                      (v) =>
-                          DropdownMenuItem(value: v, child: Text(v.toString())),
-                    )
-                    .toList(),
+            items: const [2, 3, 4, 5, 6, 7]
+                .map(
+                  (v) => DropdownMenuItem(value: v, child: Text(v.toString())),
+                )
+                .toList(),
             onChanged: (v) => setState(() => value = v ?? 2),
           ),
           actions: [
@@ -69,7 +121,7 @@ class GeographyPage extends StatelessWidget {
 
   Future<void> _openSubject(
     BuildContext context, {
-    required String subject,
+    required String subject, // 'physical' | 'economic'
     required Widget targetPage,
   }) async {
     final mode = await _askMode(context);
@@ -93,7 +145,7 @@ class GeographyPage extends StatelessWidget {
     try {
       final ref = await RoomService.createRoom(
         maxMembers: limit,
-        subject: subject, // <—
+        subject: subject,
       );
       if (context.mounted) Navigator.pop(context);
       if (context.mounted) {
@@ -145,30 +197,40 @@ class GeographyPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Row(
+              Column(
                 children: [
-                  Expanded(
-                    child: FilledButton.icon(
-                      onPressed: () => _openSubject(
-                        context,
-                        subject: 'physical',
-                        targetPage: const PhysicalGeographyMenuPage(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FilledButton.icon(
+                          onPressed: () => _openSubject(
+                            context,
+                            subject: 'physical',
+                            targetPage: const PhysicalGeographyMenuPage(),
+                          ),
+                          icon: const Icon(Icons.public),
+                          label: Text(t.physicalGeography),
+                        ),
                       ),
-                      icon: const Icon(Icons.public),
-                      label: Text(t.physicalGeography),
-                    ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: FilledButton.tonalIcon(
+                          onPressed: () => _openSubject(
+                            context,
+                            subject: 'economic',
+                            targetPage: const EconomicGeographyMenuPage(),
+                          ),
+                          icon: const Icon(Icons.trending_up),
+                          label: Text(t.economicGeography),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: FilledButton.tonalIcon(
-                      onPressed: () => _openSubject(
-                        context,
-                        subject: 'economic',
-                        targetPage: const EconomicGeographyMenuPage(),
-                      ),
-                      icon: const Icon(Icons.trending_up),
-                      label: Text(t.economicGeography),
-                    ),
+                  const SizedBox(height: 8),
+                  TextButton.icon(
+                    onPressed: () => _joinByCode(context),
+                    icon: const Icon(Icons.login),
+                    label: const Text('Войти по коду'),
                   ),
                 ],
               ),

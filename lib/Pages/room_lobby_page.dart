@@ -1,11 +1,10 @@
-// lib/rooms/room_lobby_page.dart
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bilimdler/rooms/game_picker_page.dart';
 import '../Services/room_services.dart';
-import '../subject/physical_geography_menu.dart';
-import '../subject/economic_geography_menu.dart';
 
+// если хочешь сразу маппить на реальные экраны игр — см. _mapToGame ниже
 class RoomLobbyPage extends StatefulWidget {
   final String roomId;
   const RoomLobbyPage({super.key, required this.roomId});
@@ -17,14 +16,11 @@ class RoomLobbyPage extends StatefulWidget {
 class _RoomLobbyPageState extends State<RoomLobbyPage> {
   bool _navigated = false;
 
-  void _navigateToSubject(String subject) {
+  void _navigateToGame(String subject, String gameId) {
     if (_navigated || !mounted) return;
     _navigated = true;
-    final page = (subject == 'economic')
-        ? const EconomicGeographyMenuPage()
-        : const PhysicalGeographyMenuPage();
 
-    // заменяем лобби экраном предмета
+    final page = _GamePlaceholder(subject: subject, gameId: gameId);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -41,27 +37,28 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
       body: StreamBuilder(
         stream: RoomService.roomStream(widget.roomId),
         builder: (context, roomSnap) {
-          if (!roomSnap.hasData) {
+          if (!roomSnap.hasData)
             return const Center(child: CircularProgressIndicator());
-          }
           final room = roomSnap.data!.data();
-          if (room == null) {
-            return const Center(child: Text('Комната удалена'));
-          }
+          if (room == null) return const Center(child: Text('Комната удалена'));
 
           final code = (room['code'] ?? '') as String;
           final isOpen = room['isOpen'] == true;
-          final status = (room['status'] ?? 'waiting') as String;
-          final subject = (room['subject'] ?? 'physical') as String;
+          final status =
+              (room['status'] ?? 'waiting') as String; // waiting | playing
+          final subject =
+              (room['subject'] ?? 'physical') as String; // physical | economic
           final max = (room['maxMembers'] ?? 0) as int;
           final count = (room['memberCount'] ?? 0) as int;
           final owner = (room['ownerUid'] ?? '') as String;
           final myUid = FirebaseAuth.instance.currentUser?.uid ?? '';
           final iAmOwner = owner == myUid;
 
-          // если владелец нажал "Запустить" — всем перейти в предмет
-          if (status == 'started') {
-            _navigateToSubject(subject);
+          final currentGame = (room['currentGame']?['id']) as String?;
+
+          // если игра уже идёт — уходим всем в игру
+          if (status == 'playing' && currentGame != null) {
+            _navigateToGame(subject, currentGame);
           }
 
           return Padding(
@@ -91,13 +88,16 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                   ],
                 ),
                 const SizedBox(height: 6),
-                Row(
+                Wrap(
+                  spacing: 8,
                   children: [
                     Chip(label: Text(isOpen ? 'Открыта' : 'Закрыта')),
-                    const SizedBox(width: 8),
                     Chip(label: Text('Участники: $count / $max')),
-                    const SizedBox(width: 8),
-                    Chip(label: Text('Режим: ожидание')),
+                    Chip(
+                      label: Text(
+                        'Статус: ${status == 'waiting' ? 'ожидание' : 'в игре'}',
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -106,13 +106,11 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                   child: StreamBuilder(
                     stream: RoomService.membersStream(widget.roomId),
                     builder: (context, membersSnap) {
-                      if (!membersSnap.hasData) {
+                      if (!membersSnap.hasData)
                         return const Center(child: CircularProgressIndicator());
-                      }
                       final docs = membersSnap.data!.docs;
-                      if (docs.isEmpty) {
+                      if (docs.isEmpty)
                         return const Center(child: Text('Пока никого нет'));
-                      }
                       return ListView.separated(
                         itemCount: docs.length,
                         separatorBuilder: (_, __) => const Divider(height: 1),
@@ -151,10 +149,20 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                     Expanded(
                       child: FilledButton.icon(
                         onPressed: iAmOwner && count >= max
-                            ? () => RoomService.startRoom(widget.roomId)
+                            ? () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => GamePickerPage(
+                                      roomId: widget.roomId,
+                                      subject: subject,
+                                    ),
+                                  ),
+                                );
+                              }
                             : null,
-                        icon: const Icon(Icons.play_arrow),
-                        label: const Text('Запустить'),
+                        icon: const Icon(Icons.sports_esports),
+                        label: const Text('Выбрать игру'),
                       ),
                     ),
                   ],
@@ -163,6 +171,23 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+/// Временная заглушка экрана игры
+class _GamePlaceholder extends StatelessWidget {
+  final String subject;
+  final String gameId;
+  const _GamePlaceholder({required this.subject, required this.gameId});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Игра: $gameId')),
+      body: Center(
+        child: Text('Запущена игра "$gameId" для предмета "$subject"'),
       ),
     );
   }

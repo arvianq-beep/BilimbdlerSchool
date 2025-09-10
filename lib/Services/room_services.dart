@@ -1,4 +1,3 @@
-// lib/Services/room_services.dart
 import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +28,7 @@ class RoomService {
   }) async {
     final me = await _ensureUser();
 
-    // генерим уникальный код
+    // сгенерить уникальный код
     String code = '';
     for (var i = 0; i < 5; i++) {
       code = _code();
@@ -47,8 +46,8 @@ class RoomService {
       tx.set(roomRef, {
         'code': code,
         'ownerUid': me.uid,
-        'subject': subject, // <—
-        'status': 'waiting', // waiting | started
+        'subject': subject,
+        'status': 'waiting', // waiting | playing
         'isOpen': true,
         'maxMembers': maxMembers,
         'memberCount': 1,
@@ -66,7 +65,7 @@ class RoomService {
     return roomRef;
   }
 
-  /// Войти по коду (проверка вместимости)
+  /// Войти по коду (проверка вместимости/статуса)
   static Future<DocumentReference<Map<String, dynamic>>> joinByCode(
     String code,
   ) async {
@@ -84,7 +83,7 @@ class RoomService {
     await _db.runTransaction((tx) async {
       final roomSnap = await tx.get(roomRef);
       final data = roomSnap.data()! as Map<String, dynamic>;
-      if (data['status'] == 'started') throw Exception('Игра уже начата');
+      if (data['status'] == 'playing') throw Exception('Игра уже начата');
       if (data['isOpen'] != true) throw Exception('Комната закрыта');
 
       final max = (data['maxMembers'] ?? 0) as int;
@@ -108,11 +107,35 @@ class RoomService {
     return roomRef;
   }
 
-  /// Запустить игру (только владелец)
-  static Future<void> startRoom(String roomId) async {
+  /// Выйти из комнаты
+  static Future<void> leaveRoom(String roomId) async {
+    final me = await _ensureUser();
+    final roomRef = _db.collection('rooms').doc(roomId);
+    await _db.runTransaction((tx) async {
+      final meRef = roomRef.collection('members').doc(me.uid);
+      if ((await tx.get(meRef)).exists) {
+        tx.delete(meRef);
+        tx.update(roomRef, {'memberCount': FieldValue.increment(-1)});
+      }
+    });
+  }
+
+  /// Запустить выбранную игру (владелец)
+  static Future<void> startGame({
+    required String roomId,
+    required String gameId, // capitals/flags/... или экономические id
+  }) async {
     await _db.collection('rooms').doc(roomId).update({
-      'status': 'started',
-      'startedAt': FieldValue.serverTimestamp(),
+      'status': 'playing',
+      'currentGame': {'id': gameId, 'startedAt': FieldValue.serverTimestamp()},
+    });
+  }
+
+  /// (опц.) Сбросить игру и вернуться к ожиданию
+  static Future<void> resetGame(String roomId) async {
+    await _db.collection('rooms').doc(roomId).update({
+      'status': 'waiting',
+      'currentGame': FieldValue.delete(),
     });
   }
 
@@ -128,16 +151,4 @@ class RoomService {
       .collection('members')
       .orderBy('joinedAt')
       .snapshots();
-
-  static Future<void> leaveRoom(String roomId) async {
-    final me = await _ensureUser();
-    final roomRef = _db.collection('rooms').doc(roomId);
-    await _db.runTransaction((tx) async {
-      final meRef = roomRef.collection('members').doc(me.uid);
-      if ((await tx.get(meRef)).exists) {
-        tx.delete(meRef);
-        tx.update(roomRef, {'memberCount': FieldValue.increment(-1)});
-      }
-    });
-  }
 }
