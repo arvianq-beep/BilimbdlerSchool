@@ -2,7 +2,6 @@
   "@@locale": "kk",
   "appTitle": "Bilimdler",
   "brand": "BILIM\"D\"LER",
-
   "email": "Электрондық пошта",
   "password": "Құпия сөз",
   "signIn": "Кіру",
@@ -25,7 +24,6 @@
   "unknownError": "Белгісіз қате орын алды",
   "enterEmailPassword": "Электрондық пошта мен құпия сөзді енгізіңіз",
   "passwordsNotMatch": "Құпия сөздер сәйкес келмейді",
-
   "verificationEmailSent": "Растау хаты {email} поштасына жіберілді",
   "@verificationEmailSent": {
     "placeholders": {
@@ -35,7 +33,6 @@
   "verifyYourEmail": "Кіру алдында электрондық поштаңызды растаңыз",
   "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
   "pleaseEnterEmail": "Электрондық поштаңызды енгізіңіз",
-
   "resetEmailSent": "Құпия сөзді қалпына келтіру хаты {email} поштасына жіберілді",
   "@resetEmailSent": {
     "placeholders": {
@@ -44,7 +41,6 @@
   },
   "resendVerification": "Растау хатын қайта жіберу",
   "verificationEmailResent": "Растау хаты қайта жіберілді",
-
   "guestIdDisplay": "Қонақ ID: {id}",
   "@guestIdDisplay": {
     "placeholders": {
@@ -57,7 +53,6 @@
       "id": { "type": "String", "example": "1F2A3B4C" }
     }
   },
-
   "profileTitle": "Профиль",
   "firstName": "Аты",
   "lastName": "Тегі",
@@ -65,7 +60,6 @@
   "saved": "Сақталды",
   "enterNameOrSurname": "Аты немесе тегін енгізіңіз",
   "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздей аласыз.",
-
   "startGame": "Ойынды бастау",
   "subjects": "Пәндер",
   "settings": "Баптаулар",
@@ -74,11 +68,9 @@
   "theme": "Тақырып",
   "chooseSubject": "Пәнді таңдаңыз",
   "toggleTheme": "Тақырыпты ауыстыру",
-
   "geography": "География",
   "physicalGeography": "Физикалық география",
   "economicGeography": "Экономикалық география",
-
   "comingSoon": "Жақында: {title}",
   "@comingSoon": {
     "placeholders": {
@@ -95,5 +87,77 @@
   "cities": "Қалалар",
   "symbols": "Шартты белгілер",
   "factories": "Зауыттар",
-  "symbolsTest": "Шартты белгілер тест"
+  "symbolsTest": "Шартты белгілер тест",
+  "joinByCode": "Код арқылы кіру",
+  "enterCode": "Кодты енгізіңіз",
+  "enterCodeHint": "ABC123",
+  "btnJoin": "Кіру",
+  "btnCancel": "Бас тарту",
+  "howToPlayTitle": "Қалай ойнаймыз?",
+  "howToPlayBody": "Жеке — бірден пәнге өтесіз.\nТоп — бөлме құрылып, бәріңіз бірге бастайсыз.",
+  "modeSolo": "Жеке",
+  "modeGroup": "Топпен",
+  "chooseParticipantsTitle": "Қатысушылар саны?",
+  "btnOk": "ОК",
+  "waitingRoomTitle": "Күту бөлмесі",
+  "roomDeleted": "Бөлме өшірілді",
+  "codeCopied": "Код көшірілді",
+  "roomOpen": "Ашық",
+  "roomClosed": "Жабық",
+  "membersCount": "Қатысушылар: {count} / {max}",
+  "@membersCount": {
+    "placeholders": {
+      "count": { "type": "int", "example": "2" },
+      "max": { "type": "int", "example": "5" }
+    }
+  },
+  "statusLabel": "Күйі",
+  "statusWaiting": "күту",
+  "statusPlaying": "ойында",
+  "leave": "Шығу",
+  "chooseGame": "Ойынды таңдау",
+  "createRoomFailed": "Бөлмені құру мүмкін болмады",
+  "startGameFailed": "Ойынды іске қосу мүмкін болмады",
+  "roomNotFound": "Бөлме табылмады",
+  "roomAlreadyStarted": "Ойын басталып кетті",
+  "roomIsClosed": "Бөлме жабық",
+  "roomIsFull": "Бос орын жоқ",
+  "codeLabel": "Код: {code}",
+  "@codeLabel": {
+    "placeholders": {
+      "code": { "type": "String", "example": "ABC123" }
+    }
+  },
+
+  "createRoomTitle": "Бөлме құру",
+  "participantsLimit": "Қатысушылар шегі",
+  "btnCreate": "Құру",
+  "shareCodeHint": "Құрғаннан кейін, лоббиден бөлме кодын бөлісіңіз.",
+  "owner": "Иесі",
+  "member": "Мүше",
+  "noMembersYet": "Әзірге ешкім жоқ",
+  "joinFailed": "Қосыла алмады",
+  "codeGenerationFailed": "Код жасау сәтсіз аяқталды",
+  "gameTitle": "Ойын: {id}",
+  "@gameTitle": {
+    "placeholders": {
+      "id": { "type": "String", "example": "capitals" }
+    }
+  },
+  "gameLaunched": "«{subject}» пәні бойынша «{gameId}» ойыны басталды",
+  "@gameLaunched": {
+    "placeholders": {
+      "gameId": { "type": "String", "example": "capitals" },
+      "subject": { "type": "String", "example": "physical" }
+    }
+  },
+  "markets": "Нарықтар",
+  "gdpQuiz": "ЖІӨ викторинасы",
+  "tradeRoutes": "Сауда жолдары",
+  "industry": "Өнеркәсіп",
+  "resources": "Ресурстар",
+  "population": "Халық",
+  "capitals": "Астаналар",
+  "flags": "Тулар",
+  "climate": "Климат"
 }

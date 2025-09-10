@@ -477,6 +477,300 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Symbols test'**
   String get symbolsTest;
+
+  /// No description provided for @joinByCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Join by code'**
+  String get joinByCode;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter code'**
+  String get enterCode;
+
+  /// No description provided for @enterCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'ABC123'**
+  String get enterCodeHint;
+
+  /// No description provided for @btnJoin.
+  ///
+  /// In en, this message translates to:
+  /// **'Join'**
+  String get btnJoin;
+
+  /// No description provided for @btnCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get btnCancel;
+
+  /// No description provided for @howToPlayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to play?'**
+  String get howToPlayTitle;
+
+  /// No description provided for @howToPlayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Solo — go straight to the subject.\nGroup — a room will be created and you’ll start together.'**
+  String get howToPlayBody;
+
+  /// No description provided for @modeSolo.
+  ///
+  /// In en, this message translates to:
+  /// **'Solo'**
+  String get modeSolo;
+
+  /// No description provided for @modeGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Group'**
+  String get modeGroup;
+
+  /// No description provided for @chooseParticipantsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How many participants?'**
+  String get chooseParticipantsTitle;
+
+  /// No description provided for @btnOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get btnOk;
+
+  /// No description provided for @waitingRoomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting room'**
+  String get waitingRoomTitle;
+
+  /// No description provided for @roomDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Room deleted'**
+  String get roomDeleted;
+
+  /// No description provided for @codeCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Code copied'**
+  String get codeCopied;
+
+  /// No description provided for @roomOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get roomOpen;
+
+  /// No description provided for @roomClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get roomClosed;
+
+  /// No description provided for @membersCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Members: {count} / {max}'**
+  String membersCount(int count, int max);
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// No description provided for @statusWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'waiting'**
+  String get statusWaiting;
+
+  /// No description provided for @statusPlaying.
+  ///
+  /// In en, this message translates to:
+  /// **'playing'**
+  String get statusPlaying;
+
+  /// No description provided for @leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get leave;
+
+  /// No description provided for @chooseGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose game'**
+  String get chooseGame;
+
+  /// No description provided for @createRoomFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t create room'**
+  String get createRoomFailed;
+
+  /// No description provided for @startGameFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t start the game'**
+  String get startGameFailed;
+
+  /// No description provided for @roomNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Room not found'**
+  String get roomNotFound;
+
+  /// No description provided for @roomAlreadyStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'The game has already started'**
+  String get roomAlreadyStarted;
+
+  /// No description provided for @roomIsClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Room is closed'**
+  String get roomIsClosed;
+
+  /// No description provided for @roomIsFull.
+  ///
+  /// In en, this message translates to:
+  /// **'No seats left'**
+  String get roomIsFull;
+
+  /// No description provided for @codeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Code: {code}'**
+  String codeLabel(String code);
+
+  /// No description provided for @createRoomTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Create room'**
+  String get createRoomTitle;
+
+  /// No description provided for @participantsLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Participants limit'**
+  String get participantsLimit;
+
+  /// No description provided for @btnCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get btnCreate;
+
+  /// No description provided for @shareCodeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'After creating, share the room code from the lobby.'**
+  String get shareCodeHint;
+
+  /// No description provided for @owner.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner'**
+  String get owner;
+
+  /// No description provided for @member.
+  ///
+  /// In en, this message translates to:
+  /// **'Member'**
+  String get member;
+
+  /// No description provided for @noMembersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No one yet'**
+  String get noMembersYet;
+
+  /// No description provided for @joinFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t join'**
+  String get joinFailed;
+
+  /// No description provided for @codeGenerationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t generate a code'**
+  String get codeGenerationFailed;
+
+  /// No description provided for @gameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Game: {id}'**
+  String gameTitle(String id);
+
+  /// No description provided for @gameLaunched.
+  ///
+  /// In en, this message translates to:
+  /// **'Started game \"{gameId}\" for subject \"{subject}\"'**
+  String gameLaunched(String gameId, String subject);
+
+  /// No description provided for @markets.
+  ///
+  /// In en, this message translates to:
+  /// **'Markets'**
+  String get markets;
+
+  /// No description provided for @gdpQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'GDP quiz'**
+  String get gdpQuiz;
+
+  /// No description provided for @tradeRoutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Trade routes'**
+  String get tradeRoutes;
+
+  /// No description provided for @industry.
+  ///
+  /// In en, this message translates to:
+  /// **'Industry'**
+  String get industry;
+
+  /// No description provided for @resources.
+  ///
+  /// In en, this message translates to:
+  /// **'Resources'**
+  String get resources;
+
+  /// No description provided for @population.
+  ///
+  /// In en, this message translates to:
+  /// **'Population'**
+  String get population;
+
+  /// No description provided for @capitals.
+  ///
+  /// In en, this message translates to:
+  /// **'Capitals'**
+  String get capitals;
+
+  /// No description provided for @flags.
+  ///
+  /// In en, this message translates to:
+  /// **'Flags'**
+  String get flags;
+
+  /// No description provided for @climate.
+  ///
+  /// In en, this message translates to:
+  /// **'Climate'**
+  String get climate;
 }
 
 class _AppLocalizationsDelegate

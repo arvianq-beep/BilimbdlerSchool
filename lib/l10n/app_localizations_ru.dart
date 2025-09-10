@@ -208,4 +208,161 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get symbolsTest => 'Условные знаки тест';
+
+  @override
+  String get joinByCode => 'Войти по коду';
+
+  @override
+  String get enterCode => 'Введите код';
+
+  @override
+  String get enterCodeHint => 'ABC123';
+
+  @override
+  String get btnJoin => 'Войти';
+
+  @override
+  String get btnCancel => 'Отмена';
+
+  @override
+  String get howToPlayTitle => 'Как играть?';
+
+  @override
+  String get howToPlayBody =>
+      'Один — сразу в предмет.\nГруппа — создастся комната и начнёте вместе.';
+
+  @override
+  String get modeSolo => 'Один';
+
+  @override
+  String get modeGroup => 'Группа';
+
+  @override
+  String get chooseParticipantsTitle => 'Сколько участников?';
+
+  @override
+  String get btnOk => 'Ок';
+
+  @override
+  String get waitingRoomTitle => 'Комната ожидания';
+
+  @override
+  String get roomDeleted => 'Комната удалена';
+
+  @override
+  String get codeCopied => 'Код скопирован';
+
+  @override
+  String get roomOpen => 'Открыта';
+
+  @override
+  String get roomClosed => 'Закрыта';
+
+  @override
+  String membersCount(int count, int max) {
+    return 'Участники: $count / $max';
+  }
+
+  @override
+  String get statusLabel => 'Статус';
+
+  @override
+  String get statusWaiting => 'ожидание';
+
+  @override
+  String get statusPlaying => 'в игре';
+
+  @override
+  String get leave => 'Выйти';
+
+  @override
+  String get chooseGame => 'Выбрать игру';
+
+  @override
+  String get createRoomFailed => 'Не удалось создать комнату';
+
+  @override
+  String get startGameFailed => 'Не удалось запустить игру';
+
+  @override
+  String get roomNotFound => 'Комната не найдена';
+
+  @override
+  String get roomAlreadyStarted => 'Игра уже начата';
+
+  @override
+  String get roomIsClosed => 'Комната закрыта';
+
+  @override
+  String get roomIsFull => 'Мест нет';
+
+  @override
+  String codeLabel(String code) {
+    return 'Код: $code';
+  }
+
+  @override
+  String get createRoomTitle => 'Создать комнату';
+
+  @override
+  String get participantsLimit => 'Лимит участников';
+
+  @override
+  String get btnCreate => 'Создать';
+
+  @override
+  String get shareCodeHint =>
+      'После создания поделитесь кодом комнаты из лобби.';
+
+  @override
+  String get owner => 'Владелец';
+
+  @override
+  String get member => 'Участник';
+
+  @override
+  String get noMembersYet => 'Пока никого';
+
+  @override
+  String get joinFailed => 'Не удалось присоединиться';
+
+  @override
+  String get codeGenerationFailed => 'Не удалось сгенерировать код';
+
+  @override
+  String gameTitle(String id) {
+    return 'Игра: $id';
+  }
+
+  @override
+  String gameLaunched(String gameId, String subject) {
+    return 'Запущена игра «$gameId» по предмету «$subject»';
+  }
+
+  @override
+  String get markets => 'Рынки';
+
+  @override
+  String get gdpQuiz => 'Викторина по ВВП';
+
+  @override
+  String get tradeRoutes => 'Торговые пути';
+
+  @override
+  String get industry => 'Промышленность';
+
+  @override
+  String get resources => 'Ресурсы';
+
+  @override
+  String get population => 'Население';
+
+  @override
+  String get capitals => 'Столицы';
+
+  @override
+  String get flags => 'Флаги';
+
+  @override
+  String get climate => 'Климат';
 }

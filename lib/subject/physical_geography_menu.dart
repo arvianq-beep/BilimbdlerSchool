@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
 
-/// Меню "Физическая география": 6 квадратов как на скрине.
+/// Меню "Физическая география": 6 квадратов.
+/// Если [roomId] != null — нажатие по плитке запускает игру в руме (startGame),
+/// иначе просто открывает локальную страницу (соло).
 class PhysicalGeographyMenuPage extends StatelessWidget {
-  const PhysicalGeographyMenuPage({super.key});
+  final String? roomId;
+  const PhysicalGeographyMenuPage({super.key, this.roomId});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +25,8 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    const cross = 3; // 3 columns
-                    const rows = 2; // 2 rows
+                    const cross = 3;
+                    const rows = 2;
                     const vSpace = 28.0;
                     const hSpace = 28.0;
 
@@ -40,42 +44,66 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
                       crossAxisSpacing: hSpace,
                       childAspectRatio: ratio,
                       children: [
-                    _MenuSquare(
-                      index: 1,
-                      icon: Icons.terrain,
-                      label: t.mountains,
-                      onTap: () => _open(context, const MountainsPage()),
-                    ),
-                    _MenuSquare(
-                      index: 2,
-                      icon: Icons.water,
-                      label: t.lakes,
-                      onTap: () => _open(context, const LakesPage()),
-                    ),
-                    _MenuSquare(
-                      index: 3,
-                      icon: Icons.landscape,
-                      label: t.deserts,
-                      onTap: () => _open(context, const DesertsPage()),
-                    ),
-                    _MenuSquare(
-                      index: 4,
-                      icon: Icons.waves,
-                      label: t.rivers,
-                      onTap: () => _open(context, const RiversPage()),
-                    ),
-                    _MenuSquare(
-                      index: 5,
-                      icon: Icons.park,
-                      label: t.reserves,
-                      onTap: () => _open(context, const ReservesPage()),
-                    ),
-                    _MenuSquare(
-                      index: 6,
-                      icon: Icons.quiz,
-                      label: t.testLabel,
-                      onTap: () => _open(context, const PhysicalTestPage()),
-                    ),
+                        _MenuSquare(
+                          index: 1,
+                          icon: Icons.terrain,
+                          label: t.mountains,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'mountains',
+                            page: const MountainsPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 2,
+                          icon: Icons.water,
+                          label: t.lakes,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'lakes',
+                            page: const LakesPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 3,
+                          icon: Icons.landscape,
+                          label: t.deserts,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'deserts',
+                            page: const DesertsPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 4,
+                          icon: Icons.waves,
+                          label: t.rivers,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'rivers',
+                            page: const RiversPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 5,
+                          icon: Icons.park,
+                          label: t.reserves,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'reserves',
+                            page: const ReservesPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 6,
+                          icon: Icons.quiz,
+                          label: t.testLabel,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'physical_test',
+                            page: const PhysicalTestPage(),
+                          ),
+                        ),
                       ],
                     );
                   },
@@ -88,13 +116,47 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
     );
   }
 
-  static void _open(BuildContext context, Widget page) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+  Future<void> _startOrOpen(
+    BuildContext context, {
+    required String gameId,
+    required Widget page,
+  }) async {
+    if (roomId == null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+      return;
+    }
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+    try {
+      await RoomService.startGame(roomId: roomId!, gameId: gameId);
+      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => page),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Не удалось запустить игру: $e')),
+        );
+      }
+    }
   }
 }
 
 class _MenuSquare extends StatelessWidget {
-  const _MenuSquare({required this.label, required this.onTap, required this.icon, required this.index});
+  const _MenuSquare({
+    required this.label,
+    required this.onTap,
+    required this.icon,
+    required this.index,
+  });
   final String label;
   final VoidCallback onTap;
   final IconData icon;
@@ -105,10 +167,9 @@ class _MenuSquare extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final bool isOdd = index % 2 == 1;
-    // Цвета по теме: нечетные — желтые, четные — синие
     final Color bg = () {
-      if (isDark) return isOdd ? cs.primary : cs.secondaryContainer; // yellow / blue
-      return isOdd ? cs.secondaryContainer : cs.primaryContainer; // yellow / blue (светлые контейнеры)
+      if (isDark) return isOdd ? cs.primary : cs.secondaryContainer;
+      return isOdd ? cs.secondaryContainer : cs.primaryContainer;
     }();
     final Color fg = () {
       if (isDark) return isOdd ? cs.onPrimary : cs.onSecondaryContainer;
@@ -150,41 +211,47 @@ class _MenuSquare extends StatelessWidget {
   }
 }
 
-// Заглушки для 6 направлений. Можно наполнить контентом позже.
+// ====== Заглушки страниц игр ======
 class MountainsPage extends StatelessWidget {
   const MountainsPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.mountains);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.mountains);
 }
 
 class LakesPage extends StatelessWidget {
   const LakesPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.lakes);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.lakes);
 }
 
 class DesertsPage extends StatelessWidget {
   const DesertsPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.deserts);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.deserts);
 }
 
 class RiversPage extends StatelessWidget {
   const RiversPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.rivers);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.rivers);
 }
 
 class ReservesPage extends StatelessWidget {
   const ReservesPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.reserves);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.reserves);
 }
 
 class PhysicalTestPage extends StatelessWidget {
   const PhysicalTestPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: AppLocalizations.of(context)!.testLabel);
+  Widget build(BuildContext context) =>
+      _StubScaffold(title: AppLocalizations.of(context)!.testLabel);
 }
 
 class _StubScaffold extends StatelessWidget {
@@ -197,7 +264,7 @@ class _StubScaffold extends StatelessWidget {
       appBar: AppBar(title: Text(title)),
       body: Center(
         child: Text(
-          'Страница "${title}" — контент скоро',
+          'Страница "$title" — контент скоро',
           style: TextStyle(color: cs.onSurface, fontSize: 16),
         ),
       ),

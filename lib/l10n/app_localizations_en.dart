@@ -206,4 +206,161 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get symbolsTest => 'Symbols test';
+
+  @override
+  String get joinByCode => 'Join by code';
+
+  @override
+  String get enterCode => 'Enter code';
+
+  @override
+  String get enterCodeHint => 'ABC123';
+
+  @override
+  String get btnJoin => 'Join';
+
+  @override
+  String get btnCancel => 'Cancel';
+
+  @override
+  String get howToPlayTitle => 'How to play?';
+
+  @override
+  String get howToPlayBody =>
+      'Solo — go straight to the subject.\nGroup — a room will be created and you’ll start together.';
+
+  @override
+  String get modeSolo => 'Solo';
+
+  @override
+  String get modeGroup => 'Group';
+
+  @override
+  String get chooseParticipantsTitle => 'How many participants?';
+
+  @override
+  String get btnOk => 'OK';
+
+  @override
+  String get waitingRoomTitle => 'Waiting room';
+
+  @override
+  String get roomDeleted => 'Room deleted';
+
+  @override
+  String get codeCopied => 'Code copied';
+
+  @override
+  String get roomOpen => 'Open';
+
+  @override
+  String get roomClosed => 'Closed';
+
+  @override
+  String membersCount(int count, int max) {
+    return 'Members: $count / $max';
+  }
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get statusWaiting => 'waiting';
+
+  @override
+  String get statusPlaying => 'playing';
+
+  @override
+  String get leave => 'Leave';
+
+  @override
+  String get chooseGame => 'Choose game';
+
+  @override
+  String get createRoomFailed => 'Couldn\'t create room';
+
+  @override
+  String get startGameFailed => 'Couldn\'t start the game';
+
+  @override
+  String get roomNotFound => 'Room not found';
+
+  @override
+  String get roomAlreadyStarted => 'The game has already started';
+
+  @override
+  String get roomIsClosed => 'Room is closed';
+
+  @override
+  String get roomIsFull => 'No seats left';
+
+  @override
+  String codeLabel(String code) {
+    return 'Code: $code';
+  }
+
+  @override
+  String get createRoomTitle => 'Create room';
+
+  @override
+  String get participantsLimit => 'Participants limit';
+
+  @override
+  String get btnCreate => 'Create';
+
+  @override
+  String get shareCodeHint =>
+      'After creating, share the room code from the lobby.';
+
+  @override
+  String get owner => 'Owner';
+
+  @override
+  String get member => 'Member';
+
+  @override
+  String get noMembersYet => 'No one yet';
+
+  @override
+  String get joinFailed => 'Couldn\'t join';
+
+  @override
+  String get codeGenerationFailed => 'Couldn\'t generate a code';
+
+  @override
+  String gameTitle(String id) {
+    return 'Game: $id';
+  }
+
+  @override
+  String gameLaunched(String gameId, String subject) {
+    return 'Started game \"$gameId\" for subject \"$subject\"';
+  }
+
+  @override
+  String get markets => 'Markets';
+
+  @override
+  String get gdpQuiz => 'GDP quiz';
+
+  @override
+  String get tradeRoutes => 'Trade routes';
+
+  @override
+  String get industry => 'Industry';
+
+  @override
+  String get resources => 'Resources';
+
+  @override
+  String get population => 'Population';
+
+  @override
+  String get capitals => 'Capitals';
+
+  @override
+  String get flags => 'Flags';
+
+  @override
+  String get climate => 'Climate';
 }

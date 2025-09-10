@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bilimdler/rooms/game_picker_page.dart';
+import 'package:flutter_bilimdler/subject/region_economic_geography.dart';
+import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import '../Services/room_services.dart';
 
-// если хочешь сразу маппить на реальные экраны игр — см. _mapToGame ниже
+// подключаем экраны игр из меню для автоперехода у участников
+import '../subject/physical_geography_menu.dart';
+import '../subject/economic_geography_menu.dart';
+
 class RoomLobbyPage extends StatefulWidget {
   final String roomId;
   const RoomLobbyPage({super.key, required this.roomId});
@@ -16,11 +20,45 @@ class RoomLobbyPage extends StatefulWidget {
 class _RoomLobbyPageState extends State<RoomLobbyPage> {
   bool _navigated = false;
 
+  Widget _mapToGame(String subject, String gameId) {
+    if (subject == 'physical') {
+      switch (gameId) {
+        case 'mountains':
+          return const MountainsPage();
+        case 'lakes':
+          return const LakesPage();
+        case 'deserts':
+          return const DesertsPage();
+        case 'rivers':
+          return const RiversPage();
+        case 'reserves':
+          return const ReservesPage();
+        case 'physical_test':
+          return const PhysicalTestPage();
+      }
+    } else {
+      switch (gameId) {
+        case 'regions':
+          return const PhysicalGeographyPage();
+        case 'cities':
+          return const CitiesPage();
+        case 'symbols':
+          return const SymbolsPage();
+        case 'factories':
+          return const FactoriesPage();
+        case 'symbols_test':
+          return const SymbolsTestPage();
+        case 'economic_test':
+          return const EconomicTestPage();
+      }
+    }
+    return _GamePlaceholder(subject: subject, gameId: gameId);
+  }
+
   void _navigateToGame(String subject, String gameId) {
     if (_navigated || !mounted) return;
     _navigated = true;
-
-    final page = _GamePlaceholder(subject: subject, gameId: gameId);
+    final page = _mapToGame(subject, gameId);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
       Navigator.pushReplacement(
@@ -32,15 +70,20 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Комната ожидания')),
+      appBar: AppBar(title: Text(t.waitingRoomTitle)),
       body: StreamBuilder(
         stream: RoomService.roomStream(widget.roomId),
         builder: (context, roomSnap) {
-          if (!roomSnap.hasData)
+          if (!roomSnap.hasData) {
             return const Center(child: CircularProgressIndicator());
+          }
           final room = roomSnap.data!.data();
-          if (room == null) return const Center(child: Text('Комната удалена'));
+          if (room == null) {
+            return Center(child: Text(t.roomDeleted));
+          }
 
           final code = (room['code'] ?? '') as String;
           final isOpen = room['isOpen'] == true;
@@ -56,7 +99,6 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
 
           final currentGame = (room['currentGame']?['id']) as String?;
 
-          // если игра уже идёт — уходим всем в игру
           if (status == 'playing' && currentGame != null) {
             _navigateToGame(subject, currentGame);
           }
@@ -69,7 +111,7 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                   children: [
                     Expanded(
                       child: Text(
-                        'Код: $code',
+                        t.codeLabel(code),
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -80,9 +122,9 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                       icon: const Icon(Icons.copy),
                       onPressed: () {
                         Clipboard.setData(ClipboardData(text: code));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Код скопирован')),
-                        );
+                        ScaffoldMessenger.of(
+                          context,
+                        ).showSnackBar(SnackBar(content: Text(t.codeCopied)));
                       },
                     ),
                   ],
@@ -91,11 +133,11 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                 Wrap(
                   spacing: 8,
                   children: [
-                    Chip(label: Text(isOpen ? 'Открыта' : 'Закрыта')),
-                    Chip(label: Text('Участники: $count / $max')),
+                    Chip(label: Text(isOpen ? t.roomOpen : t.roomClosed)),
+                    Chip(label: Text(t.membersCount(count, max))),
                     Chip(
                       label: Text(
-                        'Статус: ${status == 'waiting' ? 'ожидание' : 'в игре'}',
+                        '${t.statusLabel}: ${status == "waiting" ? t.statusWaiting : t.statusPlaying}',
                       ),
                     ),
                   ],
@@ -106,11 +148,13 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                   child: StreamBuilder(
                     stream: RoomService.membersStream(widget.roomId),
                     builder: (context, membersSnap) {
-                      if (!membersSnap.hasData)
+                      if (!membersSnap.hasData) {
                         return const Center(child: CircularProgressIndicator());
+                      }
                       final docs = membersSnap.data!.docs;
-                      if (docs.isEmpty)
-                        return const Center(child: Text('Пока никого нет'));
+                      if (docs.isEmpty) {
+                        return Center(child: Text(t.noMembersYet));
+                      }
                       return ListView.separated(
                         itemCount: docs.length,
                         separatorBuilder: (_, __) => const Divider(height: 1),
@@ -122,10 +166,8 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                             leading: CircleAvatar(
                               child: Text(tag.substring(0, 2)),
                             ),
-                            title: Text(
-                              role == 'owner' ? 'Владелец' : 'Участник',
-                            ),
-                            subtitle: Text('ID: $tag'),
+                            title: Text(role == 'owner' ? t.owner : t.member),
+                            subtitle: Text(t.userIdDisplay(tag)),
                           );
                         },
                       );
@@ -142,7 +184,7 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                           if (mounted) Navigator.pop(context);
                         },
                         icon: const Icon(Icons.exit_to_app),
-                        label: const Text('Выйти'),
+                        label: Text(t.leave),
                       ),
                     ),
                     const SizedBox(width: 12),
@@ -150,19 +192,21 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
                       child: FilledButton.icon(
                         onPressed: iAmOwner && count >= max
                             ? () {
+                                final Widget menu = (subject == 'economic')
+                                    ? EconomicGeographyMenuPage(
+                                        roomId: widget.roomId,
+                                      )
+                                    : PhysicalGeographyMenuPage(
+                                        roomId: widget.roomId,
+                                      );
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                    builder: (_) => GamePickerPage(
-                                      roomId: widget.roomId,
-                                      subject: subject,
-                                    ),
-                                  ),
+                                  MaterialPageRoute(builder: (_) => menu),
                                 );
                               }
                             : null,
                         icon: const Icon(Icons.sports_esports),
-                        label: const Text('Выбрать игру'),
+                        label: Text(t.chooseGame),
                       ),
                     ),
                   ],
@@ -176,7 +220,6 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
   }
 }
 
-/// Временная заглушка экрана игры
 class _GamePlaceholder extends StatelessWidget {
   final String subject;
   final String gameId;
@@ -184,11 +227,10 @@ class _GamePlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text('Игра: $gameId')),
-      body: Center(
-        child: Text('Запущена игра "$gameId" для предмета "$subject"'),
-      ),
+      appBar: AppBar(title: Text(t.gameTitle(gameId))),
+      body: Center(child: Text(t.gameLaunched(gameId, subject))),
     );
   }
 }

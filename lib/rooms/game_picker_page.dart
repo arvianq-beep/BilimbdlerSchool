@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../Services/room_services.dart';
+import 'package:flutter_bilimdler/Services/room_services.dart';
+import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 
 class GamePickerPage extends StatelessWidget {
   final String roomId;
@@ -10,29 +11,32 @@ class GamePickerPage extends StatelessWidget {
     required this.subject,
   });
 
-  List<_GameItem> _games() {
+  List<_GameItem> _games(AppLocalizations t) {
     if (subject == 'economic') {
-      return const [
-        _GameItem('markets', 'Рынки'),
-        _GameItem('gdp_quiz', 'ВВП-викторина'),
-        _GameItem('trade_routes', 'Торговые пути'),
-        _GameItem('industry', 'Отрасли'),
-        _GameItem('resources', 'Ресурсы'),
-        _GameItem('population', 'Население'),
+      return [
+        _GameItem('markets', t.markets),
+        _GameItem('gdp_quiz', t.gdpQuiz),
+        _GameItem('trade_routes', t.tradeRoutes),
+        _GameItem('industry', t.industry),
+        _GameItem('resources', t.resources),
+        _GameItem('population', t.population),
       ];
     }
-    // physical
-    return const [
-      _GameItem('capitals', 'Столицы'),
-      _GameItem('flags', 'Флаги'),
-      _GameItem('rivers', 'Реки'),
-      _GameItem('mounts', 'Горы'),
-      _GameItem('climate', 'Климат'),
-      _GameItem('regions', 'Регионы'),
+    return [
+      _GameItem('capitals', t.capitals),
+      _GameItem('flags', t.flags),
+      _GameItem('rivers', t.rivers),
+      _GameItem(
+        'mounts',
+        t.mountains,
+      ), // id 'mounts', текст — локализованный "Mountains"
+      _GameItem('climate', t.climate),
+      _GameItem('regions', t.regions),
     ];
   }
 
   Future<void> _start(BuildContext context, String gameId) async {
+    final t = AppLocalizations.of(context)!;
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -40,24 +44,25 @@ class GamePickerPage extends StatelessWidget {
     );
     try {
       await RoomService.startGame(roomId: roomId, gameId: gameId);
-      if (context.mounted) Navigator.pop(context); // закрыть лоадер
-      if (context.mounted)
-        Navigator.pop(context); // вернуться в лобби (всех перекинет)
-    } catch (e) {
+      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) Navigator.pop(context);
+    } catch (_) {
       if (!context.mounted) return;
-      Navigator.pop(context); // закрыть лоадер
+      Navigator.pop(context);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text('Не удалось запустить игру: $e')));
+      ).showSnackBar(SnackBar(content: Text(t.startGameFailed)));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final items = _games();
+    final t = AppLocalizations.of(context)!;
+    final items = _games(t);
     final cs = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Выбери игру')),
+      appBar: AppBar(title: Text(t.chooseGame)),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
         itemCount: items.length,

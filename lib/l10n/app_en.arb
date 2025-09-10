@@ -2,7 +2,6 @@
   "@@locale": "en",
   "appTitle": "Bilimdler",
   "brand": "BILIM\"D\"LER",
-
   "email": "Email",
   "password": "Password",
   "signIn": "Sign in",
@@ -25,7 +24,6 @@
   "unknownError": "An unknown error occurred",
   "enterEmailPassword": "Enter email and password",
   "passwordsNotMatch": "Passwords do not match",
-
   "verificationEmailSent": "Verification email sent to {email}",
   "@verificationEmailSent": {
     "placeholders": {
@@ -35,7 +33,6 @@
   "verifyYourEmail": "Please verify your email before logging in",
   "forgotPassword": "Forgot password?",
   "pleaseEnterEmail": "Please enter your email",
-
   "resetEmailSent": "Password reset email sent to {email}",
   "@resetEmailSent": {
     "placeholders": {
@@ -44,7 +41,6 @@
   },
   "resendVerification": "Resend verification email",
   "verificationEmailResent": "Verification email resent",
-
   "guestIdDisplay": "Guest ID: {id}",
   "@guestIdDisplay": {
     "placeholders": {
@@ -57,7 +53,6 @@
       "id": { "type": "String", "example": "1F2A3B4C" }
     }
   },
-
   "profileTitle": "Profile",
   "firstName": "First name",
   "lastName": "Last name",
@@ -65,7 +60,6 @@
   "saved": "Saved",
   "enterNameOrSurname": "Enter first or last name",
   "youCanSearchByName": "You can search users by first/last name.",
-
   "startGame": "Start game",
   "subjects": "Subjects",
   "settings": "Settings",
@@ -74,28 +68,96 @@
   "theme": "Theme",
   "chooseSubject": "Choose a subject",
   "toggleTheme": "Toggle theme",
-
   "geography": "Geography",
   "physicalGeography": "Physical geography",
   "economicGeography": "Economic geography",
-
   "comingSoon": "Coming soon: {title}",
   "@comingSoon": {
     "placeholders": {
       "title": { "type": "String", "example": "Physical geography" }
     }
   },
-
   "mountains": "Mountains",
   "lakes": "Lakes",
   "deserts": "Deserts",
   "rivers": "Rivers",
   "reserves": "Reserves",
   "testLabel": "Test",
-
   "regions": "Regions",
   "cities": "Cities",
   "symbols": "Symbols",
   "factories": "Factories",
-  "symbolsTest": "Symbols test"
+  "symbolsTest": "Symbols test",
+  "joinByCode": "Join by code",
+  "enterCode": "Enter code",
+  "enterCodeHint": "ABC123",
+  "btnJoin": "Join",
+  "btnCancel": "Cancel",
+  "howToPlayTitle": "How to play?",
+  "howToPlayBody": "Solo — go straight to the subject.\nGroup — a room will be created and you’ll start together.",
+  "modeSolo": "Solo",
+  "modeGroup": "Group",
+  "chooseParticipantsTitle": "How many participants?",
+  "btnOk": "OK",
+  "waitingRoomTitle": "Waiting room",
+  "roomDeleted": "Room deleted",
+  "codeCopied": "Code copied",
+  "roomOpen": "Open",
+  "roomClosed": "Closed",
+  "membersCount": "Members: {count} / {max}",
+  "@membersCount": {
+    "placeholders": {
+      "count": { "type": "int", "example": "2" },
+      "max": { "type": "int", "example": "5" }
+    }
+  },
+  "statusLabel": "Status",
+  "statusWaiting": "waiting",
+  "statusPlaying": "playing",
+  "leave": "Leave",
+  "chooseGame": "Choose game",
+  "createRoomFailed": "Couldn't create room",
+  "startGameFailed": "Couldn't start the game",
+  "roomNotFound": "Room not found",
+  "roomAlreadyStarted": "The game has already started",
+  "roomIsClosed": "Room is closed",
+  "roomIsFull": "No seats left",
+  "codeLabel": "Code: {code}",
+  "@codeLabel": {
+    "placeholders": {
+      "code": { "type": "String", "example": "ABC123" }
+    }
+  },
+
+  "createRoomTitle": "Create room",
+  "participantsLimit": "Participants limit",
+  "btnCreate": "Create",
+  "shareCodeHint": "After creating, share the room code from the lobby.",
+  "owner": "Owner",
+  "member": "Member",
+  "noMembersYet": "No one yet",
+  "joinFailed": "Couldn't join",
+  "codeGenerationFailed": "Couldn't generate a code",
+  "gameTitle": "Game: {id}",
+  "@gameTitle": {
+    "placeholders": {
+      "id": { "type": "String", "example": "capitals" }
+    }
+  },
+  "gameLaunched": "Started game \"{gameId}\" for subject \"{subject}\"",
+  "@gameLaunched": {
+    "placeholders": {
+      "gameId": { "type": "String", "example": "capitals" },
+      "subject": { "type": "String", "example": "physical" }
+    }
+  },
+  "markets": "Markets",
+  "gdpQuiz": "GDP quiz",
+  "tradeRoutes": "Trade routes",
+  "industry": "Industry",
+  "resources": "Resources",
+  "population": "Population",
+  "capitals": "Capitals",
+  "flags": "Flags",
+  "climate": "Climate"
 }

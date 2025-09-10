@@ -1,38 +1,38 @@
-// lib/subject/geography.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
 
 import '../l10n/app_localizations.dart';
 import 'physical_geography_menu.dart';
 import 'economic_geography_menu.dart';
-import '../Pages/room_lobby_page.dart'; // если у тебя лобби в /rooms, поменяй путь
+import '../Pages/room_lobby_page.dart';
 
 enum _Mode { solo, group }
 
 class GeographyPage extends StatelessWidget {
   const GeographyPage({super.key});
 
-  // ===== ВОЙТИ ПО КОДУ (нижняя кнопка вызывает это) =====
+  // ---- Войти по коду (нижняя кнопка) ----
   Future<void> _joinByCode(BuildContext context) async {
     final code = await showDialog<String>(
       context: context,
       builder: (ctx) {
+        final t = AppLocalizations.of(ctx)!;
         final c = TextEditingController();
         return AlertDialog(
-          title: const Text('Войти по коду'),
+          title: Text(t.joinByCode),
           content: TextField(
             controller: c,
             textCapitalization: TextCapitalization.characters,
-            decoration: const InputDecoration(hintText: 'ABC123'),
+            decoration: InputDecoration(hintText: t.enterCodeHint),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('Отмена'),
+              child: Text(t.btnCancel),
             ),
             FilledButton(
               onPressed: () => Navigator.pop(ctx, c.text.trim().toUpperCase()),
-              child: const Text('Войти'),
+              child: Text(t.btnJoin),
             ),
           ],
         );
@@ -57,10 +57,11 @@ class GeographyPage extends StatelessWidget {
       }
     } catch (e) {
       if (context.mounted) {
+        final t = AppLocalizations.of(context)!;
         Navigator.pop(context);
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Ошибка: $e')));
+        ).showSnackBar(SnackBar(content: Text('${t.joinFailed}: $e')));
       }
     }
   }
@@ -68,22 +69,23 @@ class GeographyPage extends StatelessWidget {
   Future<_Mode?> _askMode(BuildContext context) {
     return showDialog<_Mode>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Как играть?'),
-        content: const Text(
-          'Один — сразу в предмет.\nГруппа — создастся комната и начнёте вместе.',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, _Mode.solo),
-            child: const Text('Один'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(ctx, _Mode.group),
-            child: const Text('Группа'),
-          ),
-        ],
-      ),
+      builder: (ctx) {
+        final t = AppLocalizations.of(ctx)!;
+        return AlertDialog(
+          title: Text(t.howToPlayTitle),
+          content: Text(t.howToPlayBody),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, _Mode.solo),
+              child: Text(t.modeSolo),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, _Mode.group),
+              child: Text(t.modeGroup),
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -91,45 +93,52 @@ class GeographyPage extends StatelessWidget {
     int value = 2;
     return showDialog<int>(
       context: context,
-      builder: (ctx) => StatefulBuilder(
-        builder: (ctx, setState) => AlertDialog(
-          title: const Text('Сколько участников?'),
-          content: DropdownButton<int>(
-            value: value,
-            isExpanded: true,
-            items: const [2, 3, 4, 5, 6, 7]
-                .map(
-                  (v) => DropdownMenuItem(value: v, child: Text(v.toString())),
-                )
-                .toList(),
-            onChanged: (v) => setState(() => value = v ?? 2),
+      builder: (ctx) {
+        final t = AppLocalizations.of(ctx)!;
+        return StatefulBuilder(
+          builder: (ctx, setState) => AlertDialog(
+            title: Text(t.chooseParticipantsTitle),
+            content: DropdownButton<int>(
+              value: value,
+              isExpanded: true,
+              items: const [2, 3, 4, 5, 6, 7]
+                  .map(
+                    (v) =>
+                        DropdownMenuItem(value: v, child: Text(v.toString())),
+                  )
+                  .toList(),
+              onChanged: (v) => setState(() => value = v ?? 2),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: Text(t.btnCancel),
+              ),
+              FilledButton(
+                onPressed: () => Navigator.pop(ctx, value),
+                child: Text(t.btnOk),
+              ),
+            ],
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: const Text('Отмена'),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(ctx, value),
-              child: const Text('Ок'),
-            ),
-          ],
-        ),
-      ),
+        );
+      },
     );
   }
 
   Future<void> _openSubject(
     BuildContext context, {
     required String subject, // 'physical' | 'economic'
-    required Widget targetPage,
+    required Widget targetPageSolo,
   }) async {
     final mode = await _askMode(context);
     if (mode == null) return;
 
     if (mode == _Mode.solo) {
       if (!context.mounted) return;
-      Navigator.push(context, MaterialPageRoute(builder: (_) => targetPage));
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => targetPageSolo),
+      );
       return;
     }
 
@@ -156,10 +165,11 @@ class GeographyPage extends StatelessWidget {
       }
     } catch (e) {
       if (context.mounted) {
+        final t = AppLocalizations.of(context)!;
         Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Не удалось создать комнату: $e')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('${t.createRoomFailed}: $e')));
       }
     }
   }
@@ -206,7 +216,7 @@ class GeographyPage extends StatelessWidget {
                           onPressed: () => _openSubject(
                             context,
                             subject: 'physical',
-                            targetPage: const PhysicalGeographyMenuPage(),
+                            targetPageSolo: const PhysicalGeographyMenuPage(),
                           ),
                           icon: const Icon(Icons.public),
                           label: Text(t.physicalGeography),
@@ -218,7 +228,7 @@ class GeographyPage extends StatelessWidget {
                           onPressed: () => _openSubject(
                             context,
                             subject: 'economic',
-                            targetPage: const EconomicGeographyMenuPage(),
+                            targetPageSolo: const EconomicGeographyMenuPage(),
                           ),
                           icon: const Icon(Icons.trending_up),
                           label: Text(t.economicGeography),
@@ -230,7 +240,7 @@ class GeographyPage extends StatelessWidget {
                   TextButton.icon(
                     onPressed: () => _joinByCode(context),
                     icon: const Icon(Icons.login),
-                    label: const Text('Войти по коду'),
+                    label: Text(t.joinByCode),
                   ),
                 ],
               ),

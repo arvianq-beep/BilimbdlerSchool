@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
-import 'region_economic_geography.dart';
-import 'cities_economic_geography.dart';
+
+import 'region_economic_geography.dart'; // твой файл/класс
+import 'cities_economic_geography.dart'; // твой файл/класс
 
 /// Экономическая география — меню из 6 пунктов.
+/// Если [roomId] != null — запуск игры через RoomService.startGame.
 class EconomicGeographyMenuPage extends StatelessWidget {
-  const EconomicGeographyMenuPage({super.key});
+  final String? roomId;
+  const EconomicGeographyMenuPage({super.key, this.roomId});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +27,8 @@ class EconomicGeographyMenuPage extends StatelessWidget {
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
-                    const cross = 3; // 3 columns
-                    const rows = 2; // 2 rows total
+                    const cross = 3;
+                    const rows = 2;
                     const vSpace = 28.0;
                     const hSpace = 28.0;
 
@@ -42,42 +46,67 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                       crossAxisSpacing: hSpace,
                       childAspectRatio: ratio,
                       children: [
-                    _MenuSquare(
-                      index: 1,
-                      icon: Icons.map,
-                      label: t.regions,
-                      onTap: () => _open(context, const PhysicalGeographyPage()),
-                    ),
-                    _MenuSquare(
-                      index: 2,
-                      icon: Icons.location_city,
-                      label: t.cities,
-                      onTap: () => _open(context, const CitiesPage()),
-                    ),
-                    _MenuSquare(
-                      index: 3,
-                      icon: Icons.legend_toggle,
-                      label: t.symbols,
-                      onTap: () => _open(context, const SymbolsPage()),
-                    ),
-                    _MenuSquare(
-                      index: 4,
-                      icon: Icons.factory,
-                      label: t.factories,
-                      onTap: () => _open(context, const FactoriesPage()),
-                    ),
-                    _MenuSquare(
-                      index: 5,
-                      icon: Icons.quiz,
-                      label: t.symbolsTest,
-                      onTap: () => _open(context, const SymbolsTestPage()),
-                    ),
-                    _MenuSquare(
-                      index: 6,
-                      icon: Icons.quiz_outlined,
-                      label: t.testLabel,
-                      onTap: () => _open(context, const EconomicTestPage()),
-                    ),
+                        _MenuSquare(
+                          index: 1,
+                          icon: Icons.map,
+                          label: t.regions,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'regions',
+                            page:
+                                const PhysicalGeographyPage(), // как у тебя было
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 2,
+                          icon: Icons.location_city,
+                          label: t.cities,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'cities',
+                            page: const CitiesPage(), // обёртка ниже
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 3,
+                          icon: Icons.legend_toggle,
+                          label: t.symbols,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'symbols',
+                            page: const SymbolsPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 4,
+                          icon: Icons.factory,
+                          label: t.factories,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'factories',
+                            page: const FactoriesPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 5,
+                          icon: Icons.quiz,
+                          label: t.symbolsTest,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'symbols_test',
+                            page: const SymbolsTestPage(),
+                          ),
+                        ),
+                        _MenuSquare(
+                          index: 6,
+                          icon: Icons.quiz_outlined,
+                          label: t.testLabel,
+                          onTap: () => _startOrOpen(
+                            context,
+                            gameId: 'economic_test',
+                            page: const EconomicTestPage(),
+                          ),
+                        ),
                       ],
                     );
                   },
@@ -90,13 +119,47 @@ class EconomicGeographyMenuPage extends StatelessWidget {
     );
   }
 
-  static void _open(BuildContext context, Widget page) {
-    Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+  Future<void> _startOrOpen(
+    BuildContext context, {
+    required String gameId,
+    required Widget page,
+  }) async {
+    if (roomId == null) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
+      return;
+    }
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const Center(child: CircularProgressIndicator()),
+    );
+    try {
+      await RoomService.startGame(roomId: roomId!, gameId: gameId);
+      if (context.mounted) Navigator.pop(context);
+      if (context.mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => page),
+        );
+      }
+    } catch (e) {
+      if (context.mounted) {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Не удалось запустить игру: $e')),
+        );
+      }
+    }
   }
 }
 
 class _MenuSquare extends StatelessWidget {
-  const _MenuSquare({required this.label, required this.onTap, required this.icon, required this.index});
+  const _MenuSquare({
+    required this.label,
+    required this.onTap,
+    required this.icon,
+    required this.index,
+  });
   final String label;
   final VoidCallback onTap;
   final IconData icon;
@@ -151,34 +214,38 @@ class _MenuSquare extends StatelessWidget {
   }
 }
 
+// ===== Экран из твоего файла cities_economic_geography.dart
 class CitiesPage extends StatelessWidget {
   const CitiesPage({super.key});
   @override
   Widget build(BuildContext context) => const CitiesEconomicGeographyPage();
 }
 
+// ===== Остальные заглушки (замени своими экранами при готовности) =====
 class SymbolsPage extends StatelessWidget {
   const SymbolsPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: 'условные знаки');
+  Widget build(BuildContext context) =>
+      const _StubScaffold(title: 'условные знаки');
 }
 
 class FactoriesPage extends StatelessWidget {
   const FactoriesPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: 'заводы');
+  Widget build(BuildContext context) => const _StubScaffold(title: 'заводы');
 }
 
 class SymbolsTestPage extends StatelessWidget {
   const SymbolsTestPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: 'условные знаки тест');
+  Widget build(BuildContext context) =>
+      const _StubScaffold(title: 'условные знаки тест');
 }
 
 class EconomicTestPage extends StatelessWidget {
   const EconomicTestPage({super.key});
   @override
-  Widget build(BuildContext context) => _StubScaffold(title: 'тест');
+  Widget build(BuildContext context) => const _StubScaffold(title: 'тест');
 }
 
 class _StubScaffold extends StatelessWidget {
@@ -191,7 +258,7 @@ class _StubScaffold extends StatelessWidget {
       appBar: AppBar(title: Text(title)),
       body: Center(
         child: Text(
-          'Раздел "${title}" пока в разработке',
+          'Раздел "$title" пока в разработке',
           style: TextStyle(color: cs.onSurface, fontSize: 16),
         ),
       ),

@@ -2,6 +2,19 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// Коды ошибок, соответствуют ключам в ARB:
+/// - codeGenerationFailed
+/// - roomNotFound
+/// - roomAlreadyStarted
+/// - roomIsClosed
+/// - roomIsFull
+class RoomException implements Exception {
+  final String code;
+  RoomException(this.code);
+  @override
+  String toString() => code; // чтобы в логе был виден код
+}
+
 class RoomService {
   static final _db = FirebaseFirestore.instance;
   static final _auth = FirebaseAuth.instance;
@@ -21,7 +34,7 @@ class RoomService {
   static String _tag(String uid, {int len = 6}) =>
       uid.substring(uid.length - len).toUpperCase();
 
-  /// Создать комнату (группа) c лимитом и предметом
+  /// Создать комнату (2..7) и сохранить предмет
   static Future<DocumentReference<Map<String, dynamic>>> createRoom({
     required int maxMembers, // 2..7
     required String subject, // 'physical' | 'economic'
@@ -38,7 +51,7 @@ class RoomService {
           .limit(1)
           .get();
       if (clash.size == 0) break;
-      if (i == 4) throw Exception('Не удалось сгенерировать код');
+      if (i == 4) throw RoomException('codeGenerationFailed');
     }
 
     final roomRef = _db.collection('rooms').doc();
@@ -76,15 +89,19 @@ class RoomService {
         .where('code', isEqualTo: code.trim().toUpperCase())
         .limit(1)
         .get();
-    if (qs.size == 0) throw Exception('Комната не найдена');
+    if (qs.size == 0) throw RoomException('roomNotFound');
 
     final roomRef = qs.docs.first.reference;
 
     await _db.runTransaction((tx) async {
       final roomSnap = await tx.get(roomRef);
       final data = roomSnap.data()! as Map<String, dynamic>;
-      if (data['status'] == 'playing') throw Exception('Игра уже начата');
-      if (data['isOpen'] != true) throw Exception('Комната закрыта');
+      if (data['status'] == 'playing') {
+        throw RoomException('roomAlreadyStarted');
+      }
+      if (data['isOpen'] != true) {
+        throw RoomException('roomIsClosed');
+      }
 
       final max = (data['maxMembers'] ?? 0) as int;
       final count = (data['memberCount'] ?? 0) as int;
@@ -93,7 +110,7 @@ class RoomService {
       final meSnap = await tx.get(meRef);
 
       if (!meSnap.exists) {
-        if (count >= max) throw Exception('Мест нет');
+        if (count >= max) throw RoomException('roomIsFull');
         tx.set(meRef, {
           'uid': me.uid,
           'role': 'member',
@@ -131,7 +148,7 @@ class RoomService {
     });
   }
 
-  /// (опц.) Сбросить игру и вернуться к ожиданию
+  /// Сбросить игру и вернуться к ожиданию
   static Future<void> resetGame(String roomId) async {
     await _db.collection('rooms').doc(roomId).update({
       'status': 'waiting',
