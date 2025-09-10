@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // для FirebaseException
 import 'package:flutter_bilimdler/Services/room_services.dart';
 
 import '../l10n/app_localizations.dart';
@@ -56,13 +57,25 @@ class GeographyPage extends StatelessWidget {
         );
       }
     } catch (e) {
-      if (context.mounted) {
-        final t = AppLocalizations.of(context)!;
-        Navigator.pop(context);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('${t.joinFailed}: $e')));
+      if (!context.mounted) return;
+      Navigator.pop(context);
+
+      final t = AppLocalizations.of(context)!;
+      String msg = t.unknownError;
+      if (e is FirebaseException) {
+        final map = {
+          'codeGenerationFailed': t.codeGenerationFailed,
+          'roomNotFound': t.roomNotFound,
+          'roomAlreadyStarted': t.roomAlreadyStarted,
+          'roomIsClosed': t.roomIsClosed,
+          'roomIsFull': t.roomIsFull,
+        };
+        msg = map[e.code] ?? t.unknownError;
       }
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('${t.joinFailed}: $msg')));
     }
   }
 
@@ -164,13 +177,25 @@ class GeographyPage extends StatelessWidget {
         );
       }
     } catch (e) {
-      if (context.mounted) {
-        final t = AppLocalizations.of(context)!;
-        Navigator.pop(context);
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text('${t.createRoomFailed}: $e')));
+      if (!context.mounted) return;
+      Navigator.pop(context);
+
+      final t = AppLocalizations.of(context)!;
+      String msg = t.unknownError;
+      if (e is FirebaseException) {
+        final map = {
+          'codeGenerationFailed': t.codeGenerationFailed,
+          'roomNotFound': t.roomNotFound,
+          'roomAlreadyStarted': t.roomAlreadyStarted,
+          'roomIsClosed': t.roomIsClosed,
+          'roomIsFull': t.roomIsFull,
+        };
+        msg = map[e.code] ?? t.unknownError;
       }
+
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('${t.createRoomFailed}: $msg')));
     }
   }
 

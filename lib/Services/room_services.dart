@@ -2,19 +2,6 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-/// Коды ошибок, соответствуют ключам в ARB:
-/// - codeGenerationFailed
-/// - roomNotFound
-/// - roomAlreadyStarted
-/// - roomIsClosed
-/// - roomIsFull
-class RoomException implements Exception {
-  final String code;
-  RoomException(this.code);
-  @override
-  String toString() => code; // чтобы в логе был виден код
-}
-
 class RoomService {
   static final _db = FirebaseFirestore.instance;
   static final _auth = FirebaseAuth.instance;
@@ -51,7 +38,9 @@ class RoomService {
           .limit(1)
           .get();
       if (clash.size == 0) break;
-      if (i == 4) throw RoomException('codeGenerationFailed');
+      if (i == 4) {
+        throw FirebaseException(plugin: 'rooms', code: 'codeGenerationFailed');
+      }
     }
 
     final roomRef = _db.collection('rooms').doc();
@@ -89,7 +78,9 @@ class RoomService {
         .where('code', isEqualTo: code.trim().toUpperCase())
         .limit(1)
         .get();
-    if (qs.size == 0) throw RoomException('roomNotFound');
+    if (qs.size == 0) {
+      throw FirebaseException(plugin: 'rooms', code: 'roomNotFound');
+    }
 
     final roomRef = qs.docs.first.reference;
 
@@ -97,10 +88,10 @@ class RoomService {
       final roomSnap = await tx.get(roomRef);
       final data = roomSnap.data()! as Map<String, dynamic>;
       if (data['status'] == 'playing') {
-        throw RoomException('roomAlreadyStarted');
+        throw FirebaseException(plugin: 'rooms', code: 'roomAlreadyStarted');
       }
       if (data['isOpen'] != true) {
-        throw RoomException('roomIsClosed');
+        throw FirebaseException(plugin: 'rooms', code: 'roomIsClosed');
       }
 
       final max = (data['maxMembers'] ?? 0) as int;
@@ -110,7 +101,9 @@ class RoomService {
       final meSnap = await tx.get(meRef);
 
       if (!meSnap.exists) {
-        if (count >= max) throw RoomException('roomIsFull');
+        if (count >= max) {
+          throw FirebaseException(plugin: 'rooms', code: 'roomIsFull');
+        }
         tx.set(meRef, {
           'uid': me.uid,
           'role': 'member',
@@ -148,7 +141,7 @@ class RoomService {
     });
   }
 
-  /// Сбросить игру и вернуться к ожиданию
+  /// (опц.) Сбросить игру и вернуться к ожиданию
   static Future<void> resetGame(String roomId) async {
     await _db.collection('rooms').doc(roomId).update({
       'status': 'waiting',
