@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
+import 'lakes_physical_geography.dart';
+import 'rivers_physical_geography.dart';
 
 /// Меню "Физическая география": 6 квадратов.
 /// Если [roomId] != null — нажатие по плитке запускает игру в руме (startGame),
@@ -222,8 +224,7 @@ class MountainsPage extends StatelessWidget {
 class LakesPage extends StatelessWidget {
   const LakesPage({super.key});
   @override
-  Widget build(BuildContext context) =>
-      _StubScaffold(title: AppLocalizations.of(context)!.lakes);
+  Widget build(BuildContext context) => const LakesPhysicalGeographyPage();
 }
 
 class DesertsPage extends StatelessWidget {
@@ -236,8 +237,7 @@ class DesertsPage extends StatelessWidget {
 class RiversPage extends StatelessWidget {
   const RiversPage({super.key});
   @override
-  Widget build(BuildContext context) =>
-      _StubScaffold(title: AppLocalizations.of(context)!.rivers);
+  Widget build(BuildContext context) => const RiversPhysicalGeographyPage();
 }
 
 class ReservesPage extends StatelessWidget {

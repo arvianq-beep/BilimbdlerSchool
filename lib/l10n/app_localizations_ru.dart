@@ -365,4 +365,93 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get climate => 'Климат';
+
+  @override
+  String get citiesEgTitle => 'Города Казахстана — мини-игра';
+
+  @override
+  String get rules => 'Правила';
+
+  @override
+  String get findCityPrompt => 'Найдите на карте город:';
+
+  @override
+  String scoreDisplay(int score) {
+    return 'Счёт: $score';
+  }
+
+  @override
+  String get citiesEgFinishTitle => 'Готово!';
+
+  @override
+  String resultDisplay(int score, int total) {
+    return 'Ваш результат: $score / $total';
+  }
+
+  @override
+  String get playAgain => 'Ещё раз';
+
+  @override
+  String get citiesEgRulesText =>
+      'На экране показано название города.\nНажмите на соответствующий квадрат города на карте.\n\n+1 балл за правильный ответ.\nНеверные клики подсветятся красным.\nПройдите все города и начните заново.';
+
+  @override
+  String get cityAstana => 'Астана';
+
+  @override
+  String get cityAlmaty => 'Алматы';
+
+  @override
+  String get cityShymkent => 'Шымкент';
+
+  @override
+  String get cityKaraganda => 'Караганда';
+
+  @override
+  String get cityAktobe => 'Актобе';
+
+  @override
+  String get cityTaraz => 'Тараз';
+
+  @override
+  String get cityPavlodar => 'Павлодар';
+
+  @override
+  String get cityOskemen => 'Усть-Каменогорск';
+
+  @override
+  String get citySemey => 'Семей';
+
+  @override
+  String get cityKostanay => 'Костанай';
+
+  @override
+  String get cityAtyrau => 'Атырау';
+
+  @override
+  String get cityKyzylorda => 'Кызылорда';
+
+  @override
+  String get cityOral => 'Уральск';
+
+  @override
+  String get cityPetropavl => 'Петропавловск';
+
+  @override
+  String get cityEkibastuz => 'Экибастуз';
+
+  @override
+  String get cityZhezkazgan => 'Жезказган';
+
+  @override
+  String get cityTemirtau => 'Темиртау';
+
+  @override
+  String get cityKokshetau => 'Кокшетау';
+
+  @override
+  String get cityTurkistan => 'Туркестан';
+
+  @override
+  String get cityTaldykorgan => 'Талдыкорган';
 }

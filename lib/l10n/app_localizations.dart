@@ -771,6 +771,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Climate'**
   String get climate;
+
+  /// No description provided for @citiesEgTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Economic geography: Cities'**
+  String get citiesEgTitle;
+
+  /// No description provided for @rules.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules'**
+  String get rules;
+
+  /// No description provided for @findCityPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the city:'**
+  String get findCityPrompt;
+
+  /// No description provided for @scoreDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {score}'**
+  String scoreDisplay(int score);
+
+  /// No description provided for @citiesEgFinishTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Done!'**
+  String get citiesEgFinishTitle;
+
+  /// No description provided for @resultDisplay.
+  ///
+  /// In en, this message translates to:
+  /// **'Your result: {score} / {total}'**
+  String resultDisplay(int score, int total);
+
+  /// No description provided for @playAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get playAgain;
+
+  /// No description provided for @citiesEgRulesText.
+  ///
+  /// In en, this message translates to:
+  /// **'The screen shows a city name.\nTap the corresponding square on the map.\n\n+1 point for a correct answer.\nWrong taps highlight in red.\nGo through all cities and try again.'**
+  String get citiesEgRulesText;
+
+  /// No description provided for @cityAstana.
+  ///
+  /// In en, this message translates to:
+  /// **'Astana'**
+  String get cityAstana;
+
+  /// No description provided for @cityAlmaty.
+  ///
+  /// In en, this message translates to:
+  /// **'Almaty'**
+  String get cityAlmaty;
+
+  /// No description provided for @cityShymkent.
+  ///
+  /// In en, this message translates to:
+  /// **'Shymkent'**
+  String get cityShymkent;
+
+  /// No description provided for @cityKaraganda.
+  ///
+  /// In en, this message translates to:
+  /// **'Karaganda'**
+  String get cityKaraganda;
+
+  /// No description provided for @cityAktobe.
+  ///
+  /// In en, this message translates to:
+  /// **'Aktobe'**
+  String get cityAktobe;
+
+  /// No description provided for @cityTaraz.
+  ///
+  /// In en, this message translates to:
+  /// **'Taraz'**
+  String get cityTaraz;
+
+  /// No description provided for @cityPavlodar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pavlodar'**
+  String get cityPavlodar;
+
+  /// No description provided for @cityOskemen.
+  ///
+  /// In en, this message translates to:
+  /// **'Oskemen'**
+  String get cityOskemen;
+
+  /// No description provided for @citySemey.
+  ///
+  /// In en, this message translates to:
+  /// **'Semey'**
+  String get citySemey;
+
+  /// No description provided for @cityKostanay.
+  ///
+  /// In en, this message translates to:
+  /// **'Kostanay'**
+  String get cityKostanay;
+
+  /// No description provided for @cityAtyrau.
+  ///
+  /// In en, this message translates to:
+  /// **'Atyrau'**
+  String get cityAtyrau;
+
+  /// No description provided for @cityKyzylorda.
+  ///
+  /// In en, this message translates to:
+  /// **'Kyzylorda'**
+  String get cityKyzylorda;
+
+  /// No description provided for @cityOral.
+  ///
+  /// In en, this message translates to:
+  /// **'Oral'**
+  String get cityOral;
+
+  /// No description provided for @cityPetropavl.
+  ///
+  /// In en, this message translates to:
+  /// **'Petropavl'**
+  String get cityPetropavl;
+
+  /// No description provided for @cityEkibastuz.
+  ///
+  /// In en, this message translates to:
+  /// **'Ekibastuz'**
+  String get cityEkibastuz;
+
+  /// No description provided for @cityZhezkazgan.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhezkazgan'**
+  String get cityZhezkazgan;
+
+  /// No description provided for @cityTemirtau.
+  ///
+  /// In en, this message translates to:
+  /// **'Temirtau'**
+  String get cityTemirtau;
+
+  /// No description provided for @cityKokshetau.
+  ///
+  /// In en, this message translates to:
+  /// **'Kokshetau'**
+  String get cityKokshetau;
+
+  /// No description provided for @cityTurkistan.
+  ///
+  /// In en, this message translates to:
+  /// **'Turkistan'**
+  String get cityTurkistan;
+
+  /// No description provided for @cityTaldykorgan.
+  ///
+  /// In en, this message translates to:
+  /// **'Taldykorgan'**
+  String get cityTaldykorgan;
 }
 
 class _AppLocalizationsDelegate

@@ -365,4 +365,93 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get climate => 'Климат';
+
+  @override
+  String get citiesEgTitle => 'Economic geography: Cities';
+
+  @override
+  String get rules => 'Rules';
+
+  @override
+  String get findCityPrompt => 'Find the city:';
+
+  @override
+  String scoreDisplay(int score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get citiesEgFinishTitle => 'Done!';
+
+  @override
+  String resultDisplay(int score, int total) {
+    return 'Your result: $score / $total';
+  }
+
+  @override
+  String get playAgain => 'Play again';
+
+  @override
+  String get citiesEgRulesText =>
+      'The screen shows a city name.\nTap the corresponding square on the map.\n\n+1 point for a correct answer.\nWrong taps highlight in red.\nGo through all cities and try again.';
+
+  @override
+  String get cityAstana => 'Astana';
+
+  @override
+  String get cityAlmaty => 'Almaty';
+
+  @override
+  String get cityShymkent => 'Shymkent';
+
+  @override
+  String get cityKaraganda => 'Karaganda';
+
+  @override
+  String get cityAktobe => 'Aktobe';
+
+  @override
+  String get cityTaraz => 'Taraz';
+
+  @override
+  String get cityPavlodar => 'Pavlodar';
+
+  @override
+  String get cityOskemen => 'Oskemen';
+
+  @override
+  String get citySemey => 'Semey';
+
+  @override
+  String get cityKostanay => 'Kostanay';
+
+  @override
+  String get cityAtyrau => 'Atyrau';
+
+  @override
+  String get cityKyzylorda => 'Kyzylorda';
+
+  @override
+  String get cityOral => 'Oral';
+
+  @override
+  String get cityPetropavl => 'Petropavl';
+
+  @override
+  String get cityEkibastuz => 'Ekibastuz';
+
+  @override
+  String get cityZhezkazgan => 'Zhezkazgan';
+
+  @override
+  String get cityTemirtau => 'Temirtau';
+
+  @override
+  String get cityKokshetau => 'Kokshetau';
+
+  @override
+  String get cityTurkistan => 'Turkistan';
+
+  @override
+  String get cityTaldykorgan => 'Taldykorgan';
 }

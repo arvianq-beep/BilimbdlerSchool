@@ -4,6 +4,7 @@ import '../l10n/app_localizations.dart';
 
 import 'region_economic_geography.dart'; // твой файл/класс
 import 'cities_economic_geography.dart'; // твой файл/класс
+import 'symbols_economic_geography.dart';
 
 /// Экономическая география — меню из 6 пунктов.
 /// Если [roomId] != null — запуск игры через RoomService.startGame.
@@ -225,8 +226,7 @@ class CitiesPage extends StatelessWidget {
 class SymbolsPage extends StatelessWidget {
   const SymbolsPage({super.key});
   @override
-  Widget build(BuildContext context) =>
-      const _StubScaffold(title: 'условные знаки');
+  Widget build(BuildContext context) => const SymbolsEconomicGeographyPage();
 }
 
 class FactoriesPage extends StatelessWidget {

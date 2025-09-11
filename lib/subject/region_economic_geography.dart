@@ -212,15 +212,20 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(12),
-                    child: KazakhstanSvgMap(
-                      svgAssetPath: 'lib/Images/kazakhstan.svg',
-                      onTapRegion: _onTapRegion,
-                      colorForRegion: (id) {
-                        if (_correct.contains(id)) return cs.primary.withOpacity(0.75);
-                        if (_wrong.contains(id)) return Theme.of(context).colorScheme.error.withOpacity(0.6);
-                        return cs.primaryContainer.withOpacity(0.55);
-                      },
-                      strokeColor: cs.onSurface.withOpacity(0.35),
+                    child: InteractiveViewer(
+                      minScale: 1,
+                      maxScale: 4,
+                      boundaryMargin: const EdgeInsets.all(48),
+                      child: KazakhstanSvgMap(
+                        svgAssetPath: 'lib/Images/kazakhstan.svg',
+                        onTapRegion: _onTapRegion,
+                        colorForRegion: (id) {
+                          if (_correct.contains(id)) return cs.primary.withOpacity(0.75);
+                          if (_wrong.contains(id)) return Theme.of(context).colorScheme.error.withOpacity(0.6);
+                          return cs.primaryContainer.withOpacity(0.55);
+                        },
+                        strokeColor: cs.onSurface.withOpacity(0.35),
+                      ),
                     ),
                   ),
                 ),
