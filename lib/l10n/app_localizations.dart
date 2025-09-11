@@ -939,6 +939,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Taldykorgan'**
   String get cityTaldykorgan;
+
+  /// No description provided for @factoriesTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Test: Metallurgy'**
+  String get factoriesTestTitle;
+
+  /// No description provided for @factoriesQ1.
+  ///
+  /// In en, this message translates to:
+  /// **'Where is the Titanium–Magnesium Plant located?'**
+  String get factoriesQ1;
+
+  /// No description provided for @factoriesQ1A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Pavlodar'**
+  String get factoriesQ1A1;
+
+  /// No description provided for @factoriesQ1A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Oskemen'**
+  String get factoriesQ1A2;
+
+  /// No description provided for @factoriesQ1A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Ridder'**
+  String get factoriesQ1A3;
+
+  /// No description provided for @factoriesQ1A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhezkazgan'**
+  String get factoriesQ1A4;
+
+  /// No description provided for @factoriesQ2.
+  ///
+  /// In en, this message translates to:
+  /// **'Which plant is located in Pavlodar?'**
+  String get factoriesQ2;
+
+  /// No description provided for @factoriesQ2A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Electrolysis plant'**
+  String get factoriesQ2A1;
+
+  /// No description provided for @factoriesQ2A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Polymetal plant'**
+  String get factoriesQ2A2;
+
+  /// No description provided for @factoriesQ2A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Copper smelter'**
+  String get factoriesQ2A3;
+
+  /// No description provided for @factoriesQ2A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead–zinc plant'**
+  String get factoriesQ2A4;
+
+  /// No description provided for @factoriesQ3.
+  ///
+  /// In en, this message translates to:
+  /// **'Metallurgical giant in Temirtau?'**
+  String get factoriesQ3;
+
+  /// No description provided for @factoriesQ3A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Balkhash copper plant'**
+  String get factoriesQ3A1;
+
+  /// No description provided for @factoriesQ3A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Ispat-Karmet (ArcelorMittal)'**
+  String get factoriesQ3A2;
+
+  /// No description provided for @factoriesQ3A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Alumina plant'**
+  String get factoriesQ3A3;
+
+  /// No description provided for @factoriesQ3A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Aktobe ferroalloy plant'**
+  String get factoriesQ3A4;
+
+  /// No description provided for @questionOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Question {current} of {total}'**
+  String questionOfTotal(String current, String total);
 }
 
 class _AppLocalizationsDelegate

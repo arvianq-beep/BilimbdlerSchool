@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
+
 import '../l10n/app_localizations.dart';
 import 'lakes_physical_geography.dart';
 import 'rivers_physical_geography.dart';
+import 'physical_test_page.dart'; // ← ВАЖНО: реальный экран теста
 
 /// Меню "Физическая география": 6 квадратов.
 /// Если [roomId] != null — нажатие по плитке запускает игру в руме (startGame),
@@ -103,7 +105,8 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'physical_test',
-                            page: const PhysicalTestPage(),
+                            page:
+                                const PhysicalTestPage(), // ← теперь откроется реальный тест
                           ),
                         ),
                       ],
@@ -213,7 +216,7 @@ class _MenuSquare extends StatelessWidget {
   }
 }
 
-// ====== Заглушки страниц игр ======
+// ====== Заглушки страниц игр (оставляем как было) ======
 class MountainsPage extends StatelessWidget {
   const MountainsPage({super.key});
   @override
@@ -245,13 +248,6 @@ class ReservesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       _StubScaffold(title: AppLocalizations.of(context)!.reserves);
-}
-
-class PhysicalTestPage extends StatelessWidget {
-  const PhysicalTestPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      _StubScaffold(title: AppLocalizations.of(context)!.testLabel);
 }
 
 class _StubScaffold extends StatelessWidget {

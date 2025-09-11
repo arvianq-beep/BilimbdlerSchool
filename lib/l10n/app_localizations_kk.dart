@@ -454,4 +454,57 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get cityTaldykorgan => 'Taldykorgan';
+
+  @override
+  String get factoriesTestTitle => 'Тест: Металлургия';
+
+  @override
+  String get factoriesQ1 => 'Титан-магний комбинаты қай қалада орналасқан?';
+
+  @override
+  String get factoriesQ1A1 => 'Павлодар';
+
+  @override
+  String get factoriesQ1A2 => 'Өскемен';
+
+  @override
+  String get factoriesQ1A3 => 'Риддер';
+
+  @override
+  String get factoriesQ1A4 => 'Жезқазған';
+
+  @override
+  String get factoriesQ2 => 'Павлодар қаласында қай зауыт орналасқан?';
+
+  @override
+  String get factoriesQ2A1 => 'Электролиз зауыты';
+
+  @override
+  String get factoriesQ2A2 => 'Полиметалл комбинаты';
+
+  @override
+  String get factoriesQ2A3 => 'Мыс қорыту зауыты';
+
+  @override
+  String get factoriesQ2A4 => 'Қорғасын-мырыш комбинаты';
+
+  @override
+  String get factoriesQ3 => 'Теміртаудағы металлургиялық алып?';
+
+  @override
+  String get factoriesQ3A1 => 'Балқаш мыс зауыты';
+
+  @override
+  String get factoriesQ3A2 => 'Испат-Кармет (АрселорМиттал)';
+
+  @override
+  String get factoriesQ3A3 => 'Глинозем зауыты';
+
+  @override
+  String get factoriesQ3A4 => 'Ақтөбе ферроқорытпа зауыты';
+
+  @override
+  String questionOfTotal(String current, String total) {
+    return 'Сұрақ $current/$total';
+  }
 }

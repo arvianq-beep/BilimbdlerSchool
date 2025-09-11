@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bilimdler/subject/economic_placeholders.dart';
+import 'package:flutter_bilimdler/subject/physical_test_page.dart';
 import 'package:flutter_bilimdler/subject/region_economic_geography.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import '../Services/room_services.dart';
+import 'package:flutter_bilimdler/subject/cities_economic_geography.dart';
+import 'package:flutter_bilimdler/subject/symbols_economic_geography.dart';
+import 'package:flutter_bilimdler/subject/economic_test_page.dart';
 
 // подключаем экраны игр из меню для автоперехода у участников
 import '../subject/physical_geography_menu.dart';
@@ -41,9 +46,9 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
         case 'regions':
           return const PhysicalGeographyPage();
         case 'cities':
-          return const CitiesPage();
+          return const CitiesEconomicGeographyPage();
         case 'symbols':
-          return const SymbolsPage();
+          return const SymbolsEconomicGeographyPage();
         case 'factories':
           return const FactoriesPage();
         case 'symbols_test':

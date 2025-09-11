@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
 
-import 'region_economic_geography.dart'; // твой файл/класс
-import 'cities_economic_geography.dart'; // твой файл/класс
+import 'economic_test_page.dart';
+import 'region_economic_geography.dart';
+import 'cities_economic_geography.dart';
 import 'symbols_economic_geography.dart';
+import 'physical_geography_menu.dart';
 
-/// Экономическая география — меню из 6 пунктов.
-/// Если [roomId] != null — запуск игры через RoomService.startGame.
 class EconomicGeographyMenuPage extends StatelessWidget {
   final String? roomId;
   const EconomicGeographyMenuPage({super.key, this.roomId});
@@ -37,7 +38,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                     final gridH = constraints.maxHeight;
                     final itemW = (gridW - (cross - 1) * hSpace) / cross;
                     final itemH = (gridH - (rows - 1) * vSpace) / rows;
-                    final ratio = itemW / itemH;
+                    final ratio = itemW / itemH; // 👈 как в физике
 
                     return GridView.count(
                       physics: const NeverScrollableScrollPhysics(),
@@ -54,8 +55,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'regions',
-                            page:
-                                const PhysicalGeographyPage(), // как у тебя было
+                            page: const PhysicalGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -65,7 +65,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'cities',
-                            page: const CitiesPage(), // обёртка ниже
+                            page: const CitiesEconomicGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -75,7 +75,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'symbols',
-                            page: const SymbolsPage(),
+                            page: const SymbolsEconomicGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -95,7 +95,9 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'symbols_test',
-                            page: const SymbolsTestPage(),
+                            page: const _StubScaffold(
+                              title: 'условные знаки тест',
+                            ),
                           ),
                         ),
                         _MenuSquare(
@@ -190,7 +192,6 @@ class _MenuSquare extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         splashColor: cs.primary.withOpacity(0.12),
-        highlightColor: Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
@@ -213,39 +214,6 @@ class _MenuSquare extends StatelessWidget {
       ),
     );
   }
-}
-
-// ===== Экран из твоего файла cities_economic_geography.dart
-class CitiesPage extends StatelessWidget {
-  const CitiesPage({super.key});
-  @override
-  Widget build(BuildContext context) => const CitiesEconomicGeographyPage();
-}
-
-// ===== Остальные заглушки (замени своими экранами при готовности) =====
-class SymbolsPage extends StatelessWidget {
-  const SymbolsPage({super.key});
-  @override
-  Widget build(BuildContext context) => const SymbolsEconomicGeographyPage();
-}
-
-class FactoriesPage extends StatelessWidget {
-  const FactoriesPage({super.key});
-  @override
-  Widget build(BuildContext context) => const _StubScaffold(title: 'заводы');
-}
-
-class SymbolsTestPage extends StatelessWidget {
-  const SymbolsTestPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      const _StubScaffold(title: 'условные знаки тест');
-}
-
-class EconomicTestPage extends StatelessWidget {
-  const EconomicTestPage({super.key});
-  @override
-  Widget build(BuildContext context) => const _StubScaffold(title: 'тест');
 }
 
 class _StubScaffold extends StatelessWidget {

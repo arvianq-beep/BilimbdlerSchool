@@ -159,5 +159,32 @@
   "population": "Халық",
   "capitals": "Астаналар",
   "flags": "Тулар",
-  "climate": "Климат"
+  "climate": "Климат",
+  "factoriesTestTitle": "Тест: Металлургия",
+  "factoriesQ1": "Титан-магний комбинаты қай қалада орналасқан?",
+  "factoriesQ1A1": "Павлодар",
+  "factoriesQ1A2": "Өскемен",
+  "factoriesQ1A3": "Риддер",
+  "factoriesQ1A4": "Жезқазған",
+
+  "factoriesQ2": "Павлодар қаласында қай зауыт орналасқан?",
+  "factoriesQ2A1": "Электролиз зауыты",
+  "factoriesQ2A2": "Полиметалл комбинаты",
+  "factoriesQ2A3": "Мыс қорыту зауыты",
+  "factoriesQ2A4": "Қорғасын-мырыш комбинаты",
+
+  "factoriesQ3": "Теміртаудағы металлургиялық алып?",
+  "factoriesQ3A1": "Балқаш мыс зауыты",
+  "factoriesQ3A2": "Испат-Кармет (АрселорМиттал)",
+  "factoriesQ3A3": "Глинозем зауыты",
+  "factoriesQ3A4": "Ақтөбе ферроқорытпа зауыты",
+
+  "questionOfTotal": "Сұрақ {current}/{total}",
+  "@questionOfTotal": {
+    "placeholders": {
+      "current": { "type": "String", "example": "1" },
+      "total": { "type": "String", "example": "3" }
+    }
+  }
+
 }

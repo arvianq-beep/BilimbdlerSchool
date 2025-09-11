@@ -190,5 +190,33 @@
   "cityTemirtau": "Temirtau",
   "cityKokshetau": "Kokshetau",
   "cityTurkistan": "Turkistan",
-  "cityTaldykorgan": "Taldykorgan"
+  "cityTaldykorgan": "Taldykorgan",
+  "factoriesTestTitle": "Test: Metallurgy",
+  "factoriesQ1": "Where is the Titanium–Magnesium Plant located?",
+  "factoriesQ1A1": "Pavlodar",
+  "factoriesQ1A2": "Oskemen",
+  "factoriesQ1A3": "Ridder",
+  "factoriesQ1A4": "Zhezkazgan",
+
+  "factoriesQ2": "Which plant is located in Pavlodar?",
+  "factoriesQ2A1": "Electrolysis plant",
+  "factoriesQ2A2": "Polymetal plant",
+  "factoriesQ2A3": "Copper smelter",
+  "factoriesQ2A4": "Lead–zinc plant",
+
+  "factoriesQ3": "Metallurgical giant in Temirtau?",
+  "factoriesQ3A1": "Balkhash copper plant",
+  "factoriesQ3A2": "Ispat-Karmet (ArcelorMittal)",
+  "factoriesQ3A3": "Alumina plant",
+  "factoriesQ3A4": "Aktobe ferroalloy plant",
+
+  "questionOfTotal": "Question {current} of {total}",
+  "@questionOfTotal": {
+    "placeholders": {
+      "current": { "type": "String", "example": "1" },
+      "total": { "type": "String", "example": "3" }
+    }
+  }
+
+  
 }

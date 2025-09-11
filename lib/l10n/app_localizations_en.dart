@@ -452,4 +452,57 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cityTaldykorgan => 'Taldykorgan';
+
+  @override
+  String get factoriesTestTitle => 'Test: Metallurgy';
+
+  @override
+  String get factoriesQ1 => 'Where is the Titanium–Magnesium Plant located?';
+
+  @override
+  String get factoriesQ1A1 => 'Pavlodar';
+
+  @override
+  String get factoriesQ1A2 => 'Oskemen';
+
+  @override
+  String get factoriesQ1A3 => 'Ridder';
+
+  @override
+  String get factoriesQ1A4 => 'Zhezkazgan';
+
+  @override
+  String get factoriesQ2 => 'Which plant is located in Pavlodar?';
+
+  @override
+  String get factoriesQ2A1 => 'Electrolysis plant';
+
+  @override
+  String get factoriesQ2A2 => 'Polymetal plant';
+
+  @override
+  String get factoriesQ2A3 => 'Copper smelter';
+
+  @override
+  String get factoriesQ2A4 => 'Lead–zinc plant';
+
+  @override
+  String get factoriesQ3 => 'Metallurgical giant in Temirtau?';
+
+  @override
+  String get factoriesQ3A1 => 'Balkhash copper plant';
+
+  @override
+  String get factoriesQ3A2 => 'Ispat-Karmet (ArcelorMittal)';
+
+  @override
+  String get factoriesQ3A3 => 'Alumina plant';
+
+  @override
+  String get factoriesQ3A4 => 'Aktobe ferroalloy plant';
+
+  @override
+  String questionOfTotal(String current, String total) {
+    return 'Question $current of $total';
+  }
 }

@@ -190,5 +190,32 @@
   "cityTemirtau": "Темиртау",
   "cityKokshetau": "Кокшетау",
   "cityTurkistan": "Туркестан",
-  "cityTaldykorgan": "Талдыкорган"
+  "cityTaldykorgan": "Талдыкорган",
+  "factoriesTestTitle": "Тест: Металлургия",
+  "factoriesQ1": "Где находится Титан-магний комбинаты?",
+  "factoriesQ1A1": "Павлодар",
+  "factoriesQ1A2": "Усть-Каменогорск",
+  "factoriesQ1A3": "Риддер",
+  "factoriesQ1A4": "Жезказган",
+
+  "factoriesQ2": "Какой завод расположен в Павлодаре?",
+  "factoriesQ2A1": "Электролиз зауыты",
+  "factoriesQ2A2": "Полиметалл комбинаты",
+  "factoriesQ2A3": "Мыс қорыту зауыты",
+  "factoriesQ2A4": "Қорғасын-мырыш комбинаты",
+
+  "factoriesQ3": "Металлургический гигант в Темиртау?",
+  "factoriesQ3A1": "Балхашский медеплавильный завод",
+  "factoriesQ3A2": "Испат-Кармет (ArcelorMittal)",
+  "factoriesQ3A3": "Глинозёмный завод",
+  "factoriesQ3A4": "Актюбинский ферросплавный завод",
+
+  "questionOfTotal": "Вопрос {current} из {total}",
+  "@questionOfTotal": {
+    "placeholders": {
+      "current": { "type": "String", "example": "1" },
+      "total": { "type": "String", "example": "3" }
+    }
+  }
+
 }
