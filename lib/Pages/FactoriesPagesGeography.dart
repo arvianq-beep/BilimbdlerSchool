@@ -1,4 +1,6 @@
+// lib/Pages/FactoriesPagesGeography.dart
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bilimdler/rooms/game_result.dart';
 import '../l10n/app_localizations.dart';
 
@@ -11,7 +13,7 @@ class FactoriesPage extends StatefulWidget {
 }
 
 class _FactoriesPageState extends State<FactoriesPage> {
-  // Q1..Q7 правильные варианты
+  // Правильные ответы: Q1..Q7
   final List<int> _correct = [1, 0, 1, 3, 0, 0, 2];
 
   int _current = 0;
@@ -24,18 +26,25 @@ class _FactoriesPageState extends State<FactoriesPage> {
     final isLast = _current + 1 >= total;
 
     if (isLast) {
-      // ГРУППА: сразу пишем результат и показываем общее табло
+      // ГРУППА: отправляем результат в комнату
       if ((widget.roomId ?? '').isNotEmpty) {
-        await GameResult.submit(
-          context: context,
-          score: _score,
-          total: total,
-          roomId: widget.roomId,
-        );
-        return; // навигация произойдёт внутри submit
+        try {
+          await GameResult.submit(
+            context: context,
+            score: _score,
+            total: total,
+            roomId: widget.roomId,
+          );
+          return; // GameResult сам покажет табло (если настроено)
+        } catch (e) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Не удалось отправить результат: $e')),
+          );
+        }
       }
 
-      // Соло: просто показать итоговый экран
+      // СОЛО: показать локальный итог
       setState(() => _current++);
       return;
     }
@@ -80,7 +89,6 @@ class _FactoriesPageState extends State<FactoriesPage> {
     final cs = Theme.of(context).colorScheme;
     final questions = _questions(t);
     final total = questions.length;
-
     final inQuiz = _current < total;
 
     return Scaffold(
