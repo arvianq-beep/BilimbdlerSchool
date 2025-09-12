@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PhysicalTestPage extends StatefulWidget {
@@ -14,12 +14,12 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
   bool _loading = true;
   bool _submitted = false;
 
-  // если в БД нет subject='physical', попробуем по разделам
+  // РµСЃР»Рё РІ Р‘Р” РЅРµС‚ subject='physical', РїРѕРїСЂРѕР±СѓРµРј РїРѕ СЂР°Р·РґРµР»Р°Рј
   static const Set<String> _physicalSections = {
-    'Атмосфера',
-    'Гидросфера',
-    'Литосфера',
-    'Биосфера',
+    'РђС‚РјРѕСЃС„РµСЂР°',
+    'Р“РёРґСЂРѕСЃС„РµСЂР°',
+    'Р›РёС‚РѕСЃС„РµСЂР°',
+    'Р‘РёРѕСЃС„РµСЂР°',
   };
 
   @override
@@ -38,6 +38,8 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     return 0;
   }
 
+
+  // Физикалық география: загрузка вопросов по возрастанию номера
   Future<void> _loadQuestions() async {
     setState(() {
       _loading = true;
@@ -45,36 +47,13 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
       _selected.clear();
     });
 
-    final snap = await FirebaseFirestore.instance.collection('questions').get();
-
-    // 1) сначала пробуем явно по subject
-    var docs = snap.docs.where((d) {
-      final subj = (d.data()['subject'] ?? '') as String;
-      return subj.toLowerCase().trim() == 'physical';
-    }).toList();
-
-    // 2) если пусто — пробуем по section
-    if (docs.isEmpty) {
-      docs = snap.docs.where((d) {
-        final sec = (d.data()['section'] ?? '') as String;
-        return _physicalSections.contains(sec);
-      }).toList();
-    }
-
-    // 3) если всё ещё пусто — берём всё (чтобы тест не был пустым)
-    if (docs.isEmpty) {
-      docs = snap.docs.toList();
-    }
-
-    docs.shuffle();
-    final picked = docs.take(30).toList()
-      ..sort(
-        (a, b) =>
-            _asInt(a.data()['number']).compareTo(_asInt(b.data()['number'])),
-      );
+    final snapshotPhys = await FirebaseFirestore.instance
+        .collection('questions')
+        .orderBy('number')
+        .get();
 
     setState(() {
-      _questions = picked;
+      _questions = snapshotPhys.docs;
       _loading = false;
     });
   }
@@ -93,19 +72,19 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Тест завершён'),
-        content: Text('Результат: $correct из ${_questions.length}'),
+        title: const Text('РўРµСЃС‚ Р·Р°РІРµСЂС€С‘РЅ'),
+        content: Text('Р РµР·СѓР»СЊС‚Р°С‚: $correct РёР· ${_questions.length}'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Ок'),
+            child: const Text('РћРє'),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              await _loadQuestions(); // новая случайная, но отсортированная выборка
+              await _loadQuestions(); // РЅРѕРІР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ, РЅРѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РІС‹Р±РѕСЂРєР°
             },
-            child: const Text('Ещё раз'),
+            child: const Text('Р•С‰С‘ СЂР°Р·'),
           ),
         ],
       ),
@@ -119,7 +98,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Физическая география — тест')),
+      appBar: AppBar(title: const Text('Р¤РёР·РёС‡РµСЃРєР°СЏ РіРµРѕРіСЂР°С„РёСЏ вЂ” С‚РµСЃС‚')),
       body: ListView.builder(
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -140,7 +119,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${index + 1}. ${q['question'] ?? ''}', // локальная нумерация 1..N
+                    '${index + 1}. ${q['question'] ?? ''}', // Р»РѕРєР°Р»СЊРЅР°СЏ РЅСѓРјРµСЂР°С†РёСЏ 1..N
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -163,12 +142,12 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                           ? null
                           : (k == correctKey)
                           ? const Text(
-                              'Верный ответ',
+                              'Р’РµСЂРЅС‹Р№ РѕС‚РІРµС‚',
                               style: TextStyle(color: Colors.green),
                             )
                           : (selected == k)
                           ? const Text(
-                              'Неверно',
+                              'РќРµРІРµСЂРЅРѕ',
                               style: TextStyle(color: Colors.red),
                             )
                           : null,
@@ -184,7 +163,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: _submitted ? null : _finishTest,
-            child: const Text('Завершить тест'),
+            child: const Text('Р—Р°РІРµСЂС€РёС‚СЊ С‚РµСЃС‚'),
           ),
         ),
       ),

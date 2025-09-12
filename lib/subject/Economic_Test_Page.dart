@@ -1,4 +1,4 @@
-// lib/subject/economic_test_page.dart
+﻿// lib/subject/economic_test_page.dart
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,19 +18,38 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
   @override
   void initState() {
     super.initState();
-    _loadQuestions();
+    _loadQuestionsEconom();
   }
 
-  // аккуратный парсер номера (int/num/string)
+  // Р°РєРєСѓСЂР°С‚РЅС‹Р№ РїР°СЂСЃРµСЂ РЅРѕРјРµСЂР° (int/num/string)
   int _asInt(dynamic v) {
     if (v is int) return v;
     if (v is num) return v.toInt();
     if (v is String) {
-      // выкинем всё, что не цифра (на всякий случай)
+      // РІС‹РєРёРЅРµРј РІСЃС‘, С‡С‚Рѕ РЅРµ С†РёС„СЂР° (РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№)
       final s = v.replaceAll(RegExp(r'[^0-9]'), '');
       return int.tryParse(s) ?? 0;
     }
     return 0;
+  }
+
+  // Р­РєРѕРЅРѕРјРёРєР°Р»С‹Т› РіРµРѕРіСЂР°С„РёСЏ: Р·Р°РіСЂСѓР·РєР° РІРѕРїСЂРѕСЃРѕРІ РёР· 'econom' РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ РЅРѕРјРµСЂР°
+  Future<void> _loadQuestionsEconom() async {
+    setState(() {
+      _loading = true;
+      _submitted = false;
+      _selected.clear();
+    });
+
+    final snapshotEconom = await FirebaseFirestore.instance
+        .collection('econom')
+        .orderBy('number')
+        .get();
+
+    setState(() {
+      _questions = snapshotEconom.docs;
+      _loading = false;
+    });
   }
 
   Future<void> _loadQuestions() async {
@@ -40,14 +59,14 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
       _selected.clear();
     });
 
-    // 1) забрали все документы (ничего в БД не меняем)
+    // 1) Р·Р°Р±СЂР°Р»Рё РІСЃРµ РґРѕРєСѓРјРµРЅС‚С‹ (РЅРёС‡РµРіРѕ РІ Р‘Р” РЅРµ РјРµРЅСЏРµРј)
     final snap = await FirebaseFirestore.instance.collection('questions').get();
 
-    // 2) перемешали и взяли 30
+    // 2) РїРµСЂРµРјРµС€Р°Р»Рё Рё РІР·СЏР»Рё 30
     final all = snap.docs.toList()..shuffle();
     final picked = all.take(30).toList();
 
-    // 3) теперь ОТСОРТИРОВАЛИ выбранные 30 по полю "number"
+    // 3) С‚РµРїРµСЂСЊ РћРўРЎРћР РўРР РћР’РђР›Р РІС‹Р±СЂР°РЅРЅС‹Рµ 30 РїРѕ РїРѕР»СЋ "number"
     picked.sort((a, b) {
       final na = _asInt(a.data()['number']);
       final nb = _asInt(b.data()['number']);
@@ -63,7 +82,7 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
   void _finishTest() {
     setState(() => _submitted = true);
 
-    // если в документе есть поле "correct" (A/B/C/D) — посчитаем баллы
+    // РµСЃР»Рё РІ РґРѕРєСѓРјРµРЅС‚Рµ РµСЃС‚СЊ РїРѕР»Рµ "correct" (A/B/C/D) вЂ” РїРѕСЃС‡РёС‚Р°РµРј Р±Р°Р»Р»С‹
     int correct = 0;
     for (final doc in _questions) {
       final data = doc.data();
@@ -77,19 +96,19 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('Тест завершён'),
-        content: Text('Результат: $correct из ${_questions.length}'),
+        title: const Text('РўРµСЃС‚ Р·Р°РІРµСЂС€С‘РЅ'),
+        content: Text('Р РµР·СѓР»СЊС‚Р°С‚: $correct РёР· ${_questions.length}'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Ок'),
+            child: const Text('РћРє'),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              await _loadQuestions(); // новая случайная, но отсортированная выборка
+              await _loadQuestions(); // РЅРѕРІР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ, РЅРѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РІС‹Р±РѕСЂРєР°
             },
-            child: const Text('Ещё раз'),
+            child: const Text('Р•С‰С‘ СЂР°Р·'),
           ),
         ],
       ),
@@ -103,7 +122,7 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Экономика — тест')),
+      appBar: AppBar(title: const Text('Р­РєРѕРЅРѕРјРёРєР° вЂ” С‚РµСЃС‚')),
       body: ListView.builder(
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -112,12 +131,12 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
           final id = doc.id;
 
           final options = (q['options'] as Map<String, dynamic>? ?? {});
-          // порядок вариантов A..D
+          // РїРѕСЂСЏРґРѕРє РІР°СЂРёР°РЅС‚РѕРІ A..D
           final keys = ['A', 'B', 'C', 'D'].where(options.containsKey).toList();
           final selected = _selected[id];
           final correctKey = (q['correct'] ?? '').toString().toUpperCase();
 
-          // локальная нумерация 1..N (чтобы не было "66." в начале)
+          // Р»РѕРєР°Р»СЊРЅР°СЏ РЅСѓРјРµСЂР°С†РёСЏ 1..N (С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ "66." РІ РЅР°С‡Р°Р»Рµ)
           final title = '${index + 1}. ${q['question'] ?? ''}';
 
           return Card(
@@ -151,12 +170,12 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
                           ? null
                           : (k == correctKey)
                           ? const Text(
-                              'Верный ответ',
+                              'Р’РµСЂРЅС‹Р№ РѕС‚РІРµС‚',
                               style: TextStyle(color: Colors.green),
                             )
                           : (selected == k)
                           ? const Text(
-                              'Неверно',
+                              'РќРµРІРµСЂРЅРѕ',
                               style: TextStyle(color: Colors.red),
                             )
                           : null,
@@ -172,7 +191,7 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: _submitted ? null : _finishTest,
-            child: const Text('Завершить тест'),
+            child: const Text('Р—Р°РІРµСЂС€РёС‚СЊ С‚РµСЃС‚'),
           ),
         ),
       ),

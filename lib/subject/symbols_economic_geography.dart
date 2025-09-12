@@ -1,8 +1,11 @@
 import 'dart:math' as math;
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show HapticFeedback;
+import 'package:confetti/confetti.dart';
+import '../l10n/app_localizations.dart';
 
 /// Экономическая география — условные знаки (ресурсы).
 /// Мини‑игра по типу озёр/рек: кликаем по точке, выбираем из 3 вариантов.
@@ -16,7 +19,7 @@ class SymbolsEconomicGeographyPage extends StatefulWidget {
 class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyPage>
     with TickerProviderStateMixin {
   // Карта (та же, что и в озёрах/реках)
-  static const String _mapAssetPath = 'lib/Images/lakes_counrty.png';
+  static const String _mapAssetPath = 'lib/Images/country_symbols.png';
   // Геобокс Казахстана для проекции lat/lng → XY
   static const double _bboxMinLat = 40.56;
   static const double _bboxMaxLat = 55.59;
@@ -29,7 +32,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   static const double _insetBottom = 0.03;
 
   // Размер точки
-  final double _tapSize = 28;
+  final double _tapSize = 20;
 
   Size? _mapImageSize;
   bool _mapSizeResolved = false;
@@ -51,17 +54,45 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   ];
 
   // Города (с координатами) — кликаем по ним, чтобы ответить
-  static const List<({String id, String nameId, double lat, double lng})> _cities = [
-    (id: 'city_karaganda', nameId: 'city_karaganda', lat: 49.8028, lng: 73.0877),
-    (id: 'city_atyrau', nameId: 'city_atyrau', lat: 47.116, lng: 51.883),
-    (id: 'city_kostanay', nameId: 'city_kostanay', lat: 53.2144, lng: 63.6246),
-    (id: 'city_zhezkazgan', nameId: 'city_zhezkazgan', lat: 47.7833, lng: 67.7667),
-    (id: 'city_oskemen', nameId: 'city_ust_kamenogorsk', lat: 49.97, lng: 82.61),
-    (id: 'city_kyzylorda', nameId: 'city_kyzylorda', lat: 44.852, lng: 65.509),
-    (id: 'city_kokshetau', nameId: 'city_kokshetau', lat: 53.2833, lng: 69.3833),
-    (id: 'city_aktobe', nameId: 'city_aktobe', lat: 50.2839, lng: 57.1660),
-    (id: 'city_oskemen2', nameId: 'city_ust_kamenogorsk', lat: 49.97, lng: 82.61),
-    (id: 'city_balkhash', nameId: 'city_taldykorgan', lat: 45.0, lng: 78.4),
+  // Точки по регионам для карты country_symbols.png: пока пусто — убираем все текущие точки.
+  static const List<({String id, String type, double lat, double lng})> _cities = [
+    // Запад (Атырау/Мангистау): нефть и газ
+    (id: 'pt_oil_atyrau', type: 'oil', lat: 47.12, lng: 51.88),
+    (id: 'pt_oil_aktau', type: 'oil', lat: 43.65, lng: 51.20),
+    (id: 'pt_gas_west1', type: 'gas', lat: 47.0, lng: 52.5),
+    (id: 'pt_gas_west2', type: 'gas', lat: 44.8, lng: 53.5),
+
+    // Актюбинская область: хромиты и никель
+    (id: 'pt_chromite_aktobe', type: 'chromite', lat: 49.8, lng: 57.0),
+    (id: 'pt_nickel_aktobe', type: 'nickel', lat: 49.4, lng: 58.0),
+
+    // Костанайская: железная руда и асбест
+    (id: 'pt_iron_kostanay', type: 'iron', lat: 53.2, lng: 63.6),
+    (id: 'pt_asbestos_kostanay', type: 'asbestos', lat: 52.2, lng: 63.3),
+
+    // Центральный Казахстан
+    (id: 'pt_coal_karaganda', type: 'coal', lat: 49.8, lng: 73.1),
+    (id: 'pt_copper_zhezkazgan', type: 'copper', lat: 47.8, lng: 67.7),
+    (id: 'pt_gold_kokshetau', type: 'gold', lat: 53.3, lng: 69.4),
+
+    // Северо-Восток (Павлодар, Экибастуз)
+    (id: 'pt_browncoal_ekibastuz', type: 'brown_coal', lat: 51.7, lng: 75.3),
+    (id: 'pt_coal_pavlodar', type: 'coal', lat: 52.3, lng: 76.9),
+
+    // ВКО (Оскемен/Риддер) — полиметаллы и золото
+    (id: 'pt_polymetal_oskemen', type: 'polymetal', lat: 49.97, lng: 82.61),
+    (id: 'pt_polymetal_ridder', type: 'polymetal', lat: 50.34, lng: 83.51),
+    (id: 'pt_gold_east', type: 'gold', lat: 50.3, lng: 80.3),
+
+    // Район Балхаша — медь
+    (id: 'pt_copper_balkhash', type: 'copper', lat: 46.85, lng: 74.98),
+
+    // Соль — Арал и Кызылорда
+    (id: 'pt_salt_aral', type: 'salt', lat: 46.0, lng: 61.5),
+    (id: 'pt_salt_kyzylorda', type: 'salt', lat: 44.85, lng: 65.5),
+
+    // Юго-Запад — газ
+    (id: 'pt_gas_southwest', type: 'gas', lat: 44.2, lng: 67.5),
   ];
 
   // Задания: ресурс → целевой город
@@ -82,18 +113,30 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   int _score = 0;
   late List<int> _order; // порядок заданий
   int _current = 0;
+  bool _isLocked = false; // блокируем ввод на время подсветки правильного ответа
   // +1 animation
   late final AnimationController _plusCtrl =
       AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
   Offset? _plusPos;
+  bool _finished = false; // игра завершена, когда найдены все точки
   // экраны центров городов для +1
   final Map<String, Offset> _cityScreenCenters = {};
+
+  String? _currentTypeId;
+  // Конфетти для завершения
+  late final ConfettiController _confettiCtrl = ConfettiController(duration: const Duration(seconds: 3));
+  static bool _rulesShownOnce = false;
 
   @override
   void initState() {
     super.initState();
     _resolveMapImageSize();
     _startGame();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _rulesShownOnce) return;
+      _rulesShownOnce = true;
+      _showRulesDialog();
+    });
   }
 
   void _resolveMapImageSize() {
@@ -120,8 +163,10 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     _score = 0;
     _correct.clear();
     _wrong.clear();
-    _order = List<int>.generate(_tasks.length, (i) => i)..shuffle();
+    _order = List<int>.generate(100000, (i) => i); // заглушка для старой логики цикла
     _current = 0;
+    _finished = false;
+    _selectNextType();
     setState(() {});
   }
 
@@ -158,6 +203,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
             ),
             Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _buildMap())),
             _buildBottomPrompt(context),
+            
           ],
         ),
       ),
@@ -165,9 +211,10 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   }
 
   Widget _buildBottomPrompt(BuildContext context) {
-    final currentTask = _tasks[_order[_current]];
     final cs = Theme.of(context).colorScheme;
-    final type = _types.firstWhere((t) => t.id == currentTask.type);
+    if (_finished) return const SizedBox.shrink();
+    final currentTypeId = _currentTypeId ?? _types.first.id;
+    final type = _types.firstWhere((t) => t.id == currentTypeId, orElse: () => _types.first);
     final label = Localizations.localeOf(context).languageCode == 'kk' ? type.kk : type.ru;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -233,6 +280,29 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
                 ),
               ),
             ),
+          // Confetti overlay
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ConfettiWidget(
+                  confettiController: _confettiCtrl,
+                  blastDirectionality: BlastDirectionality.explosive,
+                  emissionFrequency: 0.02,
+                  numberOfParticles: 12,
+                  maxBlastForce: 20,
+                  minBlastForce: 6,
+                  gravity: 0.3,
+                  colors: [
+                    Theme.of(context).colorScheme.primary,
+                    Theme.of(context).colorScheme.secondary,
+                    Theme.of(context).colorScheme.tertiary,
+                    Colors.white,
+                  ],
+                ),
+              ),
+            ),
+          ),
           ]),
         ),
       );
@@ -244,6 +314,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     final innerTop = offsetY + contentH * _insetTop;
     final innerW = contentW * (1 - _insetLeft - _insetRight);
     final innerH = contentH * (1 - _insetTop - _insetBottom);
+    final currentTypeId = _currentTypeId ?? _types.first.id;
 
     final centers = _cities
         .map((c) {
@@ -252,6 +323,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
           return (id: c.id, pos: Offset(x, y));
         })
         .toList();
+    final typesById = {for (final c in _cities) c.id: c.type};
 
     final placed = <({String id, Offset pos})>[];
     final minDist = _tapSize * 1.05;
@@ -280,6 +352,8 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     for (final e in placed) {
       final id = e.id;
       final isWrong = _wrong.contains(id);
+      final isCorrect = _correct.contains(id);
+      final pointType = currentTypeId; // показываем искомый знак на всех точках
       final center = Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy);
       _cityScreenCenters[id] = center;
       children.add(Positioned(
@@ -289,21 +363,122 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
         height: _tapSize,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
-          onTap: () => _onTapCity(id),
-          child: Container(
-            decoration: BoxDecoration(
-              color: () {
-                if (isWrong) return Colors.redAccent;
-                return Colors.grey;
-              }(),
-              borderRadius: BorderRadius.circular(6),
-              boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 2, offset: Offset(0, 1))],
-            ),
-          ),
+          onTap: () => _onTapCityAsync(id),
+          child: CustomPaint(painter: _SymbolPainter(type: pointType, isCorrect: isCorrect, isWrong: isWrong)),
         ),
       ));
     }
     return children;
+  }
+
+  // Типы ресурсов, у которых ещё остались ненайденные точки
+  List<String> _typesWithRemaining() {
+    final remaining = <String>{};
+    for (final c in _cities) {
+      if (!_correct.contains(c.id)) remaining.add(c.type);
+    }
+    return remaining.toList();
+  }
+
+  void _selectNextType() {
+    final rest = _typesWithRemaining();
+    if (rest.isEmpty) {
+      _currentTypeId = null;
+      _finished = true;
+      // показать конфетти и статистику, как в регионах
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        try {
+          HapticFeedback.vibrate();
+        } catch (_) {}
+        _confettiCtrl.play();
+        _showFinishDialogStats();
+      });
+      return;
+    }
+    final rnd = math.Random();
+    _currentTypeId = rest[rnd.nextInt(rest.length)];
+    _wrong.clear();
+  }
+
+  void _showRulesDialog() {
+    String text;
+    final code = Localizations.localeOf(context).languageCode;
+    switch (code) {
+      case 'kk':
+        text = '''
+Картадағы шартты белгілер ойыны:
+
+1) Тапсырмада көрсетілген пайдалы қазбаның белгісін табыңыз.
+2) Дұрыс тапсаңыз – белгі жасылға боялады және солай қалады.
+3) Барлық белгілер табылғанда ойын аяқталады.
+4) Белгі қалмаған ресурс түрлері сұралмайды.
+''';
+        break;
+      case 'ru':
+        text = '''
+Игра по условным знакам:
+
+1) Найдите на карте знак указанного ресурса.
+2) Правильный выбор – маркер станет зелёным и останется таким.
+3) Игра заканчивается, когда найдены все точки.
+4) Типы ресурсов без оставшихся точек не предлагаются.
+''';
+        break;
+      default:
+        text = '''
+Symbols game:
+
+1) Find the symbol of the requested resource.
+2) Correct picks turn green permanently.
+3) The game ends when all points are found.
+4) Resource types with no remaining points are skipped.
+''';
+    }
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(code == 'kk' ? 'Ережелер' : code == 'ru' ? 'Правила' : 'Rules'),
+        content: Text(text),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(code == 'kk' ? 'Жабу' : code == 'ru' ? 'Ок' : 'OK'),
+          )
+        ],
+      ),
+    );
+  }
+
+  Future<void> _showFinishDialogStats() async {
+    final lang = Localizations.localeOf(context).languageCode;
+    final total = _cities.length;
+    final title = lang == 'kk' ? 'Жарайсың!' : lang == 'ru' ? 'Поздравляем!' : 'Well done!';
+    final body = lang == 'kk'
+        ? 'Нәтиже: $_score / $total'
+        : lang == 'ru'
+            ? 'Результат: $_score / $total'
+            : 'Result: $_score / $total';
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(title),
+        content: Text(body),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _startGame();
+            },
+            child: Text(AppLocalizations.of(ctx)!.playAgain),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(AppLocalizations.of(ctx)!.btnCancel),
+          ),
+        ],
+      ),
+    );
   }
 
   void _onTapCity(String cityId) {
@@ -319,7 +494,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
           _plusPos = pos;
           _plusCtrl.forward(from: 0);
         }
-        if (_current < _order.length - 1) {
+        if (false) {
           _current += 1;
         } else {
           _current = 0;
@@ -336,9 +511,57 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     }
   }
 
+  Future<void> _onTapCityAsync(String cityId) async {
+    if (_isLocked || _finished) return;
+    final currentType = _currentTypeId ?? _types.first.id;
+    final tappedType = _cities.firstWhere((c) => c.id == cityId).type;
+    final isCorrect = tappedType == currentType;
+    if (isCorrect && _correct.contains(cityId)) {
+      return; // уже найденная точка: не засчитываем повторно
+    }
+    if (isCorrect) {
+      _isLocked = true;
+      setState(() {
+        _score += 1;
+        _wrong.clear();
+        _correct.add(cityId);
+        final pos = _cityScreenCenters[cityId];
+        if (pos != null) {
+          _plusPos = pos;
+          _plusCtrl.forward(from: 0);
+        }
+      });
+      await Future<void>.delayed(const Duration(seconds: 1));
+      if (!mounted) return;
+      final int keepScore = _score;
+      setState(() {
+        // выбрать следующий тип
+        _selectNextType();
+        // keep already found points
+        if (_current < _order.length - 1) {
+          _current += 1;
+        } else {
+          _current = 0;
+          _order.shuffle();
+          _score = 0; // сброс очков при переходе к новому циклу
+        }
+        if (_correct.length >= _cities.length) { _finished = true; }
+        _score = keepScore;
+        _isLocked = false;
+      });
+    } else {
+      _wrong.add(cityId);
+      try {
+        HapticFeedback.heavyImpact();
+      } catch (_) {}
+      setState(() {});
+    }
+  }
+
   @override
   void dispose() {
     _plusCtrl.dispose();
+    _confettiCtrl.dispose();
     super.dispose();
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_bilimdler/Services/room_services.dart';
 import '../l10n/app_localizations.dart';
 import 'lakes_physical_geography.dart';
 import 'rivers_physical_geography.dart';
+import 'mountains_physical_geography.dart';
 import 'physical_test_page.dart'; // ← ВАЖНО: реальный экран теста
 
 /// Меню "Физическая география": 6 квадратов.
@@ -55,7 +56,7 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'mountains',
-                            page: const MountainsPage(),
+                            page: const MountainsPhysicalGeographyPage(),
                           ),
                         ),
                         _MenuSquare(

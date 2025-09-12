@@ -34,7 +34,7 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
   static const double _insetRight = 0.02;
   static const double _insetTop = 0.03;
   static const double _insetBottom = 0.03;
-  final double _tapSize = 28; // larger touch target for mobile
+  final double _tapSize = 20; // smaller marker radius per request
 
   Size? _mapImageSize;
   bool _mapSizeResolved = false;
@@ -43,6 +43,12 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
   final Map<String, List<String>> _choicesByRiverId = {};
   int _totalAttempts = 0;
   bool _finishedShown = false;
+  // Fine-tune on-screen positions for specific rivers (dx, dy in px)
+  static const Map<String, Offset> _riverNudges = {
+    'river_shu': Offset(-10, 0),    // Чу левее
+    'river_lepsy': Offset(0, -10),  // Лепсы выше
+    'river_eshim': Offset(0, 10),   // Ишим ниже
+  };
 
   // Rivers list with approximate coordinates (lat/lng) within KZ bbox
   static const List<({String id, String nameRu, String nameKk, double lat, double lng})> _rivers = [
@@ -243,10 +249,13 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
     final innerH = contentH * (1 - _insetTop - _insetBottom);
 
     final centers = _rivers
+
         .map((r) {
           final x = ((r.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(0.0, 1.0) * innerW;
           final y = ((_bboxMaxLat - r.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(0.0, 1.0) * innerH;
-          return (id: r.id, pos: Offset(x, y));
+          final base = Offset(x, y);
+          final nudge = _riverNudges[r.id] ?? Offset.zero;
+          return (id: r.id, pos: base + nudge);
         })
         .toList();
 

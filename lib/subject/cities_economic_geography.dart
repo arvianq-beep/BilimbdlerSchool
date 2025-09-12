@@ -83,7 +83,18 @@ class _CitiesEconomicGeographyPageState extends State<CitiesEconomicGeographyPag
     // 'city_almaty': Offset(4, -2),
   };
 
-  ({String id, String name, String short, double lat, double lng}) get _currentCity => _cities[_order[_currentIndex]];
+  // Дополнительные города (добавлено: Актау)
+  static const List<({String id, String name, String short, double lat, double lng})> _extraCities = [
+    (id: 'city_aktau', name: 'Aktau', short: 'Aktau', lat: 43.653, lng: 51.152),
+  ];
+
+  // Единый список городов для игры
+  List<({String id, String name, String short, double lat, double lng})> get _allCities => [
+        ..._cities,
+        ..._extraCities,
+      ];
+
+  ({String id, String name, String short, double lat, double lng}) get _currentCity => _allCities[_order[_currentIndex]];
 
   @override
   void initState() {
@@ -119,7 +130,7 @@ class _CitiesEconomicGeographyPageState extends State<CitiesEconomicGeographyPag
   }
 
   void _startGame() {
-    _order = List<int>.generate(_cities.length, (i) => i)..shuffle();
+    _order = List<int>.generate(_allCities.length, (i) => i)..shuffle();
     _currentIndex = 0;
     _score = 0;
     _correct.clear();
@@ -179,7 +190,15 @@ class _CitiesEconomicGeographyPageState extends State<CitiesEconomicGeographyPag
               ],
             ),
           ),
-          Text(t.scoreDisplay(_score), style: const TextStyle(fontSize: 18)),
+          Row(children: [
+            Text(t.scoreDisplay(_score), style: const TextStyle(fontSize: 18)),
+            const SizedBox(width: 8),
+            IconButton(
+              tooltip: t.playAgain,
+              icon: const Icon(Icons.refresh),
+              onPressed: _startGame,
+            ),
+          ]),
         ],
       ),
     );
@@ -247,7 +266,7 @@ class _CitiesEconomicGeographyPageState extends State<CitiesEconomicGeographyPag
     final innerH = contentH * (1 - _insetTop - _insetBottom);
 
     // Сперва спроецируем все центры
-    final List<({String id, Offset pos})> centers = _cities
+    final List<({String id, Offset pos})> centers = _allCities
         .map((c) {
           final base = _projectLatLng(c.lat, c.lng, innerW, innerH);
           final nudge = _cityNudges[c.id] ?? Offset.zero;
@@ -360,7 +379,7 @@ class _CitiesEconomicGeographyPageState extends State<CitiesEconomicGeographyPag
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(AppLocalizations.of(ctx)!.citiesEgFinishTitle),
-        content: Text(AppLocalizations.of(ctx)!.resultDisplay(_score, _cities.length)),
+        content: Text(AppLocalizations.of(ctx)!.resultDisplay(_score, _allCities.length)),
         actions: [
           TextButton(
             onPressed: () {
@@ -505,6 +524,16 @@ String _localizedCityName(BuildContext context, String id) {
       return t.cityTurkistan;
     case 'city_taldykorgan':
       return t.cityTaldykorgan;
+    case 'city_aktau':
+      // Локализация вручную, т.к. ключа может не быть в ARB
+      switch (Localizations.localeOf(context).languageCode) {
+        case 'kk':
+          return 'Ақтау';
+        case 'ru':
+          return 'Актау';
+        default:
+          return 'Aktau';
+      }
     default:
       return id;
   }
