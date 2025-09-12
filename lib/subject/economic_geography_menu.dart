@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
-import 'package:flutter_bilimdler/Services/room_services.dart';
-import '../l10n/app_localizations.dart';
+import 'package:flutter_bilimdler/Pages/Symbols_test_page.dart';
+import 'package:flutter_bilimdler/services/room_services.dart';
 
-import 'economic_test_page.dart';
+import '../l10n/app_localizations.dart';
 import 'region_economic_geography.dart';
 import 'cities_economic_geography.dart';
 import 'symbols_economic_geography.dart';
-import 'physical_geography_menu.dart';
+
+import 'economic_test_page.dart';
 
 class EconomicGeographyMenuPage extends StatelessWidget {
   final String? roomId; // null = соло, не null = группа
@@ -55,7 +56,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'regions',
-                            page: PhysicalGeographyPage(),
+                            page: const PhysicalGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -95,9 +96,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'symbols_test',
-                            page: const _StubScaffold(
-                              title: 'условные знаки тест',
-                            ),
+                            page: const SymbolsTestPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -176,7 +175,7 @@ class _MenuSquare extends StatelessWidget {
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bool isOdd = index % 2 == 1;
+    final bool isOdd = index.isOdd;
     final Color bg = () {
       if (isDark) return isOdd ? cs.primary : cs.secondaryContainer;
       return isOdd ? cs.secondaryContainer : cs.primaryContainer;
@@ -214,25 +213,6 @@ class _MenuSquare extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _StubScaffold extends StatelessWidget {
-  const _StubScaffold({required this.title});
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    final cs = Theme.of(context).colorScheme;
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Text(
-          'Раздел "$title" пока в разработке',
-          style: TextStyle(color: cs.onSurface, fontSize: 16),
         ),
       ),
     );

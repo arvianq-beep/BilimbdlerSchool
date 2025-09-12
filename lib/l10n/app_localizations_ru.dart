@@ -15,7 +15,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get brand => 'BILIM\"D\"LER';
 
   @override
-  String get email => 'Эл. почта';
+  String get email => 'Email';
 
   @override
   String get password => 'Пароль';
@@ -27,7 +27,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get continueAsGuest => 'Продолжить как гость';
 
   @override
-  String get notMember => 'Ещё нет аккаунта?';
+  String get notMember => 'Нет аккаунта?';
 
   @override
   String get registerNow => 'Зарегистрируйтесь';
@@ -48,51 +48,51 @@ class AppLocalizationsRu extends AppLocalizations {
   String get confirmPassword => 'Подтвердите пароль';
 
   @override
-  String get weakPassword => 'Пароль должен содержать не менее 6 символов';
+  String get weakPassword => 'Пароль должен быть не менее 6 символов';
 
   @override
-  String get emailInUse => 'Этот адрес уже используется';
+  String get emailInUse => 'Этот email уже используется';
 
   @override
-  String get emailAlreadyInUse => 'Этот адрес уже используется';
+  String get emailAlreadyInUse => 'Этот email уже используется';
 
   @override
-  String get invalidEmail => 'Некорректный адрес эл. почты';
+  String get invalidEmail => 'Некорректный email';
 
   @override
-  String get userNotFound => 'Пользователь с таким адресом не найден';
+  String get userNotFound => 'Пользователь не найден';
 
   @override
   String get wrongPassword => 'Неверный пароль';
 
   @override
-  String get badEmailOrPassword => 'Неверная почта или пароль';
+  String get badEmailOrPassword => 'Неверный email или пароль';
 
   @override
   String get tooManyRequests => 'Слишком много попыток, попробуйте позже';
 
   @override
-  String get unknownError => 'Произошла неизвестная ошибка';
+  String get unknownError => 'Неизвестная ошибка';
 
   @override
-  String get enterEmailPassword => 'Введите эл. почту и пароль';
+  String get enterEmailPassword => 'Введите email и пароль';
 
   @override
   String get passwordsNotMatch => 'Пароли не совпадают';
 
   @override
   String verificationEmailSent(String email) {
-    return 'Письмо с подтверждением отправлено на $email';
+    return 'Письмо для подтверждения отправлено на $email';
   }
 
   @override
-  String get verifyYourEmail => 'Пожалуйста, подтвердите почту перед входом';
+  String get verifyYourEmail => 'Подтвердите email перед входом';
 
   @override
   String get forgotPassword => 'Забыли пароль?';
 
   @override
-  String get pleaseEnterEmail => 'Введите адрес эл. почты';
+  String get pleaseEnterEmail => 'Введите email';
 
   @override
   String resetEmailSent(String email) {
@@ -103,12 +103,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get resendVerification => 'Отправить письмо повторно';
 
   @override
-  String get verificationEmailResent =>
-      'Письмо с подтверждением отправлено повторно';
+  String get verificationEmailResent => 'Письмо повторно отправлено';
 
   @override
   String guestIdDisplay(String id) {
-    return 'ID гостя: $id';
+    return 'Гостевой ID: $id';
   }
 
   @override
@@ -173,17 +172,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String comingSoon(String title) {
-    return 'Скоро будет: $title';
+    return 'Скоро: $title';
   }
 
   @override
   String get mountains => 'Горы';
 
   @override
-  String get lakes => 'Озера';
+  String get lakes => 'Озёра';
 
   @override
-  String get deserts => 'Пустыни';
+  String get deserts => 'Физ регоины';
 
   @override
   String get rivers => 'Реки';
@@ -195,7 +194,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get testLabel => 'Тест';
 
   @override
-  String get regions => 'Области';
+  String get regions => 'Регионы';
 
   @override
   String get cities => 'Города';
@@ -207,7 +206,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factories => 'Заводы';
 
   @override
-  String get symbolsTest => 'Условные знаки тест';
+  String get symbolsTest => 'Тест по знакам';
 
   @override
   String get joinByCode => 'Войти по коду';
@@ -229,10 +228,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get howToPlayBody =>
-      'Один — сразу в предмет.\nГруппа — создастся комната и начнёте вместе.';
+      'Соло — переходите сразу к предмету.\nГруппа — создаётся комната и вы стартуете вместе.';
 
   @override
-  String get modeSolo => 'Один';
+  String get modeSolo => 'Соло';
 
   @override
   String get modeGroup => 'Группа';
@@ -270,13 +269,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get statusWaiting => 'ожидание';
 
   @override
-  String get statusPlaying => 'в игре';
+  String get statusPlaying => 'игра';
 
   @override
   String get leave => 'Выйти';
 
   @override
-  String get chooseGame => 'Выбрать игру';
+  String get chooseGame => 'Выберите игру';
 
   @override
   String get createRoomFailed => 'Не удалось создать комнату';
@@ -288,13 +287,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get roomNotFound => 'Комната не найдена';
 
   @override
-  String get roomAlreadyStarted => 'Игра уже начата';
+  String get roomAlreadyStarted => 'Игра уже началась';
 
   @override
   String get roomIsClosed => 'Комната закрыта';
 
   @override
-  String get roomIsFull => 'Мест нет';
+  String get roomIsFull => 'Свободных мест нет';
 
   @override
   String codeLabel(String code) {
@@ -336,7 +335,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String gameLaunched(String gameId, String subject) {
-    return 'Запущена игра «$gameId» по предмету «$subject»';
+    return 'Запущена игра \"$gameId\" для предмета \"$subject\"';
   }
 
   @override
@@ -367,13 +366,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get climate => 'Климат';
 
   @override
-  String get citiesEgTitle => 'Города Казахстана — мини-игра';
+  String get citiesEgTitle => 'Экономическая география: Города';
 
   @override
   String get rules => 'Правила';
 
   @override
-  String get findCityPrompt => 'Найдите на карте город:';
+  String get findCityPrompt => 'Найдите город:';
 
   @override
   String scoreDisplay(int score) {
@@ -389,11 +388,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get playAgain => 'Ещё раз';
+  String get playAgain => 'Играть ещё';
 
   @override
   String get citiesEgRulesText =>
-      'На экране показано название города.\nНажмите на соответствующий квадрат города на карте.\n\n+1 балл за правильный ответ.\nНеверные клики подсветятся красным.\nПройдите все города и начните заново.';
+      'На экране показано название города.\nНажмите соответствующий квадрат на карте.\n\n+1 балл за правильный ответ.\nОшибочные нажатия подсвечиваются красным.\nПройдите все города и попробуйте снова.';
 
   @override
   String get cityAstana => 'Астана';
@@ -432,10 +431,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get cityKyzylorda => 'Кызылорда';
 
   @override
-  String get cityOral => 'Уральск';
+  String get cityOral => 'Орал';
 
   @override
-  String get cityPetropavl => 'Петропавловск';
+  String get cityPetropavl => 'Петропавл';
 
   @override
   String get cityEkibastuz => 'Экибастуз';
@@ -459,7 +458,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factoriesTestTitle => 'Тест: Металлургия';
 
   @override
-  String get factoriesQ1 => 'Где находится Титан-магний комбинаты?';
+  String get factoriesQ1 => 'Где находится Титано-магниевый завод?';
 
   @override
   String get factoriesQ1A1 => 'Павлодар';
@@ -477,31 +476,31 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factoriesQ2 => 'Какой завод расположен в Павлодаре?';
 
   @override
-  String get factoriesQ2A1 => 'Электролиз зауыты';
+  String get factoriesQ2A1 => 'Электролизный завод';
 
   @override
-  String get factoriesQ2A2 => 'Полиметалл комбинаты';
+  String get factoriesQ2A2 => 'Полиметаллический завод';
 
   @override
-  String get factoriesQ2A3 => 'Мыс қорыту зауыты';
+  String get factoriesQ2A3 => 'Медеплавильный завод';
 
   @override
-  String get factoriesQ2A4 => 'Қорғасын-мырыш комбинаты';
+  String get factoriesQ2A4 => 'Свинцово-цинковый завод';
 
   @override
   String get factoriesQ3 => 'Металлургический гигант в Темиртау?';
 
   @override
-  String get factoriesQ3A1 => 'Балхашский медеплавильный завод';
+  String get factoriesQ3A1 => 'Балхашский медеплавильный';
 
   @override
-  String get factoriesQ3A2 => 'Испат-Кармет (ArcelorMittal)';
+  String get factoriesQ3A2 => 'Ispat-Karmet (ArcelorMittal)';
 
   @override
   String get factoriesQ3A3 => 'Глинозёмный завод';
 
   @override
-  String get factoriesQ3A4 => 'Актюбинский ферросплавный завод';
+  String get factoriesQ3A4 => 'Актюбинский ферросплавный';
 
   @override
   String questionOfTotal(String current, String total) {
@@ -524,7 +523,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factoriesQ4A4 => 'Жезказган';
 
   @override
-  String get factoriesQ5 => 'В каком городе расположен медеплавильный завод?';
+  String get factoriesQ5 => 'Где расположен медеплавильный завод?';
 
   @override
   String get factoriesQ5A1 => 'Балхаш';
@@ -539,7 +538,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factoriesQ5A4 => 'Атырау';
 
   @override
-  String get factoriesQ6 => 'Где находится свинцово-цинковый комбинат?';
+  String get factoriesQ6 => 'Свинцово-цинковый комбинат — в каком городе?';
 
   @override
   String get factoriesQ6A1 => 'Усть-Каменогорск';
@@ -554,44 +553,71 @@ class AppLocalizationsRu extends AppLocalizations {
   String get factoriesQ6A4 => 'Алматы';
 
   @override
-  String get factoriesQ7 => 'Полиметаллический комбинат расположен в:';
+  String get factoriesQ7 => 'Полиметаллический завод расположен в:';
 
   @override
-  String get factoriesQ7A1 => 'Усть-Каменогорске';
+  String get factoriesQ7A1 => 'Усть-Каменогорск';
 
   @override
-  String get factoriesQ7A2 => 'Павлодаре';
+  String get factoriesQ7A2 => 'Павлодар';
 
   @override
-  String get factoriesQ7A3 => 'Риддере';
+  String get factoriesQ7A3 => 'Риддер';
 
   @override
   String get factoriesQ7A4 => 'Актобе';
 
   @override
-  String get resultsTitle => 'Результаты';
+  String get resultsTitle => 'Результат';
 
   @override
   String get room => 'Комната';
 
   @override
-  String get finished => 'Готово';
+  String get finished => 'Завершено';
 
   @override
-  String get scoreShort => 'Баллы';
+  String get scoreShort => 'Счёт';
 
   @override
   String get back => 'Назад';
 
   @override
-  String get toMenu => 'В меню';
+  String get toMenu => 'Домой';
 
   @override
   String get testFinished => 'Тест завершён';
 
   @override
-  String get result => 'Результат';
+  String get result => 'Итог';
 
   @override
   String get nextGame => 'Следующая игра';
+
+  @override
+  String get symbolsQuizTitle => 'Тест по знакам';
+
+  @override
+  String get reset => 'Сбросить';
+
+  @override
+  String get restart => 'Заново';
+
+  @override
+  String get close => 'Закрыть';
+
+  @override
+  String get score => 'Счёт';
+
+  @override
+  String get next => 'Далее';
+
+  @override
+  String get showResult => 'Показать результат';
+
+  @override
+  String get symbolsResultTitle => 'Результат';
+
+  @override
+  String get correctAnswers => 'Верно';
 }

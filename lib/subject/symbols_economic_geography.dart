@@ -13,10 +13,12 @@ class SymbolsEconomicGeographyPage extends StatefulWidget {
   const SymbolsEconomicGeographyPage({super.key});
 
   @override
-  State<SymbolsEconomicGeographyPage> createState() => _SymbolsEconomicGeographyPageState();
+  State<SymbolsEconomicGeographyPage> createState() =>
+      _SymbolsEconomicGeographyPageState();
 }
 
-class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyPage>
+class _SymbolsEconomicGeographyPageState
+    extends State<SymbolsEconomicGeographyPage>
     with TickerProviderStateMixin {
   // Карта (та же, что и в озёрах/реках)
   static const String _mapAssetPath = 'lib/Images/country_symbols.png';
@@ -55,7 +57,8 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
 
   // Города (с координатами) — кликаем по ним, чтобы ответить
   // Точки по регионам для карты country_symbols.png: пока пусто — убираем все текущие точки.
-  static const List<({String id, String type, double lat, double lng})> _cities = [
+  static const List<({String id, String type, double lat, double lng})>
+  _cities = [
     // Запад (Атырау/Мангистау): нефть и газ
     (id: 'pt_oil_atyrau', type: 'oil', lat: 47.12, lng: 51.88),
     (id: 'pt_oil_aktau', type: 'oil', lat: 43.65, lng: 51.20),
@@ -113,10 +116,13 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   int _score = 0;
   late List<int> _order; // порядок заданий
   int _current = 0;
-  bool _isLocked = false; // блокируем ввод на время подсветки правильного ответа
+  bool _isLocked =
+      false; // блокируем ввод на время подсветки правильного ответа
   // +1 animation
-  late final AnimationController _plusCtrl =
-      AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+  late final AnimationController _plusCtrl = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 900),
+  );
   Offset? _plusPos;
   bool _finished = false; // игра завершена, когда найдены все точки
   // экраны центров городов для +1
@@ -124,7 +130,9 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
 
   String? _currentTypeId;
   // Конфетти для завершения
-  late final ConfettiController _confettiCtrl = ConfettiController(duration: const Duration(seconds: 3));
+  late final ConfettiController _confettiCtrl = ConfettiController(
+    duration: const Duration(seconds: 3),
+  );
   static bool _rulesShownOnce = false;
 
   @override
@@ -144,18 +152,24 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     final cfg = const ImageConfiguration();
     final stream = img.resolve(cfg);
     ImageStreamListener? listener;
-    listener = ImageStreamListener((info, _) {
-      _mapImageSize = Size(info.image.width.toDouble(), info.image.height.toDouble());
-      _mapSizeResolved = true;
-      stream.removeListener(listener!);
-      if (mounted) setState(() {});
-    }, onError: (error, stackTrace) {
-      _mapSizeResolved = false;
-      try {
+    listener = ImageStreamListener(
+      (info, _) {
+        _mapImageSize = Size(
+          info.image.width.toDouble(),
+          info.image.height.toDouble(),
+        );
+        _mapSizeResolved = true;
         stream.removeListener(listener!);
-      } catch (_) {}
-      if (mounted) setState(() {});
-    });
+        if (mounted) setState(() {});
+      },
+      onError: (error, stackTrace) {
+        _mapSizeResolved = false;
+        try {
+          stream.removeListener(listener!);
+        } catch (_) {}
+        if (mounted) setState(() {});
+      },
+    );
     stream.addListener(listener);
   }
 
@@ -163,7 +177,10 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     _score = 0;
     _correct.clear();
     _wrong.clear();
-    _order = List<int>.generate(100000, (i) => i); // заглушка для старой логики цикла
+    _order = List<int>.generate(
+      100000,
+      (i) => i,
+    ); // заглушка для старой логики цикла
     _current = 0;
     _finished = false;
     _selectNextType();
@@ -172,16 +189,17 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Условные знаки'),
+        title: Text(t.symbols),
         actions: [
           IconButton(
-            tooltip: 'Заново',
+            tooltip: t.playAgain,
             icon: const Icon(Icons.refresh),
             onPressed: _startGame,
-          )
+          ),
         ],
       ),
       body: SafeArea(
@@ -192,18 +210,37 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(color: cs.primaryContainer, borderRadius: BorderRadius.circular(999)),
-                    child: Text('Счёт: $_score', style: TextStyle(color: cs.onPrimaryContainer, fontWeight: FontWeight.w700)),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: cs.primaryContainer,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                    child: Text(
+                      'Счёт: $_score',
+                      style: TextStyle(
+                        color: cs.onPrimaryContainer,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
                   const Spacer(),
-                  FilledButton.tonal(onPressed: _startGame, child: const Text('Заново')),
+                  FilledButton.tonal(
+                    onPressed: _startGame,
+                    child: Text(t.playAgain),
+                  ),
                 ],
               ),
             ),
-            Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _buildMap())),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: _buildMap(),
+              ),
+            ),
             _buildBottomPrompt(context),
-            
           ],
         ),
       ),
@@ -214,8 +251,13 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
     final cs = Theme.of(context).colorScheme;
     if (_finished) return const SizedBox.shrink();
     final currentTypeId = _currentTypeId ?? _types.first.id;
-    final type = _types.firstWhere((t) => t.id == currentTypeId, orElse: () => _types.first);
-    final label = Localizations.localeOf(context).languageCode == 'kk' ? type.kk : type.ru;
+    final type = _types.firstWhere(
+      (t) => t.id == currentTypeId,
+      orElse: () => _types.first,
+    );
+    final label = Localizations.localeOf(context).languageCode == 'kk'
+        ? type.kk
+        : type.ru;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
@@ -224,14 +266,24 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
       ),
       child: Row(
         children: [
-          CustomPaint(size: const Size(32, 32), painter: _SymbolPainter(type: type.id, isCorrect: false, isWrong: false)),
+          CustomPaint(
+            size: const Size(32, 32),
+            painter: _SymbolPainter(
+              type: type.id,
+              isCorrect: false,
+              isWrong: false,
+            ),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               Localizations.localeOf(context).languageCode == 'kk'
                   ? 'Қай қалада орналасқан: $label?'
                   : 'Выберите город для: $label',
-              style: TextStyle(color: cs.onSurface, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                color: cs.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ],
@@ -240,89 +292,118 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
   }
 
   Widget _buildMap() {
-    return LayoutBuilder(builder: (context, constraints) {
-      final maxW = constraints.maxWidth;
-      final maxH = constraints.maxHeight;
-      double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
-      if (_mapSizeResolved && _mapImageSize != null && _mapImageSize!.width > 0 && _mapImageSize!.height > 0) {
-        final scale = _containScale(_mapImageSize!.width, _mapImageSize!.height, maxW, maxH);
-        contentW = _mapImageSize!.width * scale;
-        contentH = _mapImageSize!.height * scale;
-        offsetX = (maxW - contentW) / 2;
-        offsetY = (maxH - contentH) / 2;
-      }
-      return InteractiveViewer(
-        minScale: 1,
-        maxScale: 4,
-        boundaryMargin: const EdgeInsets.all(48),
-        child: AnimatedBuilder(
-          animation: _plusCtrl,
-          builder: (context, _) => Stack(children: [
-          Positioned.fill(
-            child: Image.asset(
-              _mapAssetPath,
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/Images/lakes_counrty.png')),
-            ),
-          ),
-          if (_mapSizeResolved && _mapImageSize != null)
-            ..._buildCityOverlays(offsetX, offsetY, contentW, contentH),
-          if (_plusPos != null)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: CustomPaint(
-                  painter: _PlusPainter(
-                    origin: _plusPos!,
-                    progress: _plusCtrl.value,
-                    color: Theme.of(context).colorScheme.primary,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxW = constraints.maxWidth;
+        final maxH = constraints.maxHeight;
+        double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
+        if (_mapSizeResolved &&
+            _mapImageSize != null &&
+            _mapImageSize!.width > 0 &&
+            _mapImageSize!.height > 0) {
+          final scale = _containScale(
+            _mapImageSize!.width,
+            _mapImageSize!.height,
+            maxW,
+            maxH,
+          );
+          contentW = _mapImageSize!.width * scale;
+          contentH = _mapImageSize!.height * scale;
+          offsetX = (maxW - contentW) / 2;
+          offsetY = (maxH - contentH) / 2;
+        }
+        return InteractiveViewer(
+          minScale: 1,
+          maxScale: 4,
+          boundaryMargin: const EdgeInsets.all(48),
+          child: AnimatedBuilder(
+            animation: _plusCtrl,
+            builder: (context, _) => Stack(
+              children: [
+                Positioned.fill(
+                  child: Image.asset(
+                    _mapAssetPath,
+                    fit: BoxFit.contain,
+                    alignment: Alignment.center,
+                    errorBuilder: (context, _, __) => const Center(
+                      child: Text(
+                        'Карта не найдена: lib/Images/lakes_counrty.png',
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          // Confetti overlay
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: ConfettiWidget(
-                  confettiController: _confettiCtrl,
-                  blastDirectionality: BlastDirectionality.explosive,
-                  emissionFrequency: 0.02,
-                  numberOfParticles: 12,
-                  maxBlastForce: 20,
-                  minBlastForce: 6,
-                  gravity: 0.3,
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.secondary,
-                    Theme.of(context).colorScheme.tertiary,
-                    Colors.white,
-                  ],
+                if (_mapSizeResolved && _mapImageSize != null)
+                  ..._buildCityOverlays(offsetX, offsetY, contentW, contentH),
+                if (_plusPos != null)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: CustomPaint(
+                        painter: _PlusPainter(
+                          origin: _plusPos!,
+                          progress: _plusCtrl.value,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ),
+                  ),
+                // Confetti overlay
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: ConfettiWidget(
+                        confettiController: _confettiCtrl,
+                        blastDirectionality: BlastDirectionality.explosive,
+                        emissionFrequency: 0.02,
+                        numberOfParticles: 12,
+                        maxBlastForce: 20,
+                        minBlastForce: 6,
+                        gravity: 0.3,
+                        colors: [
+                          Theme.of(context).colorScheme.primary,
+                          Theme.of(context).colorScheme.secondary,
+                          Theme.of(context).colorScheme.tertiary,
+                          Colors.white,
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-          ]),
-        ),
-      );
-    });
+        );
+      },
+    );
   }
 
-  List<Widget> _buildCityOverlays(double offsetX, double offsetY, double contentW, double contentH) {
+  List<Widget> _buildCityOverlays(
+    double offsetX,
+    double offsetY,
+    double contentW,
+    double contentH,
+  ) {
     final innerLeft = offsetX + contentW * _insetLeft;
     final innerTop = offsetY + contentH * _insetTop;
     final innerW = contentW * (1 - _insetLeft - _insetRight);
     final innerH = contentH * (1 - _insetTop - _insetBottom);
     final currentTypeId = _currentTypeId ?? _types.first.id;
 
-    final centers = _cities
-        .map((c) {
-          final x = ((c.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(0.0, 1.0) * innerW;
-          final y = ((_bboxMaxLat - c.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(0.0, 1.0) * innerH;
-          return (id: c.id, pos: Offset(x, y));
-        })
-        .toList();
+    final centers = _cities.map((c) {
+      final x =
+          ((c.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerW;
+      final y =
+          ((_bboxMaxLat - c.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerH;
+      return (id: c.id, pos: Offset(x, y));
+    }).toList();
     final typesById = {for (final c in _cities) c.id: c.type};
 
     final placed = <({String id, Offset pos})>[];
@@ -337,7 +418,8 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
         for (int i = 0; i < maxSteps && !ok(); i++) {
           angle += math.pi / 12;
           r += 1.5;
-          final cand = item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
+          final cand =
+              item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
           final clamped = Offset(
             cand.dx.clamp(_tapSize / 2, innerW - _tapSize / 2),
             cand.dy.clamp(_tapSize / 2, innerH - _tapSize / 2),
@@ -356,17 +438,25 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
       final pointType = currentTypeId; // показываем искомый знак на всех точках
       final center = Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy);
       _cityScreenCenters[id] = center;
-      children.add(Positioned(
-        left: center.dx - _tapSize / 2,
-        top: center.dy - _tapSize / 2,
-        width: _tapSize,
-        height: _tapSize,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => _onTapCityAsync(id),
-          child: CustomPaint(painter: _SymbolPainter(type: pointType, isCorrect: isCorrect, isWrong: isWrong)),
+      children.add(
+        Positioned(
+          left: center.dx - _tapSize / 2,
+          top: center.dy - _tapSize / 2,
+          width: _tapSize,
+          height: _tapSize,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () => _onTapCityAsync(id),
+            child: CustomPaint(
+              painter: _SymbolPainter(
+                type: pointType,
+                isCorrect: isCorrect,
+                isWrong: isWrong,
+              ),
+            ),
+          ),
         ),
-      ));
+      );
     }
     return children;
   }
@@ -438,13 +528,25 @@ Symbols game:
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(code == 'kk' ? 'Ережелер' : code == 'ru' ? 'Правила' : 'Rules'),
+        title: Text(
+          code == 'kk'
+              ? 'Ережелер'
+              : code == 'ru'
+              ? 'Правила'
+              : 'Rules',
+        ),
         content: Text(text),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(code == 'kk' ? 'Жабу' : code == 'ru' ? 'Ок' : 'OK'),
-          )
+            child: Text(
+              code == 'kk'
+                  ? 'Жабу'
+                  : code == 'ru'
+                  ? 'Ок'
+                  : 'OK',
+            ),
+          ),
         ],
       ),
     );
@@ -453,12 +555,16 @@ Symbols game:
   Future<void> _showFinishDialogStats() async {
     final lang = Localizations.localeOf(context).languageCode;
     final total = _cities.length;
-    final title = lang == 'kk' ? 'Жарайсың!' : lang == 'ru' ? 'Поздравляем!' : 'Well done!';
+    final title = lang == 'kk'
+        ? 'Жарайсың!'
+        : lang == 'ru'
+        ? 'Поздравляем!'
+        : 'Well done!';
     final body = lang == 'kk'
         ? 'Нәтиже: $_score / $total'
         : lang == 'ru'
-            ? 'Результат: $_score / $total'
-            : 'Result: $_score / $total';
+        ? 'Результат: $_score / $total'
+        : 'Result: $_score / $total';
     await showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -545,7 +651,9 @@ Symbols game:
           _order.shuffle();
           _score = 0; // сброс очков при переходе к новому циклу
         }
-        if (_correct.length >= _cities.length) { _finished = true; }
+        if (_correct.length >= _cities.length) {
+          _finished = true;
+        }
         _score = keepScore;
         _isLocked = false;
       });
@@ -574,7 +682,11 @@ Symbols game:
 }
 
 class _PlusPainter extends CustomPainter {
-  _PlusPainter({required this.origin, required this.progress, required this.color});
+  _PlusPainter({
+    required this.origin,
+    required this.progress,
+    required this.color,
+  });
   final Offset origin;
   final double progress; // 0..1
   final Color color;
@@ -591,7 +703,9 @@ class _PlusPainter extends CustomPainter {
           color: color.withOpacity(opacity),
           fontSize: 22 + 6 * (1 - progress),
           fontWeight: FontWeight.w800,
-          shadows: const [Shadow(blurRadius: 2, color: Colors.black26, offset: Offset(0, 1))],
+          shadows: const [
+            Shadow(blurRadius: 2, color: Colors.black26, offset: Offset(0, 1)),
+          ],
         ),
       ),
       textDirection: TextDirection.ltr,
@@ -603,12 +717,18 @@ class _PlusPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PlusPainter oldDelegate) {
-    return oldDelegate.origin != origin || oldDelegate.progress != progress || oldDelegate.color != color;
+    return oldDelegate.origin != origin ||
+        oldDelegate.progress != progress ||
+        oldDelegate.color != color;
   }
 }
 
 class _SymbolPainter extends CustomPainter {
-  _SymbolPainter({required this.type, required this.isCorrect, required this.isWrong});
+  _SymbolPainter({
+    required this.type,
+    required this.isCorrect,
+    required this.isWrong,
+  });
   final String type;
   final bool isCorrect;
   final bool isWrong;
@@ -622,8 +742,8 @@ class _SymbolPainter extends CustomPainter {
       ..color = isCorrect
           ? Colors.green
           : isWrong
-              ? Colors.redAccent
-              : Colors.white
+          ? Colors.redAccent
+          : Colors.white
       ..style = PaintingStyle.fill;
     canvas.drawCircle(center, r, bg);
     final border = Paint()
@@ -647,7 +767,13 @@ class _SymbolPainter extends CustomPainter {
         _drawTriangle(canvas, center, r * 0.95, Colors.black);
         break;
       case 'copper':
-        _drawSquare(canvas, center, r * 0.9, const Color(0xFF3E2723), fill: true);
+        _drawSquare(
+          canvas,
+          center,
+          r * 0.9,
+          const Color(0xFF3E2723),
+          fill: true,
+        );
         break;
       case 'polymetal':
         _drawHexagon(canvas, center, r * 0.95, const Color(0xFF455A64));
@@ -677,10 +803,18 @@ class _SymbolPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _SymbolPainter oldDelegate) {
-    return oldDelegate.type != type || oldDelegate.isCorrect != isCorrect || oldDelegate.isWrong != isWrong;
+    return oldDelegate.type != type ||
+        oldDelegate.isCorrect != isCorrect ||
+        oldDelegate.isWrong != isWrong;
   }
 
-  void _drawSquare(Canvas c, Offset center, double size, Color color, {bool fill = false}) {
+  void _drawSquare(
+    Canvas c,
+    Offset center,
+    double size,
+    Color color, {
+    bool fill = false,
+  }) {
     final rect = Rect.fromCenter(center: center, width: size, height: size);
     final p = Paint()
       ..color = color
@@ -760,7 +894,11 @@ class _SymbolPainter extends CustomPainter {
     final p = Paint()
       ..color = color
       ..strokeWidth = 2;
-    c.drawLine(center + Offset(-size * 0.6, 0), center + Offset(size * 0.6, 0), p);
+    c.drawLine(
+      center + Offset(-size * 0.6, 0),
+      center + Offset(size * 0.6, 0),
+      p,
+    );
   }
 
   void _drawStar(Canvas c, Offset center, double radius, Color color) {
@@ -769,7 +907,10 @@ class _SymbolPainter extends CustomPainter {
       final r = (i % 2 == 0) ? radius : radius * 0.45;
       final a = -math.pi / 2 + (math.pi / 5) * i;
       final pt = center + Offset(r * math.cos(a), r * math.sin(a));
-      if (i == 0) path.moveTo(pt.dx, pt.dy); else path.lineTo(pt.dx, pt.dy);
+      if (i == 0)
+        path.moveTo(pt.dx, pt.dy);
+      else
+        path.lineTo(pt.dx, pt.dy);
     }
     path.close();
     final p = Paint()..color = color;
@@ -781,8 +922,22 @@ class _SymbolPainter extends CustomPainter {
     final top = center + Offset(0, -size * 0.6);
     final bottom = center + Offset(0, size * 0.6);
     path.moveTo(top.dx, top.dy);
-    path.cubicTo(center.dx + size * 0.6, center.dy - size * 0.2, center.dx + size * 0.5, center.dy + size * 0.2, bottom.dx, bottom.dy);
-    path.cubicTo(center.dx - size * 0.5, center.dy + size * 0.2, center.dx - size * 0.6, center.dy - size * 0.2, top.dx, top.dy);
+    path.cubicTo(
+      center.dx + size * 0.6,
+      center.dy - size * 0.2,
+      center.dx + size * 0.5,
+      center.dy + size * 0.2,
+      bottom.dx,
+      bottom.dy,
+    );
+    path.cubicTo(
+      center.dx - size * 0.5,
+      center.dy + size * 0.2,
+      center.dx - size * 0.6,
+      center.dy - size * 0.2,
+      top.dx,
+      top.dy,
+    );
     final p = Paint()..color = color;
     c.drawPath(path, p);
   }
@@ -803,8 +958,22 @@ class _SymbolPainter extends CustomPainter {
   void _drawFlame(Canvas c, Offset center, double size, Color color) {
     final path = Path();
     path.moveTo(center.dx, center.dy - size * 0.6);
-    path.cubicTo(center.dx + size * 0.6, center.dy - size * 0.2, center.dx + size * 0.3, center.dy + size * 0.4, center.dx, center.dy + size * 0.6);
-    path.cubicTo(center.dx - size * 0.3, center.dy + size * 0.4, center.dx - size * 0.6, center.dy - size * 0.2, center.dx, center.dy - size * 0.6);
+    path.cubicTo(
+      center.dx + size * 0.6,
+      center.dy - size * 0.2,
+      center.dx + size * 0.3,
+      center.dy + size * 0.4,
+      center.dx,
+      center.dy + size * 0.6,
+    );
+    path.cubicTo(
+      center.dx - size * 0.3,
+      center.dy + size * 0.4,
+      center.dx - size * 0.6,
+      center.dy - size * 0.2,
+      center.dx,
+      center.dy - size * 0.6,
+    );
     final p = Paint()..color = color;
     c.drawPath(path, p);
   }
@@ -814,9 +983,21 @@ class _SymbolPainter extends CustomPainter {
     c.drawCircle(center, radius, p);
   }
 
-  void _drawLabel(Canvas c, Offset center, String text, {Color color = Colors.black}) {
+  void _drawLabel(
+    Canvas c,
+    Offset center,
+    String text, {
+    Color color = Colors.black,
+  }) {
     final tp = TextPainter(
-      text: TextSpan(text: text, style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 11)),
+      text: TextSpan(
+        text: text,
+        style: TextStyle(
+          color: color,
+          fontWeight: FontWeight.w800,
+          fontSize: 11,
+        ),
+      ),
       textDirection: TextDirection.ltr,
     )..layout();
     tp.paint(c, center - Offset(tp.width / 2, tp.height / 2));

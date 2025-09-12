@@ -14,15 +14,18 @@ class RiversPhysicalGeographyPage extends StatefulWidget {
   const RiversPhysicalGeographyPage({super.key});
 
   @override
-  State<RiversPhysicalGeographyPage> createState() => _RiversPhysicalGeographyPageState();
+  State<RiversPhysicalGeographyPage> createState() =>
+      _RiversPhysicalGeographyPageState();
 }
 
-class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPage> {
+class _RiversPhysicalGeographyPageState
+    extends State<RiversPhysicalGeographyPage> {
   int _score = 0;
   int _attempts = 0; // not shown; kept for future
   bool _endShown = false; // not used now
-  late final ConfettiController _confettiCtrl =
-      ConfettiController(duration: const Duration(seconds: 3));
+  late final ConfettiController _confettiCtrl = ConfettiController(
+    duration: const Duration(seconds: 3),
+  );
 
   // Map configuration (same as lakes screen)
   static const String _mapAssetPath = 'lib/Images/lakes_counrty.png';
@@ -45,35 +48,78 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
   bool _finishedShown = false;
   // Fine-tune on-screen positions for specific rivers (dx, dy in px)
   static const Map<String, Offset> _riverNudges = {
-    'river_shu': Offset(-10, 0),    // Чу левее
-    'river_lepsy': Offset(0, -10),  // Лепсы выше
-    'river_eshim': Offset(0, 10),   // Ишим ниже
+    'river_shu': Offset(-10, 0), // Чу левее
+    'river_lepsy': Offset(0, -10), // Лепсы выше
+    'river_eshim': Offset(0, 10), // Ишим ниже
   };
 
   // Rivers list with approximate coordinates (lat/lng) within KZ bbox
-  static const List<({String id, String nameRu, String nameKk, double lat, double lng})> _rivers = [
+  static const List<
+    ({String id, String nameRu, String nameKk, double lat, double lng})
+  >
+  _rivers = [
     (id: 'river_nura', nameRu: 'Нура', nameKk: 'Нұра', lat: 50.7, lng: 71.2),
     (id: 'river_shar', nameRu: 'Шар', nameKk: 'Шар', lat: 49.6, lng: 83.6),
-    (id: 'river_ayagoz', nameRu: 'Аягоз', nameKk: 'Аягөз', lat: 47.9, lng: 80.4),
+    (
+      id: 'river_ayagoz',
+      nameRu: 'Аягоз',
+      nameKk: 'Аягөз',
+      lat: 47.9,
+      lng: 80.4,
+    ),
     (id: 'river_lepsy', nameRu: 'Лепсы', nameKk: 'Лепсі', lat: 46.4, lng: 79.9),
     (id: 'river_shu', nameRu: 'Чу', nameKk: 'Шу', lat: 44.6, lng: 73.6),
     (id: 'river_ili', nameRu: 'Или', nameKk: 'Іле', lat: 45.0, lng: 75.3),
     (id: 'river_tobyl', nameRu: 'Тобол', nameKk: 'Тобыл', lat: 53.2, lng: 63.6),
-    (id: 'river_torgai', nameRu: 'Торгай', nameKk: 'Торғай', lat: 49.6, lng: 63.3),
+    (
+      id: 'river_torgai',
+      nameRu: 'Торгай',
+      nameKk: 'Торғай',
+      lat: 49.6,
+      lng: 63.3,
+    ),
     (id: 'river_oiyl', nameRu: 'Ойыл', nameKk: 'Ойыл', lat: 48.7, lng: 57.2),
-    (id: 'river_syrdarya', nameRu: 'Сырдарья', nameKk: 'Сырдария', lat: 44.8, lng: 66.3),
-    (id: 'river_karatal', nameRu: 'Каратал', nameKk: 'Қаратал', lat: 45.1, lng: 79.8),
+    (
+      id: 'river_syrdarya',
+      nameRu: 'Сырдарья',
+      nameKk: 'Сырдария',
+      lat: 44.8,
+      lng: 66.3,
+    ),
+    (
+      id: 'river_karatal',
+      nameRu: 'Каратал',
+      nameKk: 'Қаратал',
+      lat: 45.1,
+      lng: 79.8,
+    ),
     (id: 'river_talas', nameRu: 'Талас', nameKk: 'Талас', lat: 42.9, lng: 71.4),
-    (id: 'river_shiderty', nameRu: 'Шидерты', nameKk: 'Шідерті', lat: 52.3, lng: 75.4),
+    (
+      id: 'river_shiderty',
+      nameRu: 'Шидерты',
+      nameKk: 'Шідерті',
+      lat: 52.3,
+      lng: 75.4,
+    ),
     (id: 'river_arys', nameRu: 'Арыс', nameKk: 'Арыс', lat: 42.4, lng: 69.5),
-    (id: 'river_irtysh', nameRu: 'Иртыш', nameKk: 'Ертіс', lat: 51.7, lng: 76.9),
+    (
+      id: 'river_irtysh',
+      nameRu: 'Иртыш',
+      nameKk: 'Ертіс',
+      lat: 51.7,
+      lng: 76.9,
+    ),
     (id: 'river_yrgyz', nameRu: 'Ыргыз', nameKk: 'Ырғыз', lat: 48.6, lng: 61.6),
-    (id: 'river_zhem', nameRu: 'Жем (Эмба)', nameKk: 'Жем', lat: 48.9, lng: 58.5),
+    (
+      id: 'river_zhem',
+      nameRu: 'Жем (Эмба)',
+      nameKk: 'Жем',
+      lat: 48.9,
+      lng: 58.5,
+    ),
     (id: 'river_eshim', nameRu: 'Ишим', nameKk: 'Есіл', lat: 51.1, lng: 71.4),
-    (id: 'river_aksu', nameRu: 'Аксу', nameKk: 'Ақсу', lat: 52.0, lng: 77.3),
     (id: 'river_ural', nameRu: 'Урал', nameKk: 'Жайық', lat: 51.2, lng: 51.4),
   ];
-
   @override
   void dispose() {
     _confettiCtrl.dispose();
@@ -100,18 +146,24 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
     final cfg = const ImageConfiguration();
     final stream = img.resolve(cfg);
     ImageStreamListener? listener;
-    listener = ImageStreamListener((info, _) {
-      _mapImageSize = Size(info.image.width.toDouble(), info.image.height.toDouble());
-      _mapSizeResolved = true;
-      stream.removeListener(listener!);
-      if (mounted) setState(() {});
-    }, onError: (error, stackTrace) {
-      _mapSizeResolved = false;
-      try {
+    listener = ImageStreamListener(
+      (info, _) {
+        _mapImageSize = Size(
+          info.image.width.toDouble(),
+          info.image.height.toDouble(),
+        );
+        _mapSizeResolved = true;
         stream.removeListener(listener!);
-      } catch (_) {}
-      if (mounted) setState(() {});
-    });
+        if (mounted) setState(() {});
+      },
+      onError: (error, stackTrace) {
+        _mapSizeResolved = false;
+        try {
+          stream.removeListener(listener!);
+        } catch (_) {}
+        if (mounted) setState(() {});
+      },
+    );
     stream.addListener(listener);
   }
 
@@ -152,11 +204,17 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
                       ],
                       border: Border.all(color: cs.outlineVariant),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 12,
+                    ),
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 6,
+                          ),
                           decoration: BoxDecoration(
                             color: cs.primaryContainer,
                             borderRadius: BorderRadius.circular(999),
@@ -180,7 +238,12 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
                 ),
 
                 // Область карты с точками рек
-                Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _buildMap())),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: _buildMap(),
+                  ),
+                ),
               ],
             ),
 
@@ -197,7 +260,12 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
                     maxBlastForce: 20,
                     minBlastForce: 6,
                     gravity: 0.3,
-                    colors: [cs.primary, cs.secondary, cs.tertiary, Colors.white],
+                    colors: [
+                      cs.primary,
+                      cs.secondary,
+                      cs.tertiary,
+                      Colors.white,
+                    ],
                   ),
                 ),
               ),
@@ -210,54 +278,82 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
 
   // == Map building with points ==
   Widget _buildMap() {
-    return LayoutBuilder(builder: (context, constraints) {
-      final maxW = constraints.maxWidth;
-      final maxH = constraints.maxHeight;
-      double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
-      if (_mapSizeResolved && _mapImageSize != null && _mapImageSize!.width > 0 && _mapImageSize!.height > 0) {
-        final scale = _containScale(_mapImageSize!.width, _mapImageSize!.height, maxW, maxH);
-        contentW = _mapImageSize!.width * scale;
-        contentH = _mapImageSize!.height * scale;
-        offsetX = (maxW - contentW) / 2;
-        offsetY = (maxH - contentH) / 2;
-      }
-      return InteractiveViewer(
-        minScale: 1,
-        maxScale: 4,
-        boundaryMargin: const EdgeInsets.all(48),
-        child: Stack(children: [
-          Positioned.fill(
-            child: Image.asset(
-              _mapAssetPath,
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/Images/lakes_counrty.png')),
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxW = constraints.maxWidth;
+        final maxH = constraints.maxHeight;
+        double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
+        if (_mapSizeResolved &&
+            _mapImageSize != null &&
+            _mapImageSize!.width > 0 &&
+            _mapImageSize!.height > 0) {
+          final scale = _containScale(
+            _mapImageSize!.width,
+            _mapImageSize!.height,
+            maxW,
+            maxH,
+          );
+          contentW = _mapImageSize!.width * scale;
+          contentH = _mapImageSize!.height * scale;
+          offsetX = (maxW - contentW) / 2;
+          offsetY = (maxH - contentH) / 2;
+        }
+        return InteractiveViewer(
+          minScale: 1,
+          maxScale: 4,
+          boundaryMargin: const EdgeInsets.all(48),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  _mapAssetPath,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                  errorBuilder: (context, _, __) => const Center(
+                    child: Text(
+                      'Карта не найдена: lib/Images/lakes_counrty.png',
+                    ),
+                  ),
+                ),
+              ),
+              if (_mapSizeResolved && _mapImageSize != null)
+                ..._buildRiverOverlays(offsetX, offsetY, contentW, contentH),
+            ],
           ),
-          if (_mapSizeResolved && _mapImageSize != null)
-            ..._buildRiverOverlays(offsetX, offsetY, contentW, contentH),
-        ]),
-      );
-    });
+        );
+      },
+    );
   }
 
-  List<Widget> _buildRiverOverlays(double offsetX, double offsetY, double contentW, double contentH) {
+  List<Widget> _buildRiverOverlays(
+    double offsetX,
+    double offsetY,
+    double contentW,
+    double contentH,
+  ) {
     final List<Widget> children = [];
     final innerLeft = offsetX + contentW * _insetLeft;
     final innerTop = offsetY + contentH * _insetTop;
     final innerW = contentW * (1 - _insetLeft - _insetRight);
     final innerH = contentH * (1 - _insetTop - _insetBottom);
 
-    final centers = _rivers
-
-        .map((r) {
-          final x = ((r.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(0.0, 1.0) * innerW;
-          final y = ((_bboxMaxLat - r.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(0.0, 1.0) * innerH;
-          final base = Offset(x, y);
-          final nudge = _riverNudges[r.id] ?? Offset.zero;
-          return (id: r.id, pos: base + nudge);
-        })
-        .toList();
+    final centers = _rivers.map((r) {
+      final x =
+          ((r.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerW;
+      final y =
+          ((_bboxMaxLat - r.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerH;
+      final base = Offset(x, y);
+      final nudge = _riverNudges[r.id] ?? Offset.zero;
+      return (id: r.id, pos: base + nudge);
+    }).toList();
 
     // Spread points slightly to avoid overlaps
     final placed = <({String id, Offset pos})>[];
@@ -272,7 +368,8 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
         for (int i = 0; i < maxSteps && !ok(); i++) {
           angle += math.pi / 12;
           r += 1.5;
-          final cand = item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
+          final cand =
+              item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
           final clamped = Offset(
             cand.dx.clamp(_tapSize / 2, innerW - _tapSize / 2),
             cand.dy.clamp(_tapSize / 2, innerH - _tapSize / 2),
@@ -288,28 +385,36 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
       final center = Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy);
       final isCorrect = _correct.contains(id);
       final isWrong = _wrong.contains(id);
-      children.add(Positioned(
-        left: center.dx - _tapSize / 2,
-        top: center.dy - _tapSize / 2,
-        width: _tapSize,
-        height: _tapSize,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: isCorrect ? null : () => _onRiverTap(id),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: () {
-                if (isCorrect) return Colors.green;
-                if (isWrong) return Colors.redAccent;
-                return Colors.grey;
-              }(),
-              border: Border.all(color: Colors.black, width: 1.2),
-              boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 2, offset: Offset(0, 1))],
+      children.add(
+        Positioned(
+          left: center.dx - _tapSize / 2,
+          top: center.dy - _tapSize / 2,
+          width: _tapSize,
+          height: _tapSize,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: isCorrect ? null : () => _onRiverTap(id),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: () {
+                  if (isCorrect) return Colors.green;
+                  if (isWrong) return Colors.redAccent;
+                  return Colors.grey;
+                }(),
+                border: Border.all(color: Colors.black, width: 1.2),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 2,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ));
+      );
     }
     return children;
   }
@@ -350,7 +455,11 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
     final selected = await showDialog<String>(
       context: context,
       builder: (ctx) => SimpleDialog(
-        title: Text(Localizations.localeOf(ctx).languageCode == 'kk' ? 'Қай өзен?' : 'Какая это река?'),
+        title: Text(
+          Localizations.localeOf(ctx).languageCode == 'kk'
+              ? 'Қай өзен?'
+              : 'Какая это река?',
+        ),
         children: [
           for (final opt in choices)
             SimpleDialogOption(
@@ -426,7 +535,10 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
           'Этот экран — заготовка: добавим точки и логику угадывания в следующем шаге.',
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(t.btnOk)),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(t.btnOk),
+          ),
         ],
       ),
     );
@@ -444,5 +556,7 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
   }
 
   String _restartLabel(BuildContext context) =>
-      Localizations.localeOf(context).languageCode == 'kk' ? 'Қайтадан' : 'Заново';
+      Localizations.localeOf(context).languageCode == 'kk'
+      ? 'Қайтадан'
+      : 'Заново';
 }

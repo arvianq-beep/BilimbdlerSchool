@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
 import 'package:flutter_bilimdler/Pages/Symbols_test_page.dart';
-import 'package:flutter_bilimdler/subject/economic_placeholders.dart';
+
 import 'package:flutter_bilimdler/subject/physical_test_page.dart';
 import 'package:flutter_bilimdler/subject/region_economic_geography.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
@@ -35,7 +35,7 @@ class _RoomLobbyPageState extends State<RoomLobbyPage> {
         case 'lakes':
           return const LakesPage();
         case 'deserts':
-          return const DesertsPage();
+          return const ReservesPage();
         case 'rivers':
           return const RiversPage();
         case 'reserves':

@@ -181,7 +181,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lakes => 'Lakes';
 
   @override
-  String get deserts => 'Deserts';
+  String get deserts => 'Regions ph';
 
   @override
   String get rivers => 'Rivers';
@@ -592,4 +592,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nextGame => 'Next game';
+
+  @override
+  String get symbolsQuizTitle => 'Symbols quiz';
+
+  @override
+  String get reset => 'Reset';
+
+  @override
+  String get restart => 'Restart';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get score => 'Score';
+
+  @override
+  String get next => 'Next';
+
+  @override
+  String get showResult => 'Show result';
+
+  @override
+  String get symbolsResultTitle => 'Result';
+
+  @override
+  String get correctAnswers => 'Correct';
 }

@@ -24,6 +24,7 @@
   "unknownError": "Белгісіз қате орын алды",
   "enterEmailPassword": "Электрондық пошта мен құпия сөзді енгізіңіз",
   "passwordsNotMatch": "Құпия сөздер сәйкес келмейді",
+
   "verificationEmailSent": "Растау хаты {email} поштасына жіберілді",
   "@verificationEmailSent": {
     "placeholders": {
@@ -41,6 +42,7 @@
   },
   "resendVerification": "Растау хатын қайта жіберу",
   "verificationEmailResent": "Растау хаты қайта жіберілді",
+
   "guestIdDisplay": "Қонақ ID: {id}",
   "@guestIdDisplay": {
     "placeholders": {
@@ -53,6 +55,7 @@
       "id": { "type": "String", "example": "1F2A3B4C" }
     }
   },
+
   "profileTitle": "Профиль",
   "firstName": "Аты",
   "lastName": "Тегі",
@@ -60,6 +63,7 @@
   "saved": "Сақталды",
   "enterNameOrSurname": "Аты немесе тегін енгізіңіз",
   "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздей аласыз.",
+
   "startGame": "Ойынды бастау",
   "subjects": "Пәндер",
   "settings": "Баптаулар",
@@ -68,60 +72,71 @@
   "theme": "Тақырып",
   "chooseSubject": "Пәнді таңдаңыз",
   "toggleTheme": "Тақырыпты ауыстыру",
+
   "geography": "География",
   "physicalGeography": "Физикалық география",
   "economicGeography": "Экономикалық география",
+
   "comingSoon": "Жақында: {title}",
   "@comingSoon": {
     "placeholders": {
       "title": { "type": "String", "example": "Физикалық география" }
     }
   },
+
   "mountains": "Таулар",
   "lakes": "Көлдер",
-  "deserts": "Шөлдер",
+  "deserts": "Физ гео Аудандар",
   "rivers": "Өзендер",
   "reserves": "Қорықтар",
+
   "testLabel": "Тест",
   "regions": "Облыстар",
   "cities": "Қалалар",
-  "symbols": "Шартты белгілер",
+  "symbols": "Кең орындар",
   "factories": "Зауыттар",
-  "symbolsTest": "Шартты белгілер тест",
+  "symbolsTest": "Шартты белгілер",
+
   "joinByCode": "Код арқылы кіру",
   "enterCode": "Кодты енгізіңіз",
   "enterCodeHint": "ABC123",
   "btnJoin": "Кіру",
   "btnCancel": "Бас тарту",
+
   "howToPlayTitle": "Қалай ойнаймыз?",
   "howToPlayBody": "Жеке — бірден пәнге өтесіз.\nТоп — бөлме құрылып, бәріңіз бірге бастайсыз.",
   "modeSolo": "Жеке",
   "modeGroup": "Топпен",
   "chooseParticipantsTitle": "Қатысушылар саны?",
   "btnOk": "ОК",
+
   "waitingRoomTitle": "Күту бөлмесі",
   "roomDeleted": "Бөлме өшірілді",
   "codeCopied": "Код көшірілді",
   "roomOpen": "Ашық",
   "roomClosed": "Жабық",
+
   "membersCount": "Қатысушылар: {count} / {max}",
   "@membersCount": {
     "placeholders": {
       "count": { "type": "int", "example": "2" },
-      "max": { "type": "int", "example": "5" }
+      "max":   { "type": "int", "example": "5" }
     }
   },
+
   "statusLabel": "Күйі",
   "statusWaiting": "күту",
   "statusPlaying": "ойында",
   "leave": "Шығу",
   "chooseGame": "Ойынды таңдау",
+
   "createRoomFailed": "Бөлмені құру мүмкін болмады",
   "startGameFailed": "Ойынды іске қосу мүмкін болмады",
   "roomNotFound": "Бөлме табылмады",
   "roomAlreadyStarted": "Ойын басталып кетті",
   "roomIsClosed": "Бөлме жабық",
   "roomIsFull": "Бос орын жоқ",
+
   "codeLabel": "Код: {code}",
   "@codeLabel": {
     "placeholders": {
@@ -138,12 +153,14 @@
   "noMembersYet": "Әзірге ешкім жоқ",
   "joinFailed": "Қосыла алмады",
   "codeGenerationFailed": "Код жасау сәтсіз аяқталды",
+
   "gameTitle": "Ойын: {id}",
   "@gameTitle": {
     "placeholders": {
       "id": { "type": "String", "example": "capitals" }
     }
   },
+
   "gameLaunched": "«{subject}» пәні бойынша «{gameId}» ойыны басталды",
   "@gameLaunched": {
     "placeholders": {
@@ -151,6 +168,7 @@
       "subject": { "type": "String", "example": "physical" }
     }
   },
+
   "markets": "Нарықтар",
   "gdpQuiz": "ЖІӨ викторинасы",
   "tradeRoutes": "Сауда жолдары",
@@ -160,7 +178,8 @@
   "capitals": "Астаналар",
   "flags": "Тулар",
   "climate": "Климат",
-  "factoriesTestTitle": "Тест: Металлургия",
+
+  "factoriesTestTitle": "Зауыттар",
   "factoriesQ1": "Титан-магний комбинаты қай қалада орналасқан?",
   "factoriesQ1A1": "Павлодар",
   "factoriesQ1A2": "Өскемен",
@@ -183,9 +202,10 @@
   "@questionOfTotal": {
     "placeholders": {
       "current": { "type": "String", "example": "1" },
-      "total": { "type": "String", "example": "3" }
+      "total":   { "type": "String", "example": "3" }
     }
   },
+
   "factoriesQ4": "Ферроқорытпа зауыты қай қалада жоқ?",
   "factoriesQ4A1": "Ақтөбе",
   "factoriesQ4A2": "Ақсу (Павлодар)",
@@ -209,6 +229,48 @@
   "factoriesQ7A2": "Павлодар",
   "factoriesQ7A3": "Риддер",
   "factoriesQ7A4": "Ақтөбе",
+
+  "citiesEgTitle": "Экономикалық география: Қалалар",
+  "findCityPrompt": "Қаланы табыңыз:",
+  "scoreDisplay": "Ұпай: {score}",
+  "@scoreDisplay": {
+    "placeholders": {
+      "score": { "type": "int", "example": "3" }
+    }
+  },
+  "rules": "Ережелер",
+  "citiesEgRulesText": "Картадан берілген қаланы табыңыз. Дұрыс жауап үшін +1 ұпай беріледі.",
+  "playAgain": "Қайта ойнау",
+  "citiesEgFinishTitle": "Аяқталды!",
+  "resultDisplay": "Нәтиже: {score} / {total}",
+  "@resultDisplay": {
+    "placeholders": {
+      "score": { "type": "int", "example": "5" },
+      "total": { "type": "int", "example": "20" }
+    }
+  },
+
+  "cityAstana": "Астана",
+  "cityAlmaty": "Алматы",
+  "cityShymkent": "Шымкент",
+  "cityKaraganda": "Қарағанды",
+  "cityAktobe": "Ақтөбе",
+  "cityTaraz": "Тараз",
+  "cityPavlodar": "Павлодар",
+  "cityOskemen": "Өскемен",
+  "citySemey": "Семей",
+  "cityKostanay": "Қостанай",
+  "cityAtyrau": "Атырау",
+  "cityKyzylorda": "Қызылорда",
+  "cityOral": "Орал",
+  "cityPetropavl": "Петропавл",
+  "cityEkibastuz": "Екібастұз",
+  "cityZhezkazgan": "Жезқазған",
+  "cityTemirtau": "Теміртау",
+  "cityKokshetau": "Көкшетау",
+  "cityTurkistan": "Түркістан",
+  "cityTaldykorgan": "Талдықорған",
+
   "resultsTitle": "Нәтижелер",
   "room": "Бөлме",
   "finished": "Дайын",
@@ -217,8 +279,14 @@
   "toMenu": "Басты мәзір",
   "testFinished": "Тест аяқталды",
   "result": "Нәтиже",
-  "btnOk": "ОК",
-  "nextGame": "Келесі ойын"
-
-
+  "nextGame": "Келесі ойын",
+  "symbolsQuizTitle": "Таңбалар тесті",
+  "reset": "Қалпына келтіру",
+  "restart": "Қайта бастау",
+  "close": "Жабу",
+  "score": "Ұпай",
+  "next": "Келесі",
+  "showResult": "Нәтижені көрсету",
+  "symbolsResultTitle": "Нәтиже",
+  "correctAnswers": "Дұрыс"
 }

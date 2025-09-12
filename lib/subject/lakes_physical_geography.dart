@@ -10,7 +10,8 @@ class LakesPhysicalGeographyPage extends StatefulWidget {
   const LakesPhysicalGeographyPage({super.key});
 
   @override
-  State<LakesPhysicalGeographyPage> createState() => _LakesPhysicalGeographyPageState();
+  State<LakesPhysicalGeographyPage> createState() =>
+      _LakesPhysicalGeographyPageState();
 }
 
 class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
@@ -23,23 +24,89 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   static const double _bboxMinLng = 46.50;
   static const double _bboxMaxLng = 87.30;
 
-  static const List<({
-    String id,
-    String nameRu,
-    String nameKk,
-    double lat,
-    double lng,
-    int? areaKm2,
-  })> _lakes = [
-    (id: 'lake_caspian', nameRu: 'Каспийское море', nameKk: 'Каспий теңізі', lat: 45.2, lng: 51.5, areaKm2: 371000),
-    (id: 'lake_balkhash', nameRu: 'Балхаш', nameKk: 'Балқаш', lat: 46.2, lng: 74.5, areaKm2: 16400),
-    (id: 'lake_aral', nameRu: 'Аральское море', nameKk: 'Арал теңізі', lat: 45.0, lng: 59.0, areaKm2: 13900),
-    (id: 'lake_north_aral', nameRu: 'Северный Арал', nameKk: 'Солтүстік Арал', lat: 46.2, lng: 61.2, areaKm2: 3300),
-    (id: 'lake_alakol', nameRu: 'Алаколь', nameKk: 'Алакөл', lat: 46.2, lng: 81.6, areaKm2: 2200),
-    (id: 'lake_zaysan', nameRu: 'Зайсан', nameKk: 'Зайсан', lat: 47.5, lng: 84.8, areaKm2: 1810),
-    (id: 'lake_tengiz', nameRu: 'Тенгиз', nameKk: 'Теңіз көлі', lat: 50.5, lng: 69.0, areaKm2: 1590),
-    (id: 'lake_sileti', nameRu: 'Силетитеңіз', nameKk: 'Сілетітеңіз', lat: 50.8, lng: 66.6, areaKm2: 750),
-    (id: 'lake_sasykkol', nameRu: 'Сасыкколь', nameKk: 'Сасыккөл', lat: 45.6, lng: 79.8, areaKm2: 736),
+  static const List<
+    ({
+      String id,
+      String nameRu,
+      String nameKk,
+      double lat,
+      double lng,
+      int? areaKm2,
+    })
+  >
+  _lakes = [
+    (
+      id: 'lake_caspian',
+      nameRu: 'Каспийское море',
+      nameKk: 'Каспий теңізі',
+      lat: 45.2,
+      lng: 51.5,
+      areaKm2: 371000,
+    ),
+    (
+      id: 'lake_balkhash',
+      nameRu: 'Балхаш',
+      nameKk: 'Балқаш',
+      lat: 46.2,
+      lng: 74.5,
+      areaKm2: 16400,
+    ),
+    (
+      id: 'lake_aral',
+      nameRu: 'Аральское море',
+      nameKk: 'Арал теңізі',
+      lat: 45.0,
+      lng: 59.0,
+      areaKm2: 13900,
+    ),
+    (
+      id: 'lake_north_aral',
+      nameRu: 'Северный Арал',
+      nameKk: 'Солтүстік Арал',
+      lat: 46.2,
+      lng: 61.2,
+      areaKm2: 3300,
+    ),
+    (
+      id: 'lake_alakol',
+      nameRu: 'Алаколь',
+      nameKk: 'Алакөл',
+      lat: 46.2,
+      lng: 81.6,
+      areaKm2: 2200,
+    ),
+    (
+      id: 'lake_zaysan',
+      nameRu: 'Зайсан',
+      nameKk: 'Зайсан',
+      lat: 47.5,
+      lng: 84.8,
+      areaKm2: 1810,
+    ),
+    (
+      id: 'lake_tengiz',
+      nameRu: 'Тенгиз',
+      nameKk: 'Теңіз көлі',
+      lat: 50.5,
+      lng: 69.0,
+      areaKm2: 1590,
+    ),
+    (
+      id: 'lake_sileti',
+      nameRu: 'Силетитеңіз',
+      nameKk: 'Сілетітеңіз',
+      lat: 53,
+      lng: 73,
+      areaKm2: 750,
+    ),
+    (
+      id: 'lake_sasykkol',
+      nameRu: 'Сасыкколь',
+      nameKk: 'Сасыккөл',
+      lat: 45.6,
+      lng: 79.8,
+      areaKm2: 736,
+    ),
   ];
 
   Size? _mapImageSize;
@@ -69,8 +136,15 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   bool _finishedShown = false;
   late ConfettiController _confetti;
 
-  ({String id, String nameRu, String nameKk, double lat, double lng, int? areaKm2}) get _currentLake =>
-      _lakes[_order[_currentIndex]];
+  ({
+    String id,
+    String nameRu,
+    String nameKk,
+    double lat,
+    double lng,
+    int? areaKm2,
+  })
+  get _currentLake => _lakes[_order[_currentIndex]];
 
   @override
   void initState() {
@@ -90,18 +164,24 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
     final cfg = const ImageConfiguration();
     final stream = img.resolve(cfg);
     ImageStreamListener? listener;
-    listener = ImageStreamListener((info, _) {
-      _mapImageSize = Size(info.image.width.toDouble(), info.image.height.toDouble());
-      _mapSizeResolved = true;
-      stream.removeListener(listener!);
-      if (mounted) setState(() {});
-    }, onError: (error, stackTrace) {
-      _mapSizeResolved = false;
-      try {
+    listener = ImageStreamListener(
+      (info, _) {
+        _mapImageSize = Size(
+          info.image.width.toDouble(),
+          info.image.height.toDouble(),
+        );
+        _mapSizeResolved = true;
         stream.removeListener(listener!);
-      } catch (_) {}
-      if (mounted) setState(() {});
-    });
+        if (mounted) setState(() {});
+      },
+      onError: (error, stackTrace) {
+        _mapSizeResolved = false;
+        try {
+          stream.removeListener(listener!);
+        } catch (_) {}
+        if (mounted) setState(() {});
+      },
+    );
     stream.addListener(listener);
   }
 
@@ -156,34 +236,43 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
         ],
       ),
       body: SafeArea(
-        child: Stack(children: [
-          Column(children: [
-            _buildHeader(context),
-            Expanded(child: Padding(padding: const EdgeInsets.all(12), child: _buildMap())),
-          ]),
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: ConfettiWidget(
-                  confettiController: _confetti,
-                  blastDirectionality: BlastDirectionality.explosive,
-                  emissionFrequency: 0.02,
-                  numberOfParticles: 12,
-                  maxBlastForce: 20,
-                  minBlastForce: 6,
-                  gravity: 0.3,
-                  colors: [
-                    Theme.of(context).colorScheme.primary,
-                    Theme.of(context).colorScheme.secondary,
-                    Theme.of(context).colorScheme.tertiary,
-                    Colors.white,
-                  ],
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                _buildHeader(context),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(12),
+                    child: _buildMap(),
+                  ),
+                ),
+              ],
+            ),
+            Positioned.fill(
+              child: IgnorePointer(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: ConfettiWidget(
+                    confettiController: _confetti,
+                    blastDirectionality: BlastDirectionality.explosive,
+                    emissionFrequency: 0.02,
+                    numberOfParticles: 12,
+                    maxBlastForce: 20,
+                    minBlastForce: 6,
+                    gravity: 0.3,
+                    colors: [
+                      Theme.of(context).colorScheme.primary,
+                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(context).colorScheme.tertiary,
+                      Colors.white,
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ]),
+          ],
+        ),
       ),
     );
   }
@@ -197,30 +286,46 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
           color: cs.surface,
           borderRadius: BorderRadius.zero,
           boxShadow: [
-            BoxShadow(color: cs.shadow.withOpacity(0.08), blurRadius: 10, offset: const Offset(0, 4)),
+            BoxShadow(
+              color: cs.shadow.withOpacity(0.08),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
           ],
           border: Border.all(color: cs.outlineVariant),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-        child: Row(children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-            decoration: BoxDecoration(color: cs.primaryContainer, borderRadius: BorderRadius.circular(999)),
-            child: Text(
-              _scoreLabel(context, _score),
-              style: TextStyle(color: cs.onPrimaryContainer, fontWeight: FontWeight.w700),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: cs.primaryContainer,
+                borderRadius: BorderRadius.circular(999),
+              ),
+              child: Text(
+                _scoreLabel(context, _score),
+                style: TextStyle(
+                  color: cs.onPrimaryContainer,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
-          ),
-          const Spacer(),
-          FilledButton.tonal(onPressed: _restart, child: Text(_restartLabel(context))),
-        ]),
+            const Spacer(),
+            FilledButton.tonal(
+              onPressed: _restart,
+              child: Text(_restartLabel(context)),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildSidebar(BuildContext context) {
     final locale = Localizations.localeOf(context).languageCode;
-    String nameFor(int i) => locale == 'kk' ? _lakes[i].nameKk : _lakes[i].nameRu;
+    String nameFor(int i) =>
+        locale == 'kk' ? _lakes[i].nameKk : _lakes[i].nameRu;
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -246,7 +351,10 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${i + 1}. ', style: const TextStyle(fontWeight: FontWeight.w600)),
+                    Text(
+                      '${i + 1}. ',
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,7 +364,11 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
                             style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           if (l.areaKm2 != null)
-                            Text((locale == 'kk') ? 'Ауданы: ${l.areaKm2} км²' : 'Площадь: ${l.areaKm2} км²'),
+                            Text(
+                              (locale == 'kk')
+                                  ? 'Ауданы: ${l.areaKm2} км²'
+                                  : 'Площадь: ${l.areaKm2} км²',
+                            ),
                         ],
                       ),
                     ),
@@ -271,39 +383,64 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   }
 
   Widget _buildMap() {
-    return LayoutBuilder(builder: (context, constraints) {
-      final maxW = constraints.maxWidth;
-      final maxH = constraints.maxHeight;
-      double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
-      if (_mapSizeResolved && _mapImageSize != null && _mapImageSize!.width > 0 && _mapImageSize!.height > 0) {
-        final scale = _containScale(_mapImageSize!.width, _mapImageSize!.height, maxW, maxH);
-        contentW = _mapImageSize!.width * scale;
-        contentH = _mapImageSize!.height * scale;
-        offsetX = (maxW - contentW) / 2;
-        offsetY = (maxH - contentH) / 2;
-      }
-      return InteractiveViewer(
-        minScale: 1,
-        maxScale: 4,
-        boundaryMargin: const EdgeInsets.all(48),
-        child: Stack(children: [
-          Positioned.fill(
-            child: Image.asset(
-              _mapAssetPath,
-              fit: BoxFit.contain,
-              alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Изображение карты не найдено: lib/Images/lakes_counrty.png')),
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxW = constraints.maxWidth;
+        final maxH = constraints.maxHeight;
+        double contentW = maxW, contentH = maxH, offsetX = 0, offsetY = 0;
+        if (_mapSizeResolved &&
+            _mapImageSize != null &&
+            _mapImageSize!.width > 0 &&
+            _mapImageSize!.height > 0) {
+          final scale = _containScale(
+            _mapImageSize!.width,
+            _mapImageSize!.height,
+            maxW,
+            maxH,
+          );
+          contentW = _mapImageSize!.width * scale;
+          contentH = _mapImageSize!.height * scale;
+          offsetX = (maxW - contentW) / 2;
+          offsetY = (maxH - contentH) / 2;
+        }
+        return InteractiveViewer(
+          minScale: 1,
+          maxScale: 4,
+          boundaryMargin: const EdgeInsets.all(48),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: Image.asset(
+                  _mapAssetPath,
+                  fit: BoxFit.contain,
+                  alignment: Alignment.center,
+                  errorBuilder: (context, _, __) => const Center(
+                    child: Text(
+                      'Изображение карты не найдено: lib/Images/lakes_counrty.png',
+                    ),
+                  ),
+                ),
+              ),
+              if (_mapSizeResolved && _mapImageSize != null)
+                ..._buildLakeOverlays(offsetX, offsetY, contentW, contentH),
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: CustomPaint(painter: _PlusPainter(pluses: _pluses)),
+                ),
+              ),
+            ],
           ),
-          if (_mapSizeResolved && _mapImageSize != null)
-            ..._buildLakeOverlays(offsetX, offsetY, contentW, contentH),
-          Positioned.fill(child: IgnorePointer(child: CustomPaint(painter: _PlusPainter(pluses: _pluses)))),
-        ]),
-      );
-    });
+        );
+      },
+    );
   }
 
-  List<Widget> _buildLakeOverlays(double offsetX, double offsetY, double contentW, double contentH) {
+  List<Widget> _buildLakeOverlays(
+    double offsetX,
+    double offsetY,
+    double contentW,
+    double contentH,
+  ) {
     final List<Widget> children = [];
     final innerLeft = offsetX + contentW * _insetLeft;
     final innerTop = offsetY + contentH * _insetTop;
@@ -324,19 +461,27 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
       'lake_north_aral': const Offset(-2, -2), // чуть левее и вверх
     };
 
-    final List<({String id, Offset pos})> centers = _lakes
-        .map((l) {
-          final x = ((l.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(0.0, 1.0) * innerW;
-          final y = ((_bboxMaxLat - l.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(0.0, 1.0) * innerH;
-          final nudge = nudges[l.id] ?? Offset.zero;
-          final pos = Offset(x, y) + nudge;
-          final clamped = Offset(
-            pos.dx.clamp(_tapSize / 2, innerW - _tapSize / 2),
-            pos.dy.clamp(_tapSize / 2, innerH - _tapSize / 2),
-          );
-          return (id: l.id, pos: clamped);
-        })
-        .toList();
+    final List<({String id, Offset pos})> centers = _lakes.map((l) {
+      final x =
+          ((l.lng - _bboxMinLng) / (_bboxMaxLng - _bboxMinLng)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerW;
+      final y =
+          ((_bboxMaxLat - l.lat) / (_bboxMaxLat - _bboxMinLat)).clamp(
+            0.0,
+            1.0,
+          ) *
+          innerH;
+      final nudge = nudges[l.id] ?? Offset.zero;
+      final pos = Offset(x, y) + nudge;
+      final clamped = Offset(
+        pos.dx.clamp(_tapSize / 2, innerW - _tapSize / 2),
+        pos.dy.clamp(_tapSize / 2, innerH - _tapSize / 2),
+      );
+      return (id: l.id, pos: clamped);
+    }).toList();
 
     final placed = <({String id, Offset pos})>[];
     final minDist = _tapSize * 1.05;
@@ -350,7 +495,8 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
         for (int i = 0; i < maxSteps && !ok(); i++) {
           angle += math.pi / 12;
           r += 1.5;
-          final cand = item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
+          final cand =
+              item.pos + Offset(r * math.cos(angle), r * math.sin(angle));
           final clamped = Offset(
             cand.dx.clamp(_tapSize / 2, innerW - _tapSize / 2),
             cand.dy.clamp(_tapSize / 2, innerH - _tapSize / 2),
@@ -363,34 +509,47 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
 
     _screenCenters
       ..clear()
-      ..addEntries(placed.map((e) => MapEntry(e.id, Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy))));
+      ..addEntries(
+        placed.map(
+          (e) =>
+              MapEntry(e.id, Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy)),
+        ),
+      );
 
     for (final e in placed) {
       final id = e.id;
       final center = Offset(innerLeft + e.pos.dx, innerTop + e.pos.dy);
       final isCorrect = _correct.contains(id);
       final isWrong = _wrong.contains(id);
-      children.add(Positioned(
-        left: center.dx - _tapSize / 2,
-        top: center.dy - _tapSize / 2,
-        width: _tapSize,
-        height: _tapSize,
-        child: GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: isCorrect ? null : () => _onLakeTap(id),
-          child: Container(
-            decoration: BoxDecoration(
-              color: () {
-                if (isCorrect) return Colors.green;
-                if (isWrong) return Colors.redAccent;
-                return Colors.grey;
-              }(),
-              borderRadius: BorderRadius.circular(6),
-              boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 3, offset: Offset(0, 1))],
+      children.add(
+        Positioned(
+          left: center.dx - _tapSize / 2,
+          top: center.dy - _tapSize / 2,
+          width: _tapSize,
+          height: _tapSize,
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: isCorrect ? null : () => _onLakeTap(id),
+            child: Container(
+              decoration: BoxDecoration(
+                color: () {
+                  if (isCorrect) return Colors.green;
+                  if (isWrong) return Colors.redAccent;
+                  return Colors.grey;
+                }(),
+                borderRadius: BorderRadius.circular(6),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 3,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ));
+      );
     }
     return children;
   }
@@ -400,7 +559,9 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   }
 
   String _restartLabel(BuildContext context) =>
-      Localizations.localeOf(context).languageCode == 'kk' ? 'Қайтадан' : 'Заново';
+      Localizations.localeOf(context).languageCode == 'kk'
+      ? 'Қайтадан'
+      : 'Заново';
 
   void _onLakeTap(String id) {
     _showChoicesForTapPersist(id);
@@ -409,9 +570,12 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   Future<void> _showChoicesForTapPersist(String tappedId) async {
     final targetId = tappedId;
     // Persistent choices prepared at game start
-    List<String> choices = List<String>.from(_choicesByLakeId[targetId] ?? const []);
+    List<String> choices = List<String>.from(
+      _choicesByLakeId[targetId] ?? const [],
+    );
     if (choices.isEmpty) {
-      final pool = _lakes.map((e) => e.id).where((x) => x != targetId).toList()..shuffle();
+      final pool = _lakes.map((e) => e.id).where((x) => x != targetId).toList()
+        ..shuffle();
       final wrong = pool.take(2).toList();
       choices = [...wrong, targetId]..shuffle();
       _choicesByLakeId[targetId] = List<String>.from(choices);
@@ -545,7 +709,9 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(AppLocalizations.of(ctx)!.lakes),
-        content: Text(AppLocalizations.of(ctx)!.resultDisplay(_score, _lakes.length)),
+        content: Text(
+          AppLocalizations.of(ctx)!.resultDisplay(_score, _lakes.length),
+        ),
         actions: [
           TextButton(
             onPressed: () {
@@ -581,7 +747,10 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
         title: Text(AppLocalizations.of(ctx)!.rules),
         content: Text(text),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(AppLocalizations.of(ctx)!.btnOk)),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(AppLocalizations.of(ctx)!.btnOk),
+          ),
         ],
       ),
     );
@@ -592,7 +761,9 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(locale == 'kk' ? 'Көлдер туралы мәлімет' : 'Информация о озёрах'),
+        title: Text(
+          locale == 'kk' ? 'Көлдер туралы мәлімет' : 'Информация о озёрах',
+        ),
         content: SizedBox(
           width: 420,
           child: SingleChildScrollView(
@@ -610,9 +781,18 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(_lakeNameForLocale(context, _lakes[i].id), style: const TextStyle(fontWeight: FontWeight.w600)),
+                              Text(
+                                _lakeNameForLocale(context, _lakes[i].id),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
                               if (_lakes[i].areaKm2 != null)
-                                Text(locale == 'kk' ? 'Ауданы: ${_lakes[i].areaKm2} км²' : 'Площадь: ${_lakes[i].areaKm2} км²'),
+                                Text(
+                                  locale == 'kk'
+                                      ? 'Ауданы: ${_lakes[i].areaKm2} км²'
+                                      : 'Площадь: ${_lakes[i].areaKm2} км²',
+                                ),
                             ],
                           ),
                         ),
@@ -623,7 +803,12 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
             ),
           ),
         ),
-        actions: [TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(AppLocalizations.of(ctx)!.btnOk))],
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(AppLocalizations.of(ctx)!.btnOk),
+          ),
+        ],
       ),
     );
   }
@@ -632,7 +817,9 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
       Localizations.localeOf(context).languageCode == 'kk' ? 'Ақпарат' : 'Инфо';
 
   String _findLakePrompt(BuildContext context) =>
-      Localizations.localeOf(context).languageCode == 'kk' ? 'Картадан көлді табыңыз:' : 'Найдите на карте озеро:';
+      Localizations.localeOf(context).languageCode == 'kk'
+      ? 'Картадан көлді табыңыз:'
+      : 'Найдите на карте озеро:';
 
   String _lakeNameForLocale(BuildContext context, String id) {
     final locale = Localizations.localeOf(context).languageCode;
@@ -654,7 +841,10 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
   void _spawnPlusAt(String id) {
     final center = _screenCenters[id];
     if (center == null) return;
-    final controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 900));
+    final controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    );
     controller.addListener(() => setState(() {}));
     controller.addStatusListener((st) {
       if (st == AnimationStatus.completed) {
@@ -691,7 +881,13 @@ class _PlusPainter extends CustomPainter {
             color: Colors.green.withOpacity(opacity),
             fontSize: 24 + 4 * (1 - t),
             fontWeight: FontWeight.w800,
-            shadows: const [Shadow(blurRadius: 2, color: Colors.black26, offset: Offset(0, 1))],
+            shadows: const [
+              Shadow(
+                blurRadius: 2,
+                color: Colors.black26,
+                offset: Offset(0, 1),
+              ),
+            ],
           ),
         ),
         textDirection: TextDirection.ltr,
@@ -703,5 +899,6 @@ class _PlusPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _PlusPainter oldDelegate) => oldDelegate.pluses != pluses;
+  bool shouldRepaint(covariant _PlusPainter oldDelegate) =>
+      oldDelegate.pluses != pluses;
 }

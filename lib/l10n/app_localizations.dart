@@ -427,7 +427,7 @@ abstract class AppLocalizations {
   /// No description provided for @deserts.
   ///
   /// In en, this message translates to:
-  /// **'Deserts'**
+  /// **'Regions ph'**
   String get deserts;
 
   /// No description provided for @rivers.
@@ -1215,6 +1215,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next game'**
   String get nextGame;
+
+  /// No description provided for @symbolsQuizTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols quiz'**
+  String get symbolsQuizTitle;
+
+  /// No description provided for @reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get reset;
+
+  /// No description provided for @restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get restart;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @score.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get score;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @showResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Show result'**
+  String get showResult;
+
+  /// No description provided for @symbolsResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get symbolsResultTitle;
+
+  /// No description provided for @correctAnswers.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct'**
+  String get correctAnswers;
 }
 
 class _AppLocalizationsDelegate

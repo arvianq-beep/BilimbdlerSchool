@@ -1,6 +1,5 @@
 // lib/Pages/FactoriesPagesGeography.dart
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bilimdler/rooms/game_result.dart';
 import '../l10n/app_localizations.dart';
 
@@ -19,6 +18,52 @@ class _FactoriesPageState extends State<FactoriesPage> {
   int _current = 0;
   int _score = 0;
 
+  // ── Локальные строки (без ARB) ──────────────────────────────────────────────
+  String _title(BuildContext ctx) {
+    switch (Localizations.localeOf(ctx).languageCode) {
+      case 'kk':
+        return 'Зауыттар';
+      case 'ru':
+        return 'Заводы';
+      default:
+        return 'Factories';
+    }
+  }
+
+  String _finishTitle(BuildContext ctx) {
+    switch (Localizations.localeOf(ctx).languageCode) {
+      case 'kk':
+        return 'Аяқталды!';
+      case 'ru':
+        return 'Готово!';
+      default:
+        return 'Done!';
+    }
+  }
+
+  String _resultText(BuildContext ctx, int s, int t) {
+    switch (Localizations.localeOf(ctx).languageCode) {
+      case 'kk':
+        return 'Нәтиже: $s / $t';
+      case 'ru':
+        return 'Результат: $s / $t';
+      default:
+        return 'Your result: $s / $t';
+    }
+  }
+
+  String _againText(BuildContext ctx) {
+    switch (Localizations.localeOf(ctx).languageCode) {
+      case 'kk':
+        return 'Қайтадан';
+      case 'ru':
+        return 'Ещё раз';
+      default:
+        return 'Play again';
+    }
+  }
+  // ────────────────────────────────────────────────────────────────────────────
+
   void _answer(int selected) async {
     if (selected == _correct[_current]) _score++;
 
@@ -35,7 +80,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
             total: total,
             roomId: widget.roomId,
           );
-          return; // GameResult сам покажет табло (если настроено)
+          return; // навигация/табло внутри GameResult
         } catch (e) {
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
@@ -53,35 +98,70 @@ class _FactoriesPageState extends State<FactoriesPage> {
   }
 
   List<Map<String, Object>> _questions(AppLocalizations t) => [
-    {
-      'q': t.factoriesQ1,
-      'a': [t.factoriesQ1A1, t.factoriesQ1A2, t.factoriesQ1A3, t.factoriesQ1A4],
-    },
-    {
-      'q': t.factoriesQ2,
-      'a': [t.factoriesQ2A1, t.factoriesQ2A2, t.factoriesQ2A3, t.factoriesQ2A4],
-    },
-    {
-      'q': t.factoriesQ3,
-      'a': [t.factoriesQ3A1, t.factoriesQ3A2, t.factoriesQ3A3, t.factoriesQ3A4],
-    },
-    {
-      'q': t.factoriesQ4,
-      'a': [t.factoriesQ4A1, t.factoriesQ4A2, t.factoriesQ4A3, t.factoriesQ4A4],
-    },
-    {
-      'q': t.factoriesQ5,
-      'a': [t.factoriesQ5A1, t.factoriesQ5A2, t.factoriesQ5A3, t.factoriesQ5A4],
-    },
-    {
-      'q': t.factoriesQ6,
-      'a': [t.factoriesQ6A1, t.factoriesQ6A2, t.factoriesQ6A3, t.factoriesQ6A4],
-    },
-    {
-      'q': t.factoriesQ7,
-      'a': [t.factoriesQ7A1, t.factoriesQ7A2, t.factoriesQ7A3, t.factoriesQ7A4],
-    },
-  ];
+        {
+          'q': t.factoriesQ1,
+          'a': [
+            t.factoriesQ1A1,
+            t.factoriesQ1A2,
+            t.factoriesQ1A3,
+            t.factoriesQ1A4
+          ],
+        },
+        {
+          'q': t.factoriesQ2,
+          'a': [
+            t.factoriesQ2A1,
+            t.factoriesQ2A2,
+            t.factoriesQ2A3,
+            t.factoriesQ2A4
+          ],
+        },
+        {
+          'q': t.factoriesQ3,
+          'a': [
+            t.factoriesQ3A1,
+            t.factoriesQ3A2,
+            t.factoriesQ3A3,
+            t.factoriesQ3A4
+          ],
+        },
+        {
+          'q': t.factoriesQ4,
+          'a': [
+            t.factoriesQ4A1,
+            t.factoriesQ4A2,
+            t.factoriesQ4A3,
+            t.factoriesQ4A4
+          ],
+        },
+        {
+          'q': t.factoriesQ5,
+          'a': [
+            t.factoriesQ5A1,
+            t.factoriesQ5A2,
+            t.factoriesQ5A3,
+            t.factoriesQ5A4
+          ],
+        },
+        {
+          'q': t.factoriesQ6,
+          'a': [
+            t.factoriesQ6A1,
+            t.factoriesQ6A2,
+            t.factoriesQ6A3,
+            t.factoriesQ6A4
+          ],
+        },
+        {
+          'q': t.factoriesQ7,
+          'a': [
+            t.factoriesQ7A1,
+            t.factoriesQ7A2,
+            t.factoriesQ7A3,
+            t.factoriesQ7A4
+          ],
+        },
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +172,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
     final inQuiz = _current < total;
 
     return Scaffold(
-      appBar: AppBar(title: Text(t.factoriesTestTitle)),
+      appBar: AppBar(title: Text(_title(context))),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -175,7 +255,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        t.citiesEgFinishTitle,
+                        _finishTitle(context),
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.w800,
@@ -184,7 +264,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        t.resultDisplay(_score, total),
+                        _resultText(context, _score, total),
                         style: TextStyle(
                           fontSize: 16,
                           color: cs.onSurface.withOpacity(.9),
@@ -197,7 +277,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
                           _current = 0;
                           _score = 0;
                         }),
-                        child: Text(t.playAgain),
+                        child: Text(_againText(context)),
                       ),
                     ],
                   ),

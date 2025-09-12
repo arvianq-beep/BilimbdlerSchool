@@ -79,7 +79,7 @@
   },
   "mountains": "Mountains",
   "lakes": "Lakes",
-  "deserts": "Deserts",
+  "deserts": "Regions ph",
   "rivers": "Rivers",
   "reserves": "Reserves",
   "testLabel": "Test",
@@ -128,7 +128,6 @@
       "code": { "type": "String", "example": "ABC123" }
     }
   },
-
   "createRoomTitle": "Create room",
   "participantsLimit": "Participants limit",
   "btnCreate": "Create",
@@ -159,16 +158,24 @@
   "population": "Population",
   "capitals": "Capitals",
   "flags": "Flags",
-  "climate": "Climate"
-  ,
+  "climate": "Climate",
   "citiesEgTitle": "Economic geography: Cities",
   "rules": "Rules",
   "findCityPrompt": "Find the city:",
   "scoreDisplay": "Score: {score}",
-  "@scoreDisplay": {"placeholders": {"score": {"type": "int"}}},
+  "@scoreDisplay": {
+    "placeholders": {
+      "score": { "type": "int" }
+    }
+  },
   "citiesEgFinishTitle": "Done!",
   "resultDisplay": "Your result: {score} / {total}",
-  "@resultDisplay": {"placeholders": {"score": {"type": "int"}, "total": {"type": "int"}}},
+  "@resultDisplay": {
+    "placeholders": {
+      "score": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
   "playAgain": "Play again",
   "citiesEgRulesText": "The screen shows a city name.\nTap the corresponding square on the map.\n\n+1 point for a correct answer.\nWrong taps highlight in red.\nGo through all cities and try again.",
   "cityAstana": "Astana",
@@ -197,19 +204,16 @@
   "factoriesQ1A2": "Oskemen",
   "factoriesQ1A3": "Ridder",
   "factoriesQ1A4": "Zhezkazgan",
-
   "factoriesQ2": "Which plant is located in Pavlodar?",
   "factoriesQ2A1": "Electrolysis plant",
   "factoriesQ2A2": "Polymetal plant",
   "factoriesQ2A3": "Copper smelter",
   "factoriesQ2A4": "Lead–zinc plant",
-
   "factoriesQ3": "Metallurgical giant in Temirtau?",
   "factoriesQ3A1": "Balkhash copper plant",
   "factoriesQ3A2": "Ispat-Karmet (ArcelorMittal)",
   "factoriesQ3A3": "Alumina plant",
   "factoriesQ3A4": "Aktobe ferroalloy plant",
-
   "questionOfTotal": "Question {current} of {total}",
   "@questionOfTotal": {
     "placeholders": {
@@ -222,19 +226,16 @@
   "factoriesQ4A2": "Aksu (Pavlodar)",
   "factoriesQ4A3": "Taraz",
   "factoriesQ4A4": "Zhezkazgan",
-
   "factoriesQ5": "Where is a copper smelter located?",
   "factoriesQ5A1": "Balkhash",
   "factoriesQ5A2": "Aktobe",
   "factoriesQ5A3": "Ridder",
   "factoriesQ5A4": "Atyrau",
-
   "factoriesQ6": "Lead–zinc combine is in which city?",
   "factoriesQ6A1": "Oskemen",
   "factoriesQ6A2": "Atyrau",
   "factoriesQ6A3": "Taraz",
   "factoriesQ6A4": "Almaty",
-
   "factoriesQ7": "Polymetal plant is located in:",
   "factoriesQ7A1": "Oskemen",
   "factoriesQ7A2": "Pavlodar",
@@ -248,9 +249,14 @@
   "toMenu": "Home",
   "testFinished": "Test finished",
   "result": "Result",
-  "btnOk": "OK",
-  "nextGame": "Next game"
-
-
-  
+  "nextGame": "Next game",
+  "symbolsQuizTitle": "Symbols quiz",
+  "reset": "Reset",
+  "restart": "Restart",
+  "close": "Close",
+  "score": "Score",
+  "next": "Next",
+  "showResult": "Show result",
+  "symbolsResultTitle": "Result",
+  "correctAnswers": "Correct"
 }

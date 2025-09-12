@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bilimdler/Services/room_services.dart';
+import 'package:flutter_bilimdler/subject/regions_physical_geography.dart'
+    as subj;
+import 'package:flutter_bilimdler/subject/reserves_physical_geography.dart';
 
 import '../l10n/app_localizations.dart';
 import 'lakes_physical_geography.dart';
 import 'rivers_physical_geography.dart';
 import 'mountains_physical_geography.dart';
-import 'physical_test_page.dart'; // ← ВАЖНО: реальный экран теста
+import 'physical_test_page.dart';
 
 /// Меню "Физическая география": 6 квадратов.
-/// Если [roomId] != null — нажатие по плитке запускает игру в руме (startGame),
-/// иначе просто открывает локальную страницу (соло).
 class PhysicalGeographyMenuPage extends StatelessWidget {
   final String? roomId;
   const PhysicalGeographyMenuPage({super.key, this.roomId});
@@ -76,7 +77,7 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'deserts',
-                            page: const DesertsPage(),
+                            page: const subj.RegionsPhysicalGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -106,8 +107,7 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'physical_test',
-                            page:
-                                const PhysicalTestPage(), // ← теперь откроется реальный тест
+                            page: const PhysicalTestPage(),
                           ),
                         ),
                       ],
@@ -217,7 +217,7 @@ class _MenuSquare extends StatelessWidget {
   }
 }
 
-// ====== Заглушки страниц игр (оставляем как было) ======
+// ====== Заглушки страниц игр (по желанию; имена НЕ конфликтуют) ======
 class MountainsPage extends StatelessWidget {
   const MountainsPage({super.key});
   @override
@@ -231,13 +231,6 @@ class LakesPage extends StatelessWidget {
   Widget build(BuildContext context) => const LakesPhysicalGeographyPage();
 }
 
-class DesertsPage extends StatelessWidget {
-  const DesertsPage({super.key});
-  @override
-  Widget build(BuildContext context) =>
-      _StubScaffold(title: AppLocalizations.of(context)!.deserts);
-}
-
 class RiversPage extends StatelessWidget {
   const RiversPage({super.key});
   @override
@@ -247,8 +240,7 @@ class RiversPage extends StatelessWidget {
 class ReservesPage extends StatelessWidget {
   const ReservesPage({super.key});
   @override
-  Widget build(BuildContext context) =>
-      _StubScaffold(title: AppLocalizations.of(context)!.reserves);
+  Widget build(BuildContext context) => const ReservesPhysicalGeographyPage();
 }
 
 class _StubScaffold extends StatelessWidget {

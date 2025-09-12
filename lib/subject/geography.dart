@@ -14,31 +14,86 @@ class GeographyPage extends StatelessWidget {
 
   // ---- Войти по коду (нижняя кнопка) ----
   Future<void> _joinByCode(BuildContext context) async {
-    final code = await showDialog<String>(
+    final code = await showModalBottomSheet<String>(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
       builder: (ctx) {
         final t = AppLocalizations.of(ctx)!;
         final c = TextEditingController();
-        return AlertDialog(
-          title: Text(t.joinByCode),
-          content: TextField(
-            controller: c,
-            textCapitalization: TextCapitalization.characters,
-            decoration: InputDecoration(hintText: t.enterCodeHint),
+
+        final bottomInset = MediaQuery.of(
+          ctx,
+        ).viewInsets.bottom; // высота клавы
+
+        return SafeArea(
+          top: false, // верх не нужен
+          child: Padding(
+            // учитываем клавиатуру + небольшой запас
+            padding: EdgeInsets.only(bottom: bottomInset + 24),
+            child: SingleChildScrollView(
+              // тащит контент вверх и позволяет прокручивать при нехватке места
+              reverse: true,
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // хэндл сверху
+                  Center(
+                    child: Container(
+                      width: 36,
+                      height: 4,
+                      margin: const EdgeInsets.only(bottom: 12),
+                      decoration: BoxDecoration(
+                        color: Theme.of(ctx).dividerColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    t.joinByCode,
+                    style: Theme.of(ctx).textTheme.titleLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: c,
+                    autofocus: true,
+                    textCapitalization: TextCapitalization.characters,
+                    textInputAction: TextInputAction.done,
+                    onSubmitted: (_) =>
+                        Navigator.pop(ctx, c.text.trim().toUpperCase()),
+                    decoration: InputDecoration(hintText: t.enterCodeHint),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(ctx),
+                        child: Text(t.btnCancel),
+                      ),
+                      const SizedBox(width: 8),
+                      FilledButton(
+                        onPressed: () =>
+                            Navigator.pop(ctx, c.text.trim().toUpperCase()),
+                        child: Text(t.btnJoin),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(ctx),
-              child: Text(t.btnCancel),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(ctx, c.text.trim().toUpperCase()),
-              child: Text(t.btnJoin),
-            ),
-          ],
         );
       },
     );
+
     if (code == null || code.isEmpty) return;
 
     showDialog(
@@ -82,9 +137,12 @@ class GeographyPage extends StatelessWidget {
   Future<_Mode?> _askMode(BuildContext context) {
     return showDialog<_Mode>(
       context: context,
+      barrierDismissible: true,
+      useSafeArea: true,
       builder: (ctx) {
         final t = AppLocalizations.of(ctx)!;
         return AlertDialog(
+          scrollable: true,
           title: Text(t.howToPlayTitle),
           content: Text(t.howToPlayBody),
           actions: [
@@ -106,19 +164,19 @@ class GeographyPage extends StatelessWidget {
     int value = 2;
     return showDialog<int>(
       context: context,
+      barrierDismissible: true,
+      useSafeArea: true,
       builder: (ctx) {
         final t = AppLocalizations.of(ctx)!;
         return StatefulBuilder(
           builder: (ctx, setState) => AlertDialog(
+            scrollable: true,
             title: Text(t.chooseParticipantsTitle),
             content: DropdownButton<int>(
               value: value,
               isExpanded: true,
               items: const [2, 3, 4, 5, 6, 7]
-                  .map(
-                    (v) =>
-                        DropdownMenuItem(value: v, child: Text(v.toString())),
-                  )
+                  .map((v) => DropdownMenuItem(value: v, child: Text('$v')))
                   .toList(),
               onChanged: (v) => setState(() => value = v ?? 2),
             ),
@@ -205,6 +263,7 @@ class GeographyPage extends StatelessWidget {
     final cs = Theme.of(context).colorScheme;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false, // не подпрыгивать фону при клавиатуре
       backgroundColor: cs.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

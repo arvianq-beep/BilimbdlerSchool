@@ -183,7 +183,7 @@ class AppLocalizationsKk extends AppLocalizations {
   String get lakes => 'Көлдер';
 
   @override
-  String get deserts => 'Шөлдер';
+  String get deserts => 'Физ гео Аудандар';
 
   @override
   String get rivers => 'Өзендер';
@@ -201,13 +201,13 @@ class AppLocalizationsKk extends AppLocalizations {
   String get cities => 'Қалалар';
 
   @override
-  String get symbols => 'Шартты белгілер';
+  String get symbols => 'Кең орындар';
 
   @override
   String get factories => 'Зауыттар';
 
   @override
-  String get symbolsTest => 'Шартты белгілер тест';
+  String get symbolsTest => 'Шартты белгілер';
 
   @override
   String get joinByCode => 'Код арқылы кіру';
@@ -367,96 +367,96 @@ class AppLocalizationsKk extends AppLocalizations {
   String get climate => 'Климат';
 
   @override
-  String get citiesEgTitle => 'Economic geography: Cities';
+  String get citiesEgTitle => 'Экономикалық география: Қалалар';
 
   @override
-  String get rules => 'Rules';
+  String get rules => 'Ережелер';
 
   @override
-  String get findCityPrompt => 'Find the city:';
+  String get findCityPrompt => 'Қаланы табыңыз:';
 
   @override
   String scoreDisplay(int score) {
-    return 'Score: $score';
+    return 'Ұпай: $score';
   }
 
   @override
-  String get citiesEgFinishTitle => 'Done!';
+  String get citiesEgFinishTitle => 'Аяқталды!';
 
   @override
   String resultDisplay(int score, int total) {
-    return 'Your result: $score / $total';
+    return 'Нәтиже: $score / $total';
   }
 
   @override
-  String get playAgain => 'Play again';
+  String get playAgain => 'Қайта ойнау';
 
   @override
   String get citiesEgRulesText =>
-      'The screen shows a city name.\nTap the corresponding square on the map.\n\n+1 point for a correct answer.\nWrong taps highlight in red.\nGo through all cities and try again.';
+      'Картадан берілген қаланы табыңыз. Дұрыс жауап үшін +1 ұпай беріледі.';
 
   @override
-  String get cityAstana => 'Astana';
+  String get cityAstana => 'Астана';
 
   @override
-  String get cityAlmaty => 'Almaty';
+  String get cityAlmaty => 'Алматы';
 
   @override
-  String get cityShymkent => 'Shymkent';
+  String get cityShymkent => 'Шымкент';
 
   @override
-  String get cityKaraganda => 'Karaganda';
+  String get cityKaraganda => 'Қарағанды';
 
   @override
-  String get cityAktobe => 'Aktobe';
+  String get cityAktobe => 'Ақтөбе';
 
   @override
-  String get cityTaraz => 'Taraz';
+  String get cityTaraz => 'Тараз';
 
   @override
-  String get cityPavlodar => 'Pavlodar';
+  String get cityPavlodar => 'Павлодар';
 
   @override
-  String get cityOskemen => 'Oskemen';
+  String get cityOskemen => 'Өскемен';
 
   @override
-  String get citySemey => 'Semey';
+  String get citySemey => 'Семей';
 
   @override
-  String get cityKostanay => 'Kostanay';
+  String get cityKostanay => 'Қостанай';
 
   @override
-  String get cityAtyrau => 'Atyrau';
+  String get cityAtyrau => 'Атырау';
 
   @override
-  String get cityKyzylorda => 'Kyzylorda';
+  String get cityKyzylorda => 'Қызылорда';
 
   @override
-  String get cityOral => 'Oral';
+  String get cityOral => 'Орал';
 
   @override
-  String get cityPetropavl => 'Petropavl';
+  String get cityPetropavl => 'Петропавл';
 
   @override
-  String get cityEkibastuz => 'Ekibastuz';
+  String get cityEkibastuz => 'Екібастұз';
 
   @override
-  String get cityZhezkazgan => 'Zhezkazgan';
+  String get cityZhezkazgan => 'Жезқазған';
 
   @override
-  String get cityTemirtau => 'Temirtau';
+  String get cityTemirtau => 'Теміртау';
 
   @override
-  String get cityKokshetau => 'Kokshetau';
+  String get cityKokshetau => 'Көкшетау';
 
   @override
-  String get cityTurkistan => 'Turkistan';
+  String get cityTurkistan => 'Түркістан';
 
   @override
-  String get cityTaldykorgan => 'Taldykorgan';
+  String get cityTaldykorgan => 'Талдықорған';
 
   @override
-  String get factoriesTestTitle => 'Тест: Металлургия';
+  String get factoriesTestTitle => 'Зауыттар';
 
   @override
   String get factoriesQ1 => 'Титан-магний комбинаты қай қалада орналасқан?';
@@ -594,4 +594,31 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get nextGame => 'Келесі ойын';
+
+  @override
+  String get symbolsQuizTitle => 'Таңбалар тесті';
+
+  @override
+  String get reset => 'Қалпына келтіру';
+
+  @override
+  String get restart => 'Қайта бастау';
+
+  @override
+  String get close => 'Жабу';
+
+  @override
+  String get score => 'Ұпай';
+
+  @override
+  String get next => 'Келесі';
+
+  @override
+  String get showResult => 'Нәтижені көрсету';
+
+  @override
+  String get symbolsResultTitle => 'Нәтиже';
+
+  @override
+  String get correctAnswers => 'Дұрыс';
 }
