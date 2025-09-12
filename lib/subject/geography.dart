@@ -308,7 +308,7 @@ class GeographyPage extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Expanded(
-                        child: FilledButton.tonalIcon(
+                        child: FilledButton.icon(
                           onPressed: () => _openSubject(
                             context,
                             subject: 'economic',

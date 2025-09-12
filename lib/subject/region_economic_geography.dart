@@ -28,8 +28,23 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
   static bool _rulesShownOnce = false;
   // Region IDs present in the SVG (<path id="...">)
   final List<String> _regionIds = const [
-    'KZ10','KZ11','KZ15','KZ19','KZ23','KZ27','KZ31','KZ33','KZ35','KZ39',
-    'KZ43','KZ47','KZ55','KZ59','KZ61','KZ62','KZ63',
+    'KZ10',
+    'KZ11',
+    'KZ15',
+    'KZ19',
+    'KZ23',
+    'KZ27',
+    'KZ31',
+    'KZ33',
+    'KZ35',
+    'KZ39',
+    'KZ43',
+    'KZ47',
+    'KZ55',
+    'KZ59',
+    'KZ61',
+    'KZ62',
+    'KZ63',
   ];
 
   late List<String> _remaining;
@@ -39,8 +54,9 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
   final Set<String> _wrong = {};
   int _attempts = 0;
   bool _endShown = false;
-  late final ConfettiController _confettiCtrl =
-      ConfettiController(duration: const Duration(seconds: 3));
+  late final ConfettiController _confettiCtrl = ConfettiController(
+    duration: const Duration(seconds: 3),
+  );
 
   @override
   void initState() {
@@ -151,14 +167,20 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                       ],
                       border: Border.all(color: cs.outlineVariant),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 14,
+                      vertical: 12,
+                    ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
+                              ),
                               decoration: BoxDecoration(
                                 color: cs.primaryContainer,
                                 borderRadius: BorderRadius.circular(999),
@@ -220,9 +242,13 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                         svgAssetPath: 'lib/Images/kazakhstan.svg',
                         onTapRegion: _onTapRegion,
                         colorForRegion: (id) {
-                          if (_correct.contains(id)) return cs.primary.withOpacity(0.75);
-                          if (_wrong.contains(id)) return Theme.of(context).colorScheme.error.withOpacity(0.6);
-                          return cs.primaryContainer.withOpacity(0.55);
+                          if (_correct.contains(id))
+                            return Colors.green; // всегда ярко-зелёный
+                          if (_wrong.contains(id))
+                            return Colors.redAccent; // всегда красный
+                          return cs.primaryContainer.withOpacity(
+                            0.55,
+                          ); // остальные зависят от темы
                         },
                         strokeColor: cs.onSurface.withOpacity(0.35),
                       ),
@@ -244,7 +270,12 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                     maxBlastForce: 20,
                     minBlastForce: 6,
                     gravity: 0.3,
-                    colors: [cs.primary, cs.secondary, cs.tertiary, Colors.white],
+                    colors: [
+                      cs.primary,
+                      cs.secondary,
+                      cs.tertiary,
+                      Colors.white,
+                    ],
                   ),
                 ),
               ),
@@ -255,7 +286,8 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
     );
   }
 
-  String _locale(BuildContext context) => Localizations.localeOf(context).languageCode;
+  String _locale(BuildContext context) =>
+      Localizations.localeOf(context).languageCode;
 
   String _localizedRegionName(BuildContext context, String? id) {
     if (id == null) return '—';
@@ -622,9 +654,13 @@ class _KazakhstanSvgMapState extends State<KazakhstanSvgMap>
       final svgEl = doc.rootElement;
 
       // Parse viewBox (support both viewBox/viewbox)
-      final vbAttr = svgEl.getAttribute('viewBox') ?? svgEl.getAttribute('viewbox');
+      final vbAttr =
+          svgEl.getAttribute('viewBox') ?? svgEl.getAttribute('viewbox');
       if (vbAttr != null) {
-        final nums = vbAttr.split(RegExp(r'[\s,]+')).where((e) => e.isNotEmpty).toList();
+        final nums = vbAttr
+            .split(RegExp(r'[\s,]+'))
+            .where((e) => e.isNotEmpty)
+            .toList();
         if (nums.length == 4) {
           final x = double.tryParse(nums[0]) ?? 0;
           final y = double.tryParse(nums[1]) ?? 0;
@@ -844,7 +880,11 @@ class _MapPainter extends CustomPainter {
                 fontSize: fs,
                 fontWeight: FontWeight.w700,
                 shadows: const [
-                  Shadow(blurRadius: 2, color: Colors.white, offset: Offset(0, 0)),
+                  Shadow(
+                    blurRadius: 2,
+                    color: Colors.white,
+                    offset: Offset(0, 0),
+                  ),
                 ],
               ),
             ),
@@ -913,7 +953,11 @@ class _MapPainter extends CustomPainter {
 }
 
 class _PulsePainter extends CustomPainter {
-  _PulsePainter({required this.center, required this.progress, required this.color});
+  _PulsePainter({
+    required this.center,
+    required this.progress,
+    required this.color,
+  });
   final Offset center;
   final double progress; // 0..1
   final Color color;
@@ -932,12 +976,18 @@ class _PulsePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PulsePainter oldDelegate) {
-    return oldDelegate.center != center || oldDelegate.progress != progress || oldDelegate.color != color;
+    return oldDelegate.center != center ||
+        oldDelegate.progress != progress ||
+        oldDelegate.color != color;
   }
 }
 
 class _PlusPainter extends CustomPainter {
-  _PlusPainter({required this.origin, required this.progress, required this.color});
+  _PlusPainter({
+    required this.origin,
+    required this.progress,
+    required this.color,
+  });
   final Offset origin;
   final double progress; // 0..1
   final Color color;
@@ -968,6 +1018,8 @@ class _PlusPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _PlusPainter oldDelegate) {
-    return oldDelegate.origin != origin || oldDelegate.progress != progress || oldDelegate.color != color;
+    return oldDelegate.origin != origin ||
+        oldDelegate.progress != progress ||
+        oldDelegate.color != color;
   }
 }
