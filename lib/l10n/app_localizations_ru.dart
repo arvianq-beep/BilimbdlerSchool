@@ -388,7 +388,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get playAgain => 'Играть ещё';
+  String get playAgain => 'Сыграть ещё';
 
   @override
   String get citiesEgRulesText =>
@@ -589,7 +589,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get testFinished => 'Тест завершён';
 
   @override
-  String get result => 'Итог';
+  String result(Object score, Object total) {
+    return 'Результат: $score из $total';
+  }
 
   @override
   String get nextGame => 'Следующая игра';
@@ -601,13 +603,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get reset => 'Сбросить';
 
   @override
-  String get restart => 'Заново';
+  String get restart => 'Сброс';
 
   @override
   String get close => 'Закрыть';
 
   @override
-  String get score => 'Счёт';
+  String score(Object value) {
+    return 'Очки: $value';
+  }
 
   @override
   String get next => 'Далее';
@@ -620,4 +624,113 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get correctAnswers => 'Верно';
+
+  @override
+  String get pgRegionsTitle => 'Физ.-геогр. районы';
+
+  @override
+  String get pgFindPrefix => 'Найдите:';
+
+  @override
+  String get pgRestart => 'Заново';
+
+  @override
+  String pgScore(int value) {
+    return 'Счёт: $value';
+  }
+
+  @override
+  String get pgMapNotFound => 'Карта не найдена';
+
+  @override
+  String get pgCalibrateOn => 'Калибровка: ВКЛ';
+
+  @override
+  String get pgCalibrateOff => 'Калибровка: выкл';
+
+  @override
+  String pgNudgeSaved(Object name, Object delta) {
+    return 'Подгонка для $name: $delta';
+  }
+
+  @override
+  String get regEastEuropePlain => 'Шығыс Еуропа жазығы';
+
+  @override
+  String get regNorthKazakhPlain => 'Солтүстік Қазақ жазығы';
+
+  @override
+  String get regTuranLowland => 'Тұран жазығы';
+
+  @override
+  String get regUralMugalzhar => 'Орал (Мұғалжар)';
+
+  @override
+  String get regSaryarka => 'Сарыарқа';
+
+  @override
+  String get regAltai => 'Алтай';
+
+  @override
+  String get regSaurTarbagatai => 'Сауыр-Тарбағатай';
+
+  @override
+  String get regZhetysuAlatau => 'Жетісу Алатауы';
+
+  @override
+  String get regTienShan => 'Тянь-Шань';
+
+  @override
+  String get mountainsTitle => 'Горы Казахстана';
+
+  @override
+  String get findRange => 'Найдите хребет:';
+
+  @override
+  String get gameFinished => 'Игра завершена';
+
+  @override
+  String get ok => 'Ок';
+
+  @override
+  String get mapNotFound => 'Карта не найдена';
+
+  @override
+  String get mountainIleAlatau => 'Иле Алатау';
+
+  @override
+  String get mountainTienShan => 'Тянь-Шань';
+
+  @override
+  String get mountainZhetysuAlatau => 'Жетысу Алатауы';
+
+  @override
+  String get mountainAltai => 'Алтай';
+
+  @override
+  String get mountainSauyrTarbagatai => 'Сауыр-Тарбагатай';
+
+  @override
+  String get mountainBayanaul => 'Баянаул';
+
+  @override
+  String get mountainKarkaraly => 'Каркаралы';
+
+  @override
+  String get mountainUlytau => 'Улытау';
+
+  @override
+  String get mountainKokshetau => 'Кокшетау горы';
+
+  @override
+  String get mountainKaratau => 'Каратау жотасы';
+
+  @override
+  String get mountainMugodzhary => 'Мугоджары';
+
+  @override
+  String get mountainMangystau => 'Мангистауские горы';
+
+  @override
+  String get mountainKalba => 'Калба жотасы';
 }

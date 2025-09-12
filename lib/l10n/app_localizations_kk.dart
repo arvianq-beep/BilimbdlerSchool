@@ -389,7 +389,7 @@ class AppLocalizationsKk extends AppLocalizations {
   }
 
   @override
-  String get playAgain => 'Қайта ойнау';
+  String get playAgain => 'Қайта бастау';
 
   @override
   String get citiesEgRulesText =>
@@ -590,7 +590,9 @@ class AppLocalizationsKk extends AppLocalizations {
   String get testFinished => 'Тест аяқталды';
 
   @override
-  String get result => 'Нәтиже';
+  String result(Object score, Object total) {
+    return 'Нәтиже: $score / $total';
+  }
 
   @override
   String get nextGame => 'Келесі ойын';
@@ -602,13 +604,15 @@ class AppLocalizationsKk extends AppLocalizations {
   String get reset => 'Қалпына келтіру';
 
   @override
-  String get restart => 'Қайта бастау';
+  String get restart => 'Қалпына келтіру';
 
   @override
   String get close => 'Жабу';
 
   @override
-  String get score => 'Ұпай';
+  String score(Object value) {
+    return 'Ұпай: $value';
+  }
 
   @override
   String get next => 'Келесі';
@@ -621,4 +625,113 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get correctAnswers => 'Дұрыс';
+
+  @override
+  String get pgRegionsTitle => 'Физ.-геогр. аймақтар';
+
+  @override
+  String get pgFindPrefix => 'Тауып басыңыз:';
+
+  @override
+  String get pgRestart => 'Қайтадан';
+
+  @override
+  String pgScore(int value) {
+    return 'Ұпай: $value';
+  }
+
+  @override
+  String get pgMapNotFound => 'Карта табылмады';
+
+  @override
+  String get pgCalibrateOn => 'Калибрлеу: ҚОСУЛЫ';
+
+  @override
+  String get pgCalibrateOff => 'Калибрлеу: ӨШІК';
+
+  @override
+  String pgNudgeSaved(Object name, Object delta) {
+    return '$name үшін түзету: $delta';
+  }
+
+  @override
+  String get regEastEuropePlain => 'Шығыс Еуропа жазығы';
+
+  @override
+  String get regNorthKazakhPlain => 'Солтүстік Қазақ жазығы';
+
+  @override
+  String get regTuranLowland => 'Тұран жазығы';
+
+  @override
+  String get regUralMugalzhar => 'Орал (Мұғалжар)';
+
+  @override
+  String get regSaryarka => 'Сарыарқа';
+
+  @override
+  String get regAltai => 'Алтай';
+
+  @override
+  String get regSaurTarbagatai => 'Сауыр-Тарбағатай';
+
+  @override
+  String get regZhetysuAlatau => 'Жетісу Алатауы';
+
+  @override
+  String get regTienShan => 'Тянь-Шань';
+
+  @override
+  String get mountainsTitle => 'Қазақстан таулары';
+
+  @override
+  String get findRange => 'Жотаны табыңыз:';
+
+  @override
+  String get gameFinished => 'Ойын аяқталды';
+
+  @override
+  String get ok => 'Жабу';
+
+  @override
+  String get mapNotFound => 'Карта табылмады';
+
+  @override
+  String get mountainIleAlatau => 'Іле Алатауы';
+
+  @override
+  String get mountainTienShan => 'Тянь-Шань';
+
+  @override
+  String get mountainZhetysuAlatau => 'Жетісу Алатауы';
+
+  @override
+  String get mountainAltai => 'Алтай';
+
+  @override
+  String get mountainSauyrTarbagatai => 'Сауыр-Тарбағатай';
+
+  @override
+  String get mountainBayanaul => 'Баянауыл';
+
+  @override
+  String get mountainKarkaraly => 'Қарқаралы';
+
+  @override
+  String get mountainUlytau => 'Ұлытау';
+
+  @override
+  String get mountainKokshetau => 'Көкшетау таулары';
+
+  @override
+  String get mountainKaratau => 'Қаратау жотасы';
+
+  @override
+  String get mountainMugodzhary => 'Мұғалжар';
+
+  @override
+  String get mountainMangystau => 'Маңғыстау таулары';
+
+  @override
+  String get mountainKalba => 'Қалба жотасы';
 }

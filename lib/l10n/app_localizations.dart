@@ -1207,8 +1207,8 @@ abstract class AppLocalizations {
   /// No description provided for @result.
   ///
   /// In en, this message translates to:
-  /// **'Result'**
-  String get result;
+  /// **'Result: {score} / {total}'**
+  String result(Object score, Object total);
 
   /// No description provided for @nextGame.
   ///
@@ -1243,8 +1243,8 @@ abstract class AppLocalizations {
   /// No description provided for @score.
   ///
   /// In en, this message translates to:
-  /// **'Score'**
-  String get score;
+  /// **'Score: {value}'**
+  String score(Object value);
 
   /// No description provided for @next.
   ///
@@ -1269,6 +1269,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Correct'**
   String get correctAnswers;
+
+  /// No description provided for @pgRegionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Physical-geographic regions'**
+  String get pgRegionsTitle;
+
+  /// No description provided for @pgFindPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Find:'**
+  String get pgFindPrefix;
+
+  /// No description provided for @pgRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get pgRestart;
+
+  /// No description provided for @pgScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Score: {value}'**
+  String pgScore(int value);
+
+  /// No description provided for @pgMapNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Map not found'**
+  String get pgMapNotFound;
+
+  /// No description provided for @pgCalibrateOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration: ON'**
+  String get pgCalibrateOn;
+
+  /// No description provided for @pgCalibrateOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Calibration: off'**
+  String get pgCalibrateOff;
+
+  /// No description provided for @pgNudgeSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment for {name}: {delta}'**
+  String pgNudgeSaved(Object name, Object delta);
+
+  /// No description provided for @regEastEuropePlain.
+  ///
+  /// In en, this message translates to:
+  /// **'East European Plain'**
+  String get regEastEuropePlain;
+
+  /// No description provided for @regNorthKazakhPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'North Kazakh Plain'**
+  String get regNorthKazakhPlain;
+
+  /// No description provided for @regTuranLowland.
+  ///
+  /// In en, this message translates to:
+  /// **'Turan Lowland'**
+  String get regTuranLowland;
+
+  /// No description provided for @regUralMugalzhar.
+  ///
+  /// In en, this message translates to:
+  /// **'Ural (Mugalzhar)'**
+  String get regUralMugalzhar;
+
+  /// No description provided for @regSaryarka.
+  ///
+  /// In en, this message translates to:
+  /// **'Saryarka'**
+  String get regSaryarka;
+
+  /// No description provided for @regAltai.
+  ///
+  /// In en, this message translates to:
+  /// **'Altai'**
+  String get regAltai;
+
+  /// No description provided for @regSaurTarbagatai.
+  ///
+  /// In en, this message translates to:
+  /// **'Saur–Tarbagatai'**
+  String get regSaurTarbagatai;
+
+  /// No description provided for @regZhetysuAlatau.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhetysu Alatau'**
+  String get regZhetysuAlatau;
+
+  /// No description provided for @regTienShan.
+  ///
+  /// In en, this message translates to:
+  /// **'Tian Shan'**
+  String get regTienShan;
+
+  /// No description provided for @mountainsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mountains of Kazakhstan'**
+  String get mountainsTitle;
+
+  /// No description provided for @findRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Find the range:'**
+  String get findRange;
+
+  /// No description provided for @gameFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Game finished'**
+  String get gameFinished;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
+
+  /// No description provided for @mapNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Map not found'**
+  String get mapNotFound;
+
+  /// No description provided for @mountainIleAlatau.
+  ///
+  /// In en, this message translates to:
+  /// **'Ile Alatau (Trans-Ili Alatau)'**
+  String get mountainIleAlatau;
+
+  /// No description provided for @mountainTienShan.
+  ///
+  /// In en, this message translates to:
+  /// **'Tian Shan'**
+  String get mountainTienShan;
+
+  /// No description provided for @mountainZhetysuAlatau.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhetysu (Dzungarian) Alatau'**
+  String get mountainZhetysuAlatau;
+
+  /// No description provided for @mountainAltai.
+  ///
+  /// In en, this message translates to:
+  /// **'Altai'**
+  String get mountainAltai;
+
+  /// No description provided for @mountainSauyrTarbagatai.
+  ///
+  /// In en, this message translates to:
+  /// **'Sauyr–Tarbagatai'**
+  String get mountainSauyrTarbagatai;
+
+  /// No description provided for @mountainBayanaul.
+  ///
+  /// In en, this message translates to:
+  /// **'Bayanaul'**
+  String get mountainBayanaul;
+
+  /// No description provided for @mountainKarkaraly.
+  ///
+  /// In en, this message translates to:
+  /// **'Karkaraly'**
+  String get mountainKarkaraly;
+
+  /// No description provided for @mountainUlytau.
+  ///
+  /// In en, this message translates to:
+  /// **'Ulytau'**
+  String get mountainUlytau;
+
+  /// No description provided for @mountainKokshetau.
+  ///
+  /// In en, this message translates to:
+  /// **'Kokshetau Hills'**
+  String get mountainKokshetau;
+
+  /// No description provided for @mountainKaratau.
+  ///
+  /// In en, this message translates to:
+  /// **'Karatau Range'**
+  String get mountainKaratau;
+
+  /// No description provided for @mountainMugodzhary.
+  ///
+  /// In en, this message translates to:
+  /// **'Mugodzhary'**
+  String get mountainMugodzhary;
+
+  /// No description provided for @mountainMangystau.
+  ///
+  /// In en, this message translates to:
+  /// **'Mangystau Mountains'**
+  String get mountainMangystau;
+
+  /// No description provided for @mountainKalba.
+  ///
+  /// In en, this message translates to:
+  /// **'Kalba Range'**
+  String get mountainKalba;
 }
 
 class _AppLocalizationsDelegate

@@ -30,88 +30,30 @@ class _RegionsPhysicalGeographyPageState
   static const double _bboxMinLng = 46.50;
   static const double _bboxMaxLng = 87.30;
 
-  // 9 физ.-геогр. районов (примерные центры lat/lng)
-  static const List<
-    ({String id, String nameRu, String nameKk, double lat, double lng})
-  >
-  _regions = [
-    (
-      id: 'reg_east_europe_plain',
-      nameRu: 'Шығыс Еуропа жазығы',
-      nameKk: 'Шығыс Еуропа жазығы',
-      lat: 50.6, // северо-запад
-      lng: 52.5,
-    ),
-    (
-      id: 'reg_north_kazakh_plain',
-      nameRu: 'Солтүстік Қазақ жазығы',
-      nameKk: 'Солтүстік Қазақ жазығы',
-      lat: 53.3, // север
-      lng: 69.0,
-    ),
-    (
-      id: 'reg_turan_lowland',
-      nameRu: 'Тұран жазығы',
-      nameKk: 'Тұран жазығы',
-      lat: 44.8, // юго-запад/юг
-      lng: 60.0,
-    ),
-    (
-      id: 'reg_ural_mugalzhar',
-      nameRu: 'Орал (Мұғалжар)',
-      nameKk: 'Орал (Мұғалжар)',
-      lat: 48.6, // запад-центр
-      lng: 58.0,
-    ),
-    (
-      id: 'reg_saryarka',
-      nameRu: 'Сарыарқа',
-      nameKk: 'Сарыарқа',
-      lat: 49.3, // центр
-      lng: 68.5,
-    ),
-    (
-      id: 'reg_altai',
-      nameRu: 'Алтай',
-      nameKk: 'Алтай',
-      lat: 49.2, // северо-восток
-      lng: 85.0,
-    ),
-    (
-      id: 'reg_saur_tarbagatai',
-      nameRu: 'Сауыр-Тарбағатай',
-      nameKk: 'Сауыр-Тарбағатай',
-      lat: 47.9, // восток, ниже Алтая
-      lng: 84.3,
-    ),
-    (
-      id: 'reg_zhetysu_alatau',
-      nameRu: 'Жетісу Алатауы',
-      nameKk: 'Жетісу Алатауы',
-      lat: 45.3, // юго-восток (сев. от Алатау/Іле)
-      lng: 80.7,
-    ),
-    (
-      id: 'reg_tien_shan',
-      nameRu: 'Тянь-Шань',
-      nameKk: 'Тянь-Шань',
-      lat: 42.9, // крайний юго-восток
-      lng: 76.6,
-    ),
+  // 9 физ.-геогр. районов: оставляем только id + координаты.
+  static const List<({String id, double lat, double lng})> _regions = [
+    (id: 'reg_east_europe_plain', lat: 50.6, lng: 52.5),
+    (id: 'reg_north_kazakh_plain', lat: 53.3, lng: 69.0),
+    (id: 'reg_turan_lowland', lat: 44.8, lng: 60.0),
+    (id: 'reg_ural_mugalzhar', lat: 48.6, lng: 58.0),
+    (id: 'reg_saryarka', lat: 49.3, lng: 68.5),
+    (id: 'reg_altai', lat: 49.2, lng: 85.0),
+    (id: 'reg_saur_tarbagatai', lat: 47.9, lng: 84.3),
+    (id: 'reg_zhetysu_alatau', lat: 45.3, lng: 80.7),
+    (id: 'reg_tien_shan', lat: 42.9, lng: 76.6),
   ];
 
-  /// Статические подгонки (px в системе содержимого). Оставил нули — при
-  /// необходимости включи _showCalibrate=true, потыкай — значения выведутся в лог.
+  /// Статические подгонки (px в системе содержимого).
   final Map<String, Offset> nudges = const {
-    'reg_east_europe_plain': Offset(18.0, 9.0), // Шығыс Еуропа жазығы
-    'reg_north_kazakh_plain': Offset(-12.0, 14.0), // Солт. Қазақ жазығы
-    'reg_turan_lowland': Offset(6.0, -19.0), // Тұран жазығы
-    'reg_ural_mugalzhar': Offset(8.0, -8.0), // Орал (Мұғалжар)
-    'reg_saryarka': Offset(7.0, -8.0), // Сарыарқа
-    'reg_altai': Offset(-10.0, 4.0), // Алтай
-    'reg_saur_tarbagatai': Offset(12.0, -8.0), // Сауыр-Тарбағатай
-    'reg_zhetysu_alatau': Offset(6.0, -12.0), // Жетісу Алатауы
-    'reg_tien_shan': Offset(14.0, -20.0), // Тянь-Шань
+    'reg_east_europe_plain': Offset(18.0, 9.0),
+    'reg_north_kazakh_plain': Offset(-12.0, 14.0),
+    'reg_turan_lowland': Offset(6.0, -19.0),
+    'reg_ural_mugalzhar': Offset(8.0, -8.0),
+    'reg_saryarka': Offset(7.0, -8.0),
+    'reg_altai': Offset(-10.0, 4.0),
+    'reg_saur_tarbagatai': Offset(12.0, -8.0),
+    'reg_zhetysu_alatau': Offset(6.0, -12.0),
+    'reg_tien_shan': Offset(14.0, -20.0),
   };
 
   // === Дополнительная калибровка во время работы ===
@@ -131,7 +73,7 @@ class _RegionsPhysicalGeographyPageState
   Size? _mapImageSize;
   bool _mapSizeResolved = false;
 
-  // Чуть меньше кружки, чем раньше
+  // Чуть меньше кружки
   final double _tapSize = 22;
 
   int _score = 0;
@@ -142,8 +84,8 @@ class _RegionsPhysicalGeographyPageState
   final Map<String, Offset> _screenCenters = {};
   late ConfettiController _confetti;
 
-  ({String id, String nameRu, String nameKk, double lat, double lng})
-  get _currentRegion => _regions[_currentIndex];
+  ({String id, double lat, double lng}) get _currentRegion =>
+      _regions[_currentIndex];
 
   @override
   void initState() {
@@ -185,8 +127,9 @@ class _RegionsPhysicalGeographyPageState
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(title: Text(_title(context))),
+      appBar: AppBar(title: Text(t.pgRegionsTitle)),
       body: SafeArea(
         child: Column(
           children: [
@@ -194,7 +137,7 @@ class _RegionsPhysicalGeographyPageState
             Padding(
               padding: const EdgeInsets.all(12),
               child: Text(
-                '${_findPrompt(context)} ${_regionNameForLocale(context, _currentRegion.id)}',
+                '${t.pgFindPrefix} ${_regionName(context, _currentRegion.id)}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -213,16 +156,9 @@ class _RegionsPhysicalGeographyPageState
     );
   }
 
-  String _title(BuildContext context) {
-    final code = Localizations.localeOf(context).languageCode;
-    if (code == 'kk') return 'Физ.-геогр. аймақтар';
-    if (code == 'ru') return 'Физ.-геогр. районы';
-    return 'Physical-geographic regions';
-    // (если у тебя есть ключ в l10n — замени на t.***)
-  }
-
   Widget _buildHeader(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
+    final t = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
       child: Container(
@@ -234,7 +170,7 @@ class _RegionsPhysicalGeographyPageState
         child: Row(
           children: [
             Text(
-              _scoreLabel(context, _score),
+              t.pgScore(_score),
               style: TextStyle(
                 color: cs.onSurface,
                 fontWeight: FontWeight.w700,
@@ -244,16 +180,11 @@ class _RegionsPhysicalGeographyPageState
             if (_showCalibrate) ...[
               FilledButton.tonal(
                 onPressed: () => setState(() => _calibrate = !_calibrate),
-                child: Text(
-                  _calibrate ? 'Калибровка: ВКЛ' : 'Калибровка: выкл',
-                ),
+                child: Text(_calibrate ? t.pgCalibrateOn : t.pgCalibrateOff),
               ),
               const SizedBox(width: 8),
             ],
-            FilledButton.tonal(
-              onPressed: _restart,
-              child: Text(_restartLabel(context)),
-            ),
+            FilledButton.tonal(onPressed: _restart, child: Text(t.pgRestart)),
           ],
         ),
       ),
@@ -261,6 +192,7 @@ class _RegionsPhysicalGeographyPageState
   }
 
   Widget _buildMap() {
+    final t = AppLocalizations.of(context)!;
     return LayoutBuilder(
       builder: (context, constraints) {
         final maxW = constraints.maxWidth;
@@ -292,7 +224,7 @@ class _RegionsPhysicalGeographyPageState
                     _mapAssetPath,
                     fit: BoxFit.contain,
                     errorBuilder: (context, _, __) =>
-                        const Center(child: Text('Карта не найдена')),
+                        Center(child: Text(t.pgMapNotFound)),
                   ),
                 ),
                 if (_mapSizeResolved && _mapImageSize != null)
@@ -432,10 +364,14 @@ class _RegionsPhysicalGeographyPageState
         "'${r.id}': const Offset(${delta.dx.toStringAsFixed(1)}, ${delta.dy.toStringAsFixed(1)}),";
     // ignore: avoid_print
     print('Nudge → $msg');
+    final t = AppLocalizations.of(context)!;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Подгонка для ${_regionNameForLocale(context, r.id)}: $msg',
+          t.pgNudgeSaved(
+            _regionName(context, r.id), // name
+            msg, // delta
+          ),
         ),
       ),
     );
@@ -477,30 +413,30 @@ class _RegionsPhysicalGeographyPageState
     });
   }
 
-  String _restartLabel(BuildContext context) =>
-      Localizations.localeOf(context).languageCode == 'kk'
-      ? 'Қайтадан'
-      : 'Заново';
-
-  String _findPrompt(BuildContext context) =>
-      Localizations.localeOf(context).languageCode == 'kk'
-      ? 'Тауып басыңыз:'
-      : 'Найдите:';
-
-  String _regionNameForLocale(BuildContext context, String id) {
-    final locale = Localizations.localeOf(context).languageCode;
-    final entry = _regions.firstWhere((e) => e.id == id);
-    return locale == 'kk' ? entry.nameKk : entry.nameRu;
-  }
-
-  String _scoreLabel(BuildContext context, int score) {
-    switch (Localizations.localeOf(context).languageCode) {
-      case 'kk':
-        return 'Ұпай: $score';
-      case 'ru':
-        return 'Счёт: $score';
+  // Локализованное имя региона по id
+  String _regionName(BuildContext context, String id) {
+    final t = AppLocalizations.of(context)!;
+    switch (id) {
+      case 'reg_east_europe_plain':
+        return t.regEastEuropePlain;
+      case 'reg_north_kazakh_plain':
+        return t.regNorthKazakhPlain;
+      case 'reg_turan_lowland':
+        return t.regTuranLowland;
+      case 'reg_ural_mugalzhar':
+        return t.regUralMugalzhar;
+      case 'reg_saryarka':
+        return t.regSaryarka;
+      case 'reg_altai':
+        return t.regAltai;
+      case 'reg_saur_tarbagatai':
+        return t.regSaurTarbagatai;
+      case 'reg_zhetysu_alatau':
+        return t.regZhetysuAlatau;
+      case 'reg_tien_shan':
+        return t.regTienShan;
       default:
-        return 'Score: $score';
+        return id;
     }
   }
 

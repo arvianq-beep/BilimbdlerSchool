@@ -588,7 +588,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get testFinished => 'Test finished';
 
   @override
-  String get result => 'Result';
+  String result(Object score, Object total) {
+    return 'Result: $score / $total';
+  }
 
   @override
   String get nextGame => 'Next game';
@@ -606,7 +608,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get close => 'Close';
 
   @override
-  String get score => 'Score';
+  String score(Object value) {
+    return 'Score: $value';
+  }
 
   @override
   String get next => 'Next';
@@ -619,4 +623,113 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get correctAnswers => 'Correct';
+
+  @override
+  String get pgRegionsTitle => 'Physical-geographic regions';
+
+  @override
+  String get pgFindPrefix => 'Find:';
+
+  @override
+  String get pgRestart => 'Restart';
+
+  @override
+  String pgScore(int value) {
+    return 'Score: $value';
+  }
+
+  @override
+  String get pgMapNotFound => 'Map not found';
+
+  @override
+  String get pgCalibrateOn => 'Calibration: ON';
+
+  @override
+  String get pgCalibrateOff => 'Calibration: off';
+
+  @override
+  String pgNudgeSaved(Object name, Object delta) {
+    return 'Adjustment for $name: $delta';
+  }
+
+  @override
+  String get regEastEuropePlain => 'East European Plain';
+
+  @override
+  String get regNorthKazakhPlain => 'North Kazakh Plain';
+
+  @override
+  String get regTuranLowland => 'Turan Lowland';
+
+  @override
+  String get regUralMugalzhar => 'Ural (Mugalzhar)';
+
+  @override
+  String get regSaryarka => 'Saryarka';
+
+  @override
+  String get regAltai => 'Altai';
+
+  @override
+  String get regSaurTarbagatai => 'Saur–Tarbagatai';
+
+  @override
+  String get regZhetysuAlatau => 'Zhetysu Alatau';
+
+  @override
+  String get regTienShan => 'Tian Shan';
+
+  @override
+  String get mountainsTitle => 'Mountains of Kazakhstan';
+
+  @override
+  String get findRange => 'Find the range:';
+
+  @override
+  String get gameFinished => 'Game finished';
+
+  @override
+  String get ok => 'OK';
+
+  @override
+  String get mapNotFound => 'Map not found';
+
+  @override
+  String get mountainIleAlatau => 'Ile Alatau (Trans-Ili Alatau)';
+
+  @override
+  String get mountainTienShan => 'Tian Shan';
+
+  @override
+  String get mountainZhetysuAlatau => 'Zhetysu (Dzungarian) Alatau';
+
+  @override
+  String get mountainAltai => 'Altai';
+
+  @override
+  String get mountainSauyrTarbagatai => 'Sauyr–Tarbagatai';
+
+  @override
+  String get mountainBayanaul => 'Bayanaul';
+
+  @override
+  String get mountainKarkaraly => 'Karkaraly';
+
+  @override
+  String get mountainUlytau => 'Ulytau';
+
+  @override
+  String get mountainKokshetau => 'Kokshetau Hills';
+
+  @override
+  String get mountainKaratau => 'Karatau Range';
+
+  @override
+  String get mountainMugodzhary => 'Mugodzhary';
+
+  @override
+  String get mountainMangystau => 'Mangystau Mountains';
+
+  @override
+  String get mountainKalba => 'Kalba Range';
 }
