@@ -589,4 +589,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get result => 'Result';
+
+  @override
+  String get nextGame => 'Next game';
 }

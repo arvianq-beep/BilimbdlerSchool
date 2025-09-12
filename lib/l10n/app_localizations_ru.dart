@@ -591,4 +591,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get result => 'Результат';
+
+  @override
+  String get nextGame => 'Следующая игра';
 }

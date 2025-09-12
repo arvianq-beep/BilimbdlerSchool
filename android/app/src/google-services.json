@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:200422882200:android:e1725735b027add08689ed",
+        "mobilesdk_app_id": "1:200422882200:android:3f0001a13b39dae18689ed",
         "android_client_info": {
-          "package_name": "com.example.flutter_bilimdler"
+          "package_name": "com.bilimdler.app"
         }
       },
       "oauth_client": [],

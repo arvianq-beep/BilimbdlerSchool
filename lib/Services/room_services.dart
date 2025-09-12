@@ -164,7 +164,6 @@ class RoomService {
       .orderBy('joinedAt')
       .snapshots();
 
-  /// === NEW ===
   /// Записать результат игрока в комнату: score/total по его uid.
   /// Пишет/обновляет документ rooms/{roomId}/members/{uid}
   static Future<void> submitResult({
@@ -180,7 +179,6 @@ class RoomService {
         .collection('members')
         .doc(user.uid);
 
-    // Имя: берём переданное, иначе user.displayName, иначе пусто
     final name = (displayName?.trim().isNotEmpty == true)
         ? displayName!.trim()
         : (user.displayName?.trim() ?? '');
@@ -193,9 +191,43 @@ class RoomService {
       'finishedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
 
-    // (опц.) отметим в самой комнате, что поступил результат
     await _db.collection('rooms').doc(roomId).set({
       'lastResultAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
+  }
+
+  /// === НОВОЕ ===
+  /// Сбросить очки у всех участников и вернуть комнату в waiting.
+  /// Не трогает состав участников и isOpen.
+  static Future<void> prepareNextGame(String roomId) async {
+    final roomRef = _db.collection('rooms').doc(roomId);
+    final membersSnap = await roomRef.collection('members').get();
+
+    final batch = _db.batch();
+    for (final d in membersSnap.docs) {
+      batch.set(d.reference, {
+        'score': FieldValue.delete(),
+        'total': FieldValue.delete(),
+        'finishedAt': FieldValue.delete(),
+      }, SetOptions(merge: true));
+    }
+
+    batch.update(roomRef, {
+      'status': 'waiting',
+      'currentGame': FieldValue.delete(),
+      'round': FieldValue.increment(1), // опционально: счётчик раундов
+      'lastResultAt': FieldValue.serverTimestamp(),
+    });
+
+    await batch.commit();
+  }
+
+  /// Подготовить + сразу стартануть следующую игру.
+  static Future<void> startNextGame({
+    required String roomId,
+    required String gameId,
+  }) async {
+    await prepareNextGame(roomId);
+    await startGame(roomId: roomId, gameId: gameId);
   }
 }

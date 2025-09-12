@@ -1209,6 +1209,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Result'**
   String get result;
+
+  /// No description provided for @nextGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Next game'**
+  String get nextGame;
 }
 
 class _AppLocalizationsDelegate

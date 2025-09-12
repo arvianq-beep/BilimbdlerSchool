@@ -591,4 +591,7 @@ class AppLocalizationsKk extends AppLocalizations {
 
   @override
   String get result => 'Нәтиже';
+
+  @override
+  String get nextGame => 'Келесі ойын';
 }
