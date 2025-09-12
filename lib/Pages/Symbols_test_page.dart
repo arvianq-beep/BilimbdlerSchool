@@ -320,8 +320,9 @@ class _Body extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: Text(
-                '${t.score}: $score',
+              child: // правильно — вызываем функцию и ничего не конкатенируем
+              Text(
+                t.score(score),
                 style: TextStyle(color: cs.onSurfaceVariant),
               ),
             ),
