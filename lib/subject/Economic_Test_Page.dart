@@ -18,40 +18,34 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
   @override
   void initState() {
     super.initState();
-    _loadQuestionsEconom();
+    _loadQuestions(); // грузим 30 по порядку из 'econom'
   }
 
-  // Р°РєРєСѓСЂР°С‚РЅС‹Р№ РїР°СЂСЃРµСЂ РЅРѕРјРµСЂР° (int/num/string)
+  // Надёжно приводим значение к int (если в БД 'number' строкой)
   int _asInt(dynamic v) {
     if (v is int) return v;
     if (v is num) return v.toInt();
     if (v is String) {
-      // РІС‹РєРёРЅРµРј РІСЃС‘, С‡С‚Рѕ РЅРµ С†РёС„СЂР° (РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№)
       final s = v.replaceAll(RegExp(r'[^0-9]'), '');
       return int.tryParse(s) ?? 0;
     }
     return 0;
   }
 
-  // Р­РєРѕРЅРѕРјРёРєР°Р»С‹Т› РіРµРѕРіСЂР°С„РёСЏ: Р·Р°РіСЂСѓР·РєР° РІРѕРїСЂРѕСЃРѕРІ РёР· 'econom' РїРѕ РІРѕР·СЂР°СЃС‚Р°РЅРёСЋ РЅРѕРјРµСЂР°
-  Future<void> _loadQuestionsEconom() async {
-    setState(() {
-      _loading = true;
-      _submitted = false;
-      _selected.clear();
-    });
-
-    final snapshotEconom = await FirebaseFirestore.instance
-        .collection('econom')
-        .orderBy('number')
-        .get();
-
-    setState(() {
-      _questions = snapshotEconom.docs;
-      _loading = false;
-    });
+  // Мини-локализация без ARB
+  String _t(
+    BuildContext context, {
+    required String kk,
+    required String ru,
+    String? en,
+  }) {
+    final code = Localizations.localeOf(context).languageCode;
+    if (code == 'kk') return kk;
+    if (code == 'ru') return ru;
+    return en ?? ru;
   }
 
+  // Загружаем ВСЕ из 'econom', сортируем по number и берём первые 30
   Future<void> _loadQuestions() async {
     setState(() {
       _loading = true;
@@ -59,22 +53,20 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
       _selected.clear();
     });
 
-    // 1) Р·Р°Р±СЂР°Р»Рё РІСЃРµ РґРѕРєСѓРјРµРЅС‚С‹ (РЅРёС‡РµРіРѕ РІ Р‘Р” РЅРµ РјРµРЅСЏРµРј)
-    final snap = await FirebaseFirestore.instance.collection('questions').get();
+    final snap = await FirebaseFirestore.instance.collection('econom').get();
 
-    // 2) РїРµСЂРµРјРµС€Р°Р»Рё Рё РІР·СЏР»Рё 30
-    final all = snap.docs.toList()..shuffle();
-    final picked = all.take(30).toList();
+    final all =
+        List<QueryDocumentSnapshot<Map<String, dynamic>>>.from(snap.docs)
+          ..sort((a, b) {
+            final an = _asInt(a.data()['number']);
+            final bn = _asInt(b.data()['number']);
+            return an.compareTo(bn);
+          });
 
-    // 3) С‚РµРїРµСЂСЊ РћРўРЎРћР РўРР РћР’РђР›Р РІС‹Р±СЂР°РЅРЅС‹Рµ 30 РїРѕ РїРѕР»СЋ "number"
-    picked.sort((a, b) {
-      final na = _asInt(a.data()['number']);
-      final nb = _asInt(b.data()['number']);
-      return na.compareTo(nb);
-    });
+    final first30 = all.take(30).toList();
 
     setState(() {
-      _questions = picked;
+      _questions = first30;
       _loading = false;
     });
   }
@@ -82,33 +74,46 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
   void _finishTest() {
     setState(() => _submitted = true);
 
-    // РµСЃР»Рё РІ РґРѕРєСѓРјРµРЅС‚Рµ РµСЃС‚СЊ РїРѕР»Рµ "correct" (A/B/C/D) вЂ” РїРѕСЃС‡РёС‚Р°РµРј Р±Р°Р»Р»С‹
     int correct = 0;
     for (final doc in _questions) {
       final data = doc.data();
       final right = (data['correct'] ?? '').toString().toUpperCase();
       final picked = (_selected[doc.id] ?? '').toUpperCase();
-      if (right.isNotEmpty && picked == right) {
-        correct++;
-      }
+      if (right.isNotEmpty && picked == right) correct++;
     }
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('РўРµСЃС‚ Р·Р°РІРµСЂС€С‘РЅ'),
-        content: Text('Р РµР·СѓР»СЊС‚Р°С‚: $correct РёР· ${_questions.length}'),
+        title: Text(
+          _t(
+            context,
+            kk: 'Тест аяқталды',
+            ru: 'Тест завершён',
+            en: 'Test finished',
+          ),
+        ),
+        content: Text(
+          _t(
+            context,
+            kk: 'Нәтиже: $correct / ${_questions.length}',
+            ru: 'Результат: $correct из ${_questions.length}',
+            en: 'Score: $correct of ${_questions.length}',
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('РћРє'),
+            child: Text(_t(context, kk: 'ОК', ru: 'ОК', en: 'OK')),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              await _loadQuestions(); // РЅРѕРІР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ, РЅРѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РІС‹Р±РѕСЂРєР°
+              await _loadQuestions(); // перезагрузить 30 по порядку
             },
-            child: const Text('Р•С‰С‘ СЂР°Р·'),
+            child: Text(
+              _t(context, kk: 'Қайтадан', ru: 'Ещё раз', en: 'Again'),
+            ),
           ),
         ],
       ),
@@ -122,7 +127,16 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Р­РєРѕРЅРѕРјРёРєР° вЂ” С‚РµСЃС‚')),
+      appBar: AppBar(
+        title: Text(
+          _t(
+            context,
+            kk: 'Экономикалық география — тест',
+            ru: 'Экономическая география — тест',
+            en: 'Economic geography — test',
+          ),
+        ),
+      ),
       body: ListView.builder(
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -130,14 +144,10 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
           final q = doc.data();
           final id = doc.id;
 
-          final options = (q['options'] as Map<String, dynamic>? ?? {});
-          // РїРѕСЂСЏРґРѕРє РІР°СЂРёР°РЅС‚РѕРІ A..D
+          final options = Map<String, dynamic>.from(q['options'] ?? {});
           final keys = ['A', 'B', 'C', 'D'].where(options.containsKey).toList();
           final selected = _selected[id];
           final correctKey = (q['correct'] ?? '').toString().toUpperCase();
-
-          // Р»РѕРєР°Р»СЊРЅР°СЏ РЅСѓРјРµСЂР°С†РёСЏ 1..N (С‡С‚РѕР±С‹ РЅРµ Р±С‹Р»Рѕ "66." РІ РЅР°С‡Р°Р»Рµ)
-          final title = '${index + 1}. ${q['question'] ?? ''}';
 
           return Card(
             margin: const EdgeInsets.all(12),
@@ -147,7 +157,7 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    '${index + 1}. ${q['question'] ?? ''}',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -169,14 +179,24 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
                       subtitle: !_submitted
                           ? null
                           : (k == correctKey)
-                          ? const Text(
-                              'Р’РµСЂРЅС‹Р№ РѕС‚РІРµС‚',
-                              style: TextStyle(color: Colors.green),
+                          ? Text(
+                              _t(
+                                context,
+                                kk: 'Дұрыс жауап',
+                                ru: 'Верный ответ',
+                                en: 'Correct',
+                              ),
+                              style: const TextStyle(color: Colors.green),
                             )
                           : (selected == k)
-                          ? const Text(
-                              'РќРµРІРµСЂРЅРѕ',
-                              style: TextStyle(color: Colors.red),
+                          ? Text(
+                              _t(
+                                context,
+                                kk: 'Қате',
+                                ru: 'Неверно',
+                                en: 'Wrong',
+                              ),
+                              style: const TextStyle(color: Colors.red),
                             )
                           : null,
                     ),
@@ -191,7 +211,14 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: _submitted ? null : _finishTest,
-            child: const Text('Р—Р°РІРµСЂС€РёС‚СЊ С‚РµСЃС‚'),
+            child: Text(
+              _t(
+                context,
+                kk: 'Тесті аяқтау',
+                ru: 'Завершить тест',
+                en: 'Finish test',
+              ),
+            ),
           ),
         ),
       ),

@@ -505,4 +505,88 @@ class AppLocalizationsEn extends AppLocalizations {
   String questionOfTotal(String current, String total) {
     return 'Question $current of $total';
   }
+
+  @override
+  String get factoriesQ4 => 'Which city does NOT have a ferroalloy plant?';
+
+  @override
+  String get factoriesQ4A1 => 'Aktobe';
+
+  @override
+  String get factoriesQ4A2 => 'Aksu (Pavlodar)';
+
+  @override
+  String get factoriesQ4A3 => 'Taraz';
+
+  @override
+  String get factoriesQ4A4 => 'Zhezkazgan';
+
+  @override
+  String get factoriesQ5 => 'Where is a copper smelter located?';
+
+  @override
+  String get factoriesQ5A1 => 'Balkhash';
+
+  @override
+  String get factoriesQ5A2 => 'Aktobe';
+
+  @override
+  String get factoriesQ5A3 => 'Ridder';
+
+  @override
+  String get factoriesQ5A4 => 'Atyrau';
+
+  @override
+  String get factoriesQ6 => 'Lead–zinc combine is in which city?';
+
+  @override
+  String get factoriesQ6A1 => 'Oskemen';
+
+  @override
+  String get factoriesQ6A2 => 'Atyrau';
+
+  @override
+  String get factoriesQ6A3 => 'Taraz';
+
+  @override
+  String get factoriesQ6A4 => 'Almaty';
+
+  @override
+  String get factoriesQ7 => 'Polymetal plant is located in:';
+
+  @override
+  String get factoriesQ7A1 => 'Oskemen';
+
+  @override
+  String get factoriesQ7A2 => 'Pavlodar';
+
+  @override
+  String get factoriesQ7A3 => 'Ridder';
+
+  @override
+  String get factoriesQ7A4 => 'Aktobe';
+
+  @override
+  String get resultsTitle => 'Results';
+
+  @override
+  String get room => 'Room';
+
+  @override
+  String get finished => 'Finished';
+
+  @override
+  String get scoreShort => 'Score';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get toMenu => 'Home';
+
+  @override
+  String get testFinished => 'Test finished';
+
+  @override
+  String get result => 'Result';
 }

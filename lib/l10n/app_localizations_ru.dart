@@ -241,7 +241,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get chooseParticipantsTitle => 'Сколько участников?';
 
   @override
-  String get btnOk => 'Ок';
+  String get btnOk => 'ОК';
 
   @override
   String get waitingRoomTitle => 'Комната ожидания';
@@ -507,4 +507,88 @@ class AppLocalizationsRu extends AppLocalizations {
   String questionOfTotal(String current, String total) {
     return 'Вопрос $current из $total';
   }
+
+  @override
+  String get factoriesQ4 => 'В каком городе НЕТ ферросплавного завода?';
+
+  @override
+  String get factoriesQ4A1 => 'Актобе';
+
+  @override
+  String get factoriesQ4A2 => 'Аксу (Павлодар)';
+
+  @override
+  String get factoriesQ4A3 => 'Тараз';
+
+  @override
+  String get factoriesQ4A4 => 'Жезказган';
+
+  @override
+  String get factoriesQ5 => 'В каком городе расположен медеплавильный завод?';
+
+  @override
+  String get factoriesQ5A1 => 'Балхаш';
+
+  @override
+  String get factoriesQ5A2 => 'Актобе';
+
+  @override
+  String get factoriesQ5A3 => 'Риддер';
+
+  @override
+  String get factoriesQ5A4 => 'Атырау';
+
+  @override
+  String get factoriesQ6 => 'Где находится свинцово-цинковый комбинат?';
+
+  @override
+  String get factoriesQ6A1 => 'Усть-Каменогорск';
+
+  @override
+  String get factoriesQ6A2 => 'Атырау';
+
+  @override
+  String get factoriesQ6A3 => 'Тараз';
+
+  @override
+  String get factoriesQ6A4 => 'Алматы';
+
+  @override
+  String get factoriesQ7 => 'Полиметаллический комбинат расположен в:';
+
+  @override
+  String get factoriesQ7A1 => 'Усть-Каменогорске';
+
+  @override
+  String get factoriesQ7A2 => 'Павлодаре';
+
+  @override
+  String get factoriesQ7A3 => 'Риддере';
+
+  @override
+  String get factoriesQ7A4 => 'Актобе';
+
+  @override
+  String get resultsTitle => 'Результаты';
+
+  @override
+  String get room => 'Комната';
+
+  @override
+  String get finished => 'Готово';
+
+  @override
+  String get scoreShort => 'Баллы';
+
+  @override
+  String get back => 'Назад';
+
+  @override
+  String get toMenu => 'В меню';
+
+  @override
+  String get testFinished => 'Тест завершён';
+
+  @override
+  String get result => 'Результат';
 }

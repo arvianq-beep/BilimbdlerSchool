@@ -9,8 +9,10 @@ class FactoriesPage extends StatefulWidget {
 }
 
 class _FactoriesPageState extends State<FactoriesPage> {
-  // Индексы правильных ответов (по порядку вопросов)
-  final List<int> _correct = [1, 0, 1];
+  // Индексы правильных ответов под каждый вопрос по порядку
+  // Q1=1 (Өскемен), Q2=0 (Электролиз), Q3=1 (Испат-Кармет),
+  // Q4=3 (Жезқазған), Q5=0 (Балқаш), Q6=0 (Өскемен), Q7=2 (Риддер)
+  final List<int> _correct = [1, 0, 1, 3, 0, 0, 2];
 
   int _current = 0;
   int _score = 0;
@@ -33,6 +35,22 @@ class _FactoriesPageState extends State<FactoriesPage> {
       'q': t.factoriesQ3,
       'a': [t.factoriesQ3A1, t.factoriesQ3A2, t.factoriesQ3A3, t.factoriesQ3A4],
     },
+    {
+      'q': t.factoriesQ4,
+      'a': [t.factoriesQ4A1, t.factoriesQ4A2, t.factoriesQ4A3, t.factoriesQ4A4],
+    },
+    {
+      'q': t.factoriesQ5,
+      'a': [t.factoriesQ5A1, t.factoriesQ5A2, t.factoriesQ5A3, t.factoriesQ5A4],
+    },
+    {
+      'q': t.factoriesQ6,
+      'a': [t.factoriesQ6A1, t.factoriesQ6A2, t.factoriesQ6A3, t.factoriesQ6A4],
+    },
+    {
+      'q': t.factoriesQ7,
+      'a': [t.factoriesQ7A1, t.factoriesQ7A2, t.factoriesQ7A3, t.factoriesQ7A4],
+    },
   ];
 
   @override
@@ -45,14 +63,12 @@ class _FactoriesPageState extends State<FactoriesPage> {
     return Scaffold(
       appBar: AppBar(title: Text(t.factoriesTestTitle)),
       body: SafeArea(
-        // <- защищаемся от вырезов/домов кнопки
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: _current < total
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Прогресс
                     Text(
                       t.questionOfTotal('${_current + 1}', '$total'),
                       style: TextStyle(
@@ -70,8 +86,6 @@ class _FactoriesPageState extends State<FactoriesPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // Карточка вопроса
                     Material(
                       color: Theme.of(context).brightness == Brightness.dark
                           ? cs.primaryContainer
@@ -92,7 +106,7 @@ class _FactoriesPageState extends State<FactoriesPage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ПРОКРУЧИВАЕМЫЕ варианты ответов
+                    // Прокручиваемые варианты
                     Expanded(
                       child: ListView.separated(
                         padding: EdgeInsets.only(

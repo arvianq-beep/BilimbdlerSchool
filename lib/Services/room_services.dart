@@ -149,10 +149,12 @@ class RoomService {
     });
   }
 
+  /// Поток самой комнаты
   static Stream<DocumentSnapshot<Map<String, dynamic>>> roomStream(
     String roomId,
   ) => _db.collection('rooms').doc(roomId).snapshots();
 
+  /// Поток участников комнаты
   static Stream<QuerySnapshot<Map<String, dynamic>>> membersStream(
     String roomId,
   ) => _db
@@ -161,4 +163,39 @@ class RoomService {
       .collection('members')
       .orderBy('joinedAt')
       .snapshots();
+
+  /// === NEW ===
+  /// Записать результат игрока в комнату: score/total по его uid.
+  /// Пишет/обновляет документ rooms/{roomId}/members/{uid}
+  static Future<void> submitResult({
+    required String roomId,
+    required int score,
+    required int total,
+    String? displayName,
+  }) async {
+    final user = await _ensureUser();
+    final memRef = _db
+        .collection('rooms')
+        .doc(roomId)
+        .collection('members')
+        .doc(user.uid);
+
+    // Имя: берём переданное, иначе user.displayName, иначе пусто
+    final name = (displayName?.trim().isNotEmpty == true)
+        ? displayName!.trim()
+        : (user.displayName?.trim() ?? '');
+
+    await memRef.set({
+      'uid': user.uid,
+      if (name.isNotEmpty) 'name': name,
+      'score': score,
+      'total': total,
+      'finishedAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+
+    // (опц.) отметим в самой комнате, что поступил результат
+    await _db.collection('rooms').doc(roomId).set({
+      'lastResultAt': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
 }

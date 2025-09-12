@@ -185,6 +185,39 @@
       "current": { "type": "String", "example": "1" },
       "total": { "type": "String", "example": "3" }
     }
-  }
+  },
+  "factoriesQ4": "Ферроқорытпа зауыты қай қалада жоқ?",
+  "factoriesQ4A1": "Ақтөбе",
+  "factoriesQ4A2": "Ақсу (Павлодар)",
+  "factoriesQ4A3": "Тараз",
+  "factoriesQ4A4": "Жезқазған",
+
+  "factoriesQ5": "Мыс қорыту зауыты қай қалада?",
+  "factoriesQ5A1": "Балқаш",
+  "factoriesQ5A2": "Ақтөбе",
+  "factoriesQ5A3": "Риддер",
+  "factoriesQ5A4": "Атырау",
+
+  "factoriesQ6": "Қорғасын-мырыш комбинаты қай қалада?",
+  "factoriesQ6A1": "Өскемен",
+  "factoriesQ6A2": "Атырау",
+  "factoriesQ6A3": "Тараз",
+  "factoriesQ6A4": "Алматы",
+
+  "factoriesQ7": "Полиметалл комбинаты қай қалада?",
+  "factoriesQ7A1": "Өскемен",
+  "factoriesQ7A2": "Павлодар",
+  "factoriesQ7A3": "Риддер",
+  "factoriesQ7A4": "Ақтөбе",
+  "resultsTitle": "Нәтижелер",
+  "room": "Бөлме",
+  "finished": "Дайын",
+  "scoreShort": "Ұпай",
+  "back": "Артқа",
+  "toMenu": "Басты мәзір",
+  "testFinished": "Тест аяқталды",
+  "result": "Нәтиже",
+  "btnOk": "ОК"
+
 
 }

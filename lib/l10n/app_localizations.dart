@@ -1041,6 +1041,174 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question {current} of {total}'**
   String questionOfTotal(String current, String total);
+
+  /// No description provided for @factoriesQ4.
+  ///
+  /// In en, this message translates to:
+  /// **'Which city does NOT have a ferroalloy plant?'**
+  String get factoriesQ4;
+
+  /// No description provided for @factoriesQ4A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Aktobe'**
+  String get factoriesQ4A1;
+
+  /// No description provided for @factoriesQ4A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Aksu (Pavlodar)'**
+  String get factoriesQ4A2;
+
+  /// No description provided for @factoriesQ4A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Taraz'**
+  String get factoriesQ4A3;
+
+  /// No description provided for @factoriesQ4A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Zhezkazgan'**
+  String get factoriesQ4A4;
+
+  /// No description provided for @factoriesQ5.
+  ///
+  /// In en, this message translates to:
+  /// **'Where is a copper smelter located?'**
+  String get factoriesQ5;
+
+  /// No description provided for @factoriesQ5A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Balkhash'**
+  String get factoriesQ5A1;
+
+  /// No description provided for @factoriesQ5A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Aktobe'**
+  String get factoriesQ5A2;
+
+  /// No description provided for @factoriesQ5A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Ridder'**
+  String get factoriesQ5A3;
+
+  /// No description provided for @factoriesQ5A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Atyrau'**
+  String get factoriesQ5A4;
+
+  /// No description provided for @factoriesQ6.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead–zinc combine is in which city?'**
+  String get factoriesQ6;
+
+  /// No description provided for @factoriesQ6A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Oskemen'**
+  String get factoriesQ6A1;
+
+  /// No description provided for @factoriesQ6A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Atyrau'**
+  String get factoriesQ6A2;
+
+  /// No description provided for @factoriesQ6A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Taraz'**
+  String get factoriesQ6A3;
+
+  /// No description provided for @factoriesQ6A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Almaty'**
+  String get factoriesQ6A4;
+
+  /// No description provided for @factoriesQ7.
+  ///
+  /// In en, this message translates to:
+  /// **'Polymetal plant is located in:'**
+  String get factoriesQ7;
+
+  /// No description provided for @factoriesQ7A1.
+  ///
+  /// In en, this message translates to:
+  /// **'Oskemen'**
+  String get factoriesQ7A1;
+
+  /// No description provided for @factoriesQ7A2.
+  ///
+  /// In en, this message translates to:
+  /// **'Pavlodar'**
+  String get factoriesQ7A2;
+
+  /// No description provided for @factoriesQ7A3.
+  ///
+  /// In en, this message translates to:
+  /// **'Ridder'**
+  String get factoriesQ7A3;
+
+  /// No description provided for @factoriesQ7A4.
+  ///
+  /// In en, this message translates to:
+  /// **'Aktobe'**
+  String get factoriesQ7A4;
+
+  /// No description provided for @resultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Results'**
+  String get resultsTitle;
+
+  /// No description provided for @room.
+  ///
+  /// In en, this message translates to:
+  /// **'Room'**
+  String get room;
+
+  /// No description provided for @finished.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get finished;
+
+  /// No description provided for @scoreShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get scoreShort;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @toMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get toMenu;
+
+  /// No description provided for @testFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Test finished'**
+  String get testFinished;
+
+  /// No description provided for @result.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get result;
 }
 
 class _AppLocalizationsDelegate

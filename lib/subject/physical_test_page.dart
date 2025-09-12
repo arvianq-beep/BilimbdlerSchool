@@ -14,20 +14,13 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
   bool _loading = true;
   bool _submitted = false;
 
-  // РµСЃР»Рё РІ Р‘Р” РЅРµС‚ subject='physical', РїРѕРїСЂРѕР±СѓРµРј РїРѕ СЂР°Р·РґРµР»Р°Рј
-  static const Set<String> _physicalSections = {
-    'РђС‚РјРѕСЃС„РµСЂР°',
-    'Р“РёРґСЂРѕСЃС„РµСЂР°',
-    'Р›РёС‚РѕСЃС„РµСЂР°',
-    'Р‘РёРѕСЃС„РµСЂР°',
-  };
-
   @override
   void initState() {
     super.initState();
     _loadQuestions();
   }
 
+  // Преобразуем значение в число (на случай, если в БД 'number' хранится строкой)
   int _asInt(dynamic v) {
     if (v is int) return v;
     if (v is num) return v.toInt();
@@ -38,8 +31,20 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     return 0;
   }
 
+  // Мини-локализация прямо в коде (kk/ru/en) без правок ARB
+  String _t(
+    BuildContext context, {
+    required String kk,
+    required String ru,
+    String? en,
+  }) {
+    final code = Localizations.localeOf(context).languageCode;
+    if (code == 'kk') return kk;
+    if (code == 'ru') return ru;
+    return en ?? ru;
+  }
 
-  // Физикалық география: загрузка вопросов по возрастанию номера
+  // Загружаем ВСЕ, сортируем по number, берём первые 30
   Future<void> _loadQuestions() async {
     setState(() {
       _loading = true;
@@ -47,13 +52,23 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
       _selected.clear();
     });
 
-    final snapshotPhys = await FirebaseFirestore.instance
+    final snap = await FirebaseFirestore.instance
         .collection('questions')
-        .orderBy('number')
+        // .where('subject', isEqualTo: 'physical') // если нужно фильтровать
         .get();
 
+    final all =
+        List<QueryDocumentSnapshot<Map<String, dynamic>>>.from(snap.docs)
+          ..sort((a, b) {
+            final an = _asInt(a.data()['number']);
+            final bn = _asInt(b.data()['number']);
+            return an.compareTo(bn); // 1,2,3…10,11
+          });
+
+    final first30 = all.take(30).toList();
+
     setState(() {
-      _questions = snapshotPhys.docs;
+      _questions = first30;
       _loading = false;
     });
   }
@@ -72,19 +87,35 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text('РўРµСЃС‚ Р·Р°РІРµСЂС€С‘РЅ'),
-        content: Text('Р РµР·СѓР»СЊС‚Р°С‚: $correct РёР· ${_questions.length}'),
+        title: Text(
+          _t(
+            context,
+            kk: 'Тест аяқталды',
+            ru: 'Тест завершён',
+            en: 'Test finished',
+          ),
+        ),
+        content: Text(
+          _t(
+            context,
+            kk: 'Нәтиже: $correct / ${_questions.length}',
+            ru: 'Результат: $correct из ${_questions.length}',
+            en: 'Score: $correct of ${_questions.length}',
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('РћРє'),
+            child: Text(_t(context, kk: 'ОК', ru: 'ОК', en: 'OK')),
           ),
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              await _loadQuestions(); // РЅРѕРІР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ, РЅРѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅР°СЏ РІС‹Р±РѕСЂРєР°
+              await _loadQuestions();
             },
-            child: const Text('Р•С‰С‘ СЂР°Р·'),
+            child: Text(
+              _t(context, kk: 'Қайтадан', ru: 'Ещё раз', en: 'Again'),
+            ),
           ),
         ],
       ),
@@ -98,7 +129,16 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Р¤РёР·РёС‡РµСЃРєР°СЏ РіРµРѕРіСЂР°С„РёСЏ вЂ” С‚РµСЃС‚')),
+      appBar: AppBar(
+        title: Text(
+          _t(
+            context,
+            kk: 'Физикалық география — тест',
+            ru: 'Физическая география — тест',
+            en: 'Physical geography — test',
+          ),
+        ),
+      ),
       body: ListView.builder(
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -106,7 +146,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
           final q = doc.data();
           final id = doc.id;
 
-          final options = (q['options'] as Map<String, dynamic>? ?? {});
+          final options = Map<String, dynamic>.from(q['options'] ?? {});
           final keys = ['A', 'B', 'C', 'D'].where(options.containsKey).toList();
           final selected = _selected[id];
           final correctKey = (q['correct'] ?? '').toString().toUpperCase();
@@ -119,7 +159,7 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${index + 1}. ${q['question'] ?? ''}', // Р»РѕРєР°Р»СЊРЅР°СЏ РЅСѓРјРµСЂР°С†РёСЏ 1..N
+                    '${index + 1}. ${q['question'] ?? ''}',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -141,14 +181,24 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
                       subtitle: !_submitted
                           ? null
                           : (k == correctKey)
-                          ? const Text(
-                              'Р’РµСЂРЅС‹Р№ РѕС‚РІРµС‚',
-                              style: TextStyle(color: Colors.green),
+                          ? Text(
+                              _t(
+                                context,
+                                kk: 'Дұрыс жауап',
+                                ru: 'Верный ответ',
+                                en: 'Correct',
+                              ),
+                              style: const TextStyle(color: Colors.green),
                             )
                           : (selected == k)
-                          ? const Text(
-                              'РќРµРІРµСЂРЅРѕ',
-                              style: TextStyle(color: Colors.red),
+                          ? Text(
+                              _t(
+                                context,
+                                kk: 'Қате',
+                                ru: 'Неверно',
+                                en: 'Wrong',
+                              ),
+                              style: const TextStyle(color: Colors.red),
                             )
                           : null,
                     ),
@@ -163,7 +213,14 @@ class _PhysicalTestPageState extends State<PhysicalTestPage> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: _submitted ? null : _finishTest,
-            child: const Text('Р—Р°РІРµСЂС€РёС‚СЊ С‚РµСЃС‚'),
+            child: Text(
+              _t(
+                context,
+                kk: 'Тесті аяқтау',
+                ru: 'Завершить тест',
+                en: 'Finish test',
+              ),
+            ),
           ),
         ),
       ),

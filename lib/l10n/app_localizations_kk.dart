@@ -507,4 +507,88 @@ class AppLocalizationsKk extends AppLocalizations {
   String questionOfTotal(String current, String total) {
     return 'Сұрақ $current/$total';
   }
+
+  @override
+  String get factoriesQ4 => 'Ферроқорытпа зауыты қай қалада жоқ?';
+
+  @override
+  String get factoriesQ4A1 => 'Ақтөбе';
+
+  @override
+  String get factoriesQ4A2 => 'Ақсу (Павлодар)';
+
+  @override
+  String get factoriesQ4A3 => 'Тараз';
+
+  @override
+  String get factoriesQ4A4 => 'Жезқазған';
+
+  @override
+  String get factoriesQ5 => 'Мыс қорыту зауыты қай қалада?';
+
+  @override
+  String get factoriesQ5A1 => 'Балқаш';
+
+  @override
+  String get factoriesQ5A2 => 'Ақтөбе';
+
+  @override
+  String get factoriesQ5A3 => 'Риддер';
+
+  @override
+  String get factoriesQ5A4 => 'Атырау';
+
+  @override
+  String get factoriesQ6 => 'Қорғасын-мырыш комбинаты қай қалада?';
+
+  @override
+  String get factoriesQ6A1 => 'Өскемен';
+
+  @override
+  String get factoriesQ6A2 => 'Атырау';
+
+  @override
+  String get factoriesQ6A3 => 'Тараз';
+
+  @override
+  String get factoriesQ6A4 => 'Алматы';
+
+  @override
+  String get factoriesQ7 => 'Полиметалл комбинаты қай қалада?';
+
+  @override
+  String get factoriesQ7A1 => 'Өскемен';
+
+  @override
+  String get factoriesQ7A2 => 'Павлодар';
+
+  @override
+  String get factoriesQ7A3 => 'Риддер';
+
+  @override
+  String get factoriesQ7A4 => 'Ақтөбе';
+
+  @override
+  String get resultsTitle => 'Нәтижелер';
+
+  @override
+  String get room => 'Бөлме';
+
+  @override
+  String get finished => 'Дайын';
+
+  @override
+  String get scoreShort => 'Ұпай';
+
+  @override
+  String get back => 'Артқа';
+
+  @override
+  String get toMenu => 'Басты мәзір';
+
+  @override
+  String get testFinished => 'Тест аяқталды';
+
+  @override
+  String get result => 'Нәтиже';
 }
