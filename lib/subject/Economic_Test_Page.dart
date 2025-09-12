@@ -2,8 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:flutter_bilimdler/rooms/game_result.dart';
+import '../l10n/app_localizations.dart';
+
 class EconomicTestPage extends StatefulWidget {
-  const EconomicTestPage({super.key});
+  final String? roomId; // null = соло, не null = групповая игра
+  const EconomicTestPage({super.key, this.roomId});
 
   @override
   State<EconomicTestPage> createState() => _EconomicTestPageState();
@@ -18,10 +22,9 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
   @override
   void initState() {
     super.initState();
-    _loadQuestions(); // грузим 30 по порядку из 'econom'
+    _loadQuestions();
   }
 
-  // Надёжно приводим значение к int (если в БД 'number' строкой)
   int _asInt(dynamic v) {
     if (v is int) return v;
     if (v is num) return v.toInt();
@@ -32,20 +35,13 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
     return 0;
   }
 
-  // Мини-локализация без ARB
-  String _t(
-    BuildContext context, {
-    required String kk,
-    required String ru,
-    String? en,
-  }) {
+  String _t(BuildContext context, {required String kk, required String ru, String? en}) {
     final code = Localizations.localeOf(context).languageCode;
     if (code == 'kk') return kk;
     if (code == 'ru') return ru;
     return en ?? ru;
   }
 
-  // Загружаем ВСЕ из 'econom', сортируем по number и берём первые 30
   Future<void> _loadQuestions() async {
     setState(() {
       _loading = true;
@@ -53,25 +49,19 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
       _selected.clear();
     });
 
+    // Берём все из 'econom', случайно выбираем 30, затем сортируем по "number".
     final snap = await FirebaseFirestore.instance.collection('econom').get();
-
-    final all =
-        List<QueryDocumentSnapshot<Map<String, dynamic>>>.from(snap.docs)
-          ..sort((a, b) {
-            final an = _asInt(a.data()['number']);
-            final bn = _asInt(b.data()['number']);
-            return an.compareTo(bn);
-          });
-
-    final first30 = all.take(30).toList();
+    final all = snap.docs.toList()..shuffle();
+    final picked = all.take(30).toList()
+      ..sort((a, b) => _asInt(a.data()['number']).compareTo(_asInt(b.data()['number'])));
 
     setState(() {
-      _questions = first30;
+      _questions = picked;
       _loading = false;
     });
   }
 
-  void _finishTest() {
+  Future<void> _finishTest() async {
     setState(() => _submitted = true);
 
     int correct = 0;
@@ -82,25 +72,47 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
       if (right.isNotEmpty && picked == right) correct++;
     }
 
+    final total = _questions.length;
+
+    // Группа: отправляем результат в комнату и переходим на общий экран результатов.
+    if ((widget.roomId ?? '').isNotEmpty) {
+      if (mounted) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (_) => const Center(child: CircularProgressIndicator()),
+        );
+      }
+      try {
+        await GameResult.submit(
+          context: context,
+          score: correct,
+          total: total,
+          roomId: widget.roomId,
+        );
+        // навигацию на RoomResultsPage делает GameResult
+      } catch (e) {
+        if (!mounted) return;
+        Navigator.pop(context); // закрыть лоадер
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Не удалось отправить результат: $e')),
+        );
+      }
+      return;
+    }
+
+    // Соло: локальный диалог
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text(
-          _t(
-            context,
-            kk: 'Тест аяқталды',
-            ru: 'Тест завершён',
-            en: 'Test finished',
-          ),
-        ),
-        content: Text(
-          _t(
-            context,
-            kk: 'Нәтиже: $correct / ${_questions.length}',
-            ru: 'Результат: $correct из ${_questions.length}',
-            en: 'Score: $correct of ${_questions.length}',
-          ),
-        ),
+        title: Text(_t(context, kk: 'Тест аяқталды', ru: 'Тест завершён', en: 'Test finished')),
+        content: Text(_t(
+          context,
+          kk: 'Нәтиже: $correct / $total',
+          ru: 'Результат: $correct из $total',
+          en: 'Score: $correct of $total',
+        )),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -109,11 +121,9 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
           TextButton(
             onPressed: () async {
               Navigator.pop(context);
-              await _loadQuestions(); // перезагрузить 30 по порядку
+              await _loadQuestions();
             },
-            child: Text(
-              _t(context, kk: 'Қайтадан', ru: 'Ещё раз', en: 'Again'),
-            ),
+            child: Text(_t(context, kk: 'Қайтадан', ru: 'Ещё раз', en: 'Again')),
           ),
         ],
       ),
@@ -122,21 +132,14 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     if (_loading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _t(
-            context,
-            kk: 'Экономикалық география — тест',
-            ru: 'Экономическая география — тест',
-            en: 'Economic geography — test',
-          ),
-        ),
-      ),
+      appBar: AppBar(title: Text(t.economicGeography)),
       body: ListView.builder(
         itemCount: _questions.length,
         itemBuilder: (context, index) {
@@ -158,10 +161,7 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
                 children: [
                   Text(
                     '${index + 1}. ${q['question'] ?? ''}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 12),
                   for (final k in keys)
@@ -169,36 +169,22 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
                       title: Text('$k. ${options[k]}'),
                       value: k,
                       groupValue: selected,
-                      onChanged: _submitted
-                          ? null
-                          : (val) => setState(() => _selected[id] = val!),
+                      onChanged: _submitted ? null : (val) => setState(() => _selected[id] = val!),
                       selected: _submitted && selected == k,
-                      activeColor: (_submitted && k == correctKey)
-                          ? Colors.green
-                          : null,
+                      activeColor: (_submitted && k == correctKey) ? Colors.green : null,
                       subtitle: !_submitted
                           ? null
                           : (k == correctKey)
-                          ? Text(
-                              _t(
-                                context,
-                                kk: 'Дұрыс жауап',
-                                ru: 'Верный ответ',
-                                en: 'Correct',
-                              ),
-                              style: const TextStyle(color: Colors.green),
-                            )
-                          : (selected == k)
-                          ? Text(
-                              _t(
-                                context,
-                                kk: 'Қате',
-                                ru: 'Неверно',
-                                en: 'Wrong',
-                              ),
-                              style: const TextStyle(color: Colors.red),
-                            )
-                          : null,
+                              ? Text(
+                                  _t(context, kk: 'Дұрыс жауап', ru: 'Верный ответ', en: 'Correct'),
+                                  style: const TextStyle(color: Colors.green),
+                                )
+                              : (selected == k)
+                                  ? Text(
+                                      _t(context, kk: 'Қате', ru: 'Неверно', en: 'Wrong'),
+                                      style: const TextStyle(color: Colors.red),
+                                    )
+                                  : null,
                     ),
                 ],
               ),
@@ -209,16 +195,9 @@ class _EconomicTestPageState extends State<EconomicTestPage> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
+          child: FilledButton(
             onPressed: _submitted ? null : _finishTest,
-            child: Text(
-              _t(
-                context,
-                kk: 'Тесті аяқтау',
-                ru: 'Завершить тест',
-                en: 'Finish test',
-              ),
-            ),
+            child: Text(_t(context, kk: 'Тесті аяқтау', ru: 'Завершить тест', en: 'Finish test')),
           ),
         ),
       ),

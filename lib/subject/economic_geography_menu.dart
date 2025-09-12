@@ -10,7 +10,7 @@ import 'symbols_economic_geography.dart';
 import 'physical_geography_menu.dart';
 
 class EconomicGeographyMenuPage extends StatelessWidget {
-  final String? roomId;
+  final String? roomId; // null = соло, не null = группа
   const EconomicGeographyMenuPage({super.key, this.roomId});
 
   @override
@@ -38,7 +38,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                     final gridH = constraints.maxHeight;
                     final itemW = (gridW - (cross - 1) * hSpace) / cross;
                     final itemH = (gridH - (rows - 1) * vSpace) / rows;
-                    final ratio = itemW / itemH; // 👈 как в физике
+                    final ratio = itemW / itemH;
 
                     return GridView.count(
                       physics: const NeverScrollableScrollPhysics(),
@@ -55,7 +55,7 @@ class EconomicGeographyMenuPage extends StatelessWidget {
                           onTap: () => _startOrOpen(
                             context,
                             gameId: 'regions',
-                            page: const PhysicalGeographyPage(),
+                            page: PhysicalGeographyPage(),
                           ),
                         ),
                         _MenuSquare(
@@ -127,10 +127,13 @@ class EconomicGeographyMenuPage extends StatelessWidget {
     required String gameId,
     required Widget page,
   }) async {
+    // Соло: просто открыть экран
     if (roomId == null) {
       Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
       return;
     }
+
+    // Группа: отмечаем выбранную игру и открываем экран
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -163,6 +166,7 @@ class _MenuSquare extends StatelessWidget {
     required this.icon,
     required this.index,
   });
+
   final String label;
   final VoidCallback onTap;
   final IconData icon;
@@ -219,6 +223,7 @@ class _MenuSquare extends StatelessWidget {
 class _StubScaffold extends StatelessWidget {
   const _StubScaffold({required this.title});
   final String title;
+
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;

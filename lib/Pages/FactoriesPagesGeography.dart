@@ -1,28 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bilimdler/rooms/game_result.dart';
 import '../l10n/app_localizations.dart';
 
 class FactoriesPage extends StatefulWidget {
-  const FactoriesPage({super.key});
+  final String? roomId; // null = соло, не null = группа (сабмит в комнату)
+  const FactoriesPage({super.key, this.roomId});
 
   @override
   State<FactoriesPage> createState() => _FactoriesPageState();
 }
 
 class _FactoriesPageState extends State<FactoriesPage> {
-  // Индексы правильных ответов под каждый вопрос по порядку
-  // Q1=1 (Өскемен), Q2=0 (Электролиз), Q3=1 (Испат-Кармет),
-  // Q4=3 (Жезқазған), Q5=0 (Балқаш), Q6=0 (Өскемен), Q7=2 (Риддер)
+  // Q1..Q7 правильные варианты
   final List<int> _correct = [1, 0, 1, 3, 0, 0, 2];
 
   int _current = 0;
   int _score = 0;
 
-  void _answer(int selected) {
+  void _answer(int selected) async {
     if (selected == _correct[_current]) _score++;
+
+    final total = _questions(AppLocalizations.of(context)!).length;
+    final isLast = _current + 1 >= total;
+
+    if (isLast) {
+      // ГРУППА: сразу пишем результат и показываем общее табло
+      if ((widget.roomId ?? '').isNotEmpty) {
+        await GameResult.submit(
+          context: context,
+          score: _score,
+          total: total,
+          roomId: widget.roomId,
+        );
+        return; // навигация произойдёт внутри submit
+      }
+
+      // Соло: просто показать итоговый экран
+      setState(() => _current++);
+      return;
+    }
+
     setState(() => _current++);
   }
 
-  List<Map<String, Object>> _buildQuestions(AppLocalizations t) => [
+  List<Map<String, Object>> _questions(AppLocalizations t) => [
     {
       'q': t.factoriesQ1,
       'a': [t.factoriesQ1A1, t.factoriesQ1A2, t.factoriesQ1A3, t.factoriesQ1A4],
@@ -57,15 +78,17 @@ class _FactoriesPageState extends State<FactoriesPage> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final cs = Theme.of(context).colorScheme;
-    final questions = _buildQuestions(t);
+    final questions = _questions(t);
     final total = questions.length;
+
+    final inQuiz = _current < total;
 
     return Scaffold(
       appBar: AppBar(title: Text(t.factoriesTestTitle)),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child: _current < total
+          child: inQuiz
               ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -105,8 +128,6 @@ class _FactoriesPageState extends State<FactoriesPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-
-                    // Прокручиваемые варианты
                     Expanded(
                       child: ListView.separated(
                         padding: EdgeInsets.only(
