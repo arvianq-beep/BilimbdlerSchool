@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
+import 'package:flutter_bilimdler/Pages/Symbols_test_page.dart';
 import 'package:flutter_bilimdler/subject/economic_placeholders.dart';
 import 'package:flutter_bilimdler/subject/physical_test_page.dart';
 import 'package:flutter_bilimdler/subject/region_economic_geography.dart';
