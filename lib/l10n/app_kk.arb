@@ -1,8 +1,339 @@
 {
   "@@locale": "kk",
-  "appTitle": "ГЕО 2026 · BILIM\"D\"LER",
-  "welcome": "Қош келдіңіз!",
+  "appTitle": "Bilimdler",
+  "brand": "BILIM\"D\"LER",
+  "email": "Электрондық пошта",
+  "password": "Құпия сөз",
   "signIn": "Кіру",
-  "guest": "Қонақ ретінде кіру",
-  "register": "Тіркелу"
+  "continueAsGuest": "Қонақ ретінде жалғастыру",
+  "notMember": "Тіркелмегенсіз бе?",
+  "registerNow": "Қазір тіркелу",
+  "welcome": "Қош келдіңіз!",
+  "signOut": "Шығу",
+  "alreadyMember": "Бұрын тіркелгенсіз бе?",
+  "loginNow": "Кіру",
+  "confirmPassword": "Құпия сөзді растау",
+  "weakPassword": "Құпия сөз кемінде 6 таңба болуы керек",
+  "emailInUse": "Бұл электрондық пошта бұрын қолданылған",
+  "emailAlreadyInUse": "Бұл электрондық пошта бұрын қолданылған",
+  "invalidEmail": "Жарамсыз электрондық пошта",
+  "userNotFound": "Осы поштамен пайдаланушы табылмады",
+  "wrongPassword": "Қате құпия сөз",
+  "badEmailOrPassword": "Қате электрондық пошта не құпия сөз",
+  "tooManyRequests": "Тым көп әрекет, кейінірек қайталап көріңіз",
+  "unknownError": "Белгісіз қате орын алды",
+  "enterEmailPassword": "Электрондық пошта мен құпия сөзді енгізіңіз",
+  "passwordsNotMatch": "Құпия сөздер сәйкес келмейді",
+
+  "verificationEmailSent": "Растау хаты {email} поштасына жіберілді",
+  "@verificationEmailSent": {
+    "placeholders": {
+      "email": { "type": "String", "example": "user@example.com" }
+    }
+  },
+  "verifyYourEmail": "Кіру алдында электрондық поштаңызды растаңыз",
+  "forgotPassword": "Құпия сөзді ұмыттыңыз ба?",
+  "pleaseEnterEmail": "Электрондық поштаңызды енгізіңіз",
+  "resetEmailSent": "Құпия сөзді қалпына келтіру хаты {email} поштасына жіберілді",
+  "@resetEmailSent": {
+    "placeholders": {
+      "email": { "type": "String", "example": "user@example.com" }
+    }
+  },
+  "resendVerification": "Растау хатын қайта жіберу",
+  "verificationEmailResent": "Растау хаты қайта жіберілді",
+
+  "guestIdDisplay": "Қонақ ID: {id}",
+  "@guestIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "AB12CD34" }
+    }
+  },
+  "userIdDisplay": "Пайдаланушы ID: {id}",
+  "@userIdDisplay": {
+    "placeholders": {
+      "id": { "type": "String", "example": "1F2A3B4C" }
+    }
+  },
+
+  "profileTitle": "Профиль",
+  "firstName": "Аты",
+  "lastName": "Тегі",
+  "save": "Сақтау",
+  "saved": "Сақталды",
+  "enterNameOrSurname": "Аты немесе тегін енгізіңіз",
+  "youCanSearchByName": "Пайдаланушыларды аты/тегі бойынша іздей аласыз.",
+
+  "startGame": "Ойынды бастау",
+  "subjects": "Пәндер",
+  "settings": "Баптаулар",
+  "sound": "Дыбыс",
+  "vibration": "Діріл",
+  "theme": "Тақырып",
+  "chooseSubject": "Пәнді таңдаңыз",
+  "toggleTheme": "Тақырыпты ауыстыру",
+
+  "geography": "География",
+  "physicalGeography": "Физикалық география",
+  "economicGeography": "Экономикалық география",
+
+  "comingSoon": "Жақында: {title}",
+  "@comingSoon": {
+    "placeholders": {
+      "title": { "type": "String", "example": "Физикалық география" }
+    }
+  },
+
+  "mountains": "Таулар",
+  "lakes": "Көлдер",
+  "deserts": "Физ гео Аудандар",
+  "rivers": "Өзендер",
+  "reserves": "Қорықтар",
+
+  "testLabel": "Тест",
+  "regions": "Облыстар",
+  "cities": "Қалалар",
+  "symbols": "Кең орындар",
+  "factories": "Зауыттар",
+  "symbolsTest": "Шартты белгілер",
+
+  "joinByCode": "Код арқылы кіру",
+  "enterCode": "Кодты енгізіңіз",
+  "enterCodeHint": "ABC123",
+  "btnJoin": "Кіру",
+  "btnCancel": "Бас тарту",
+
+  "howToPlayTitle": "Қалай ойнаймыз?",
+  "howToPlayBody": "Жеке — бірден пәнге өтесіз.\nТоп — бөлме құрылып, бәріңіз бірге бастайсыз.",
+  "modeSolo": "Жеке",
+  "modeGroup": "Топпен",
+  "chooseParticipantsTitle": "Қатысушылар саны?",
+  "btnOk": "ОК",
+
+  "waitingRoomTitle": "Күту бөлмесі",
+  "roomDeleted": "Бөлме өшірілді",
+  "codeCopied": "Код көшірілді",
+  "roomOpen": "Ашық",
+  "roomClosed": "Жабық",
+
+  "membersCount": "Қатысушылар: {count} / {max}",
+  "@membersCount": {
+    "placeholders": {
+      "count": { "type": "int", "example": "2" },
+      "max":   { "type": "int", "example": "5" }
+    }
+  },
+
+  "statusLabel": "Күйі",
+  "statusWaiting": "күту",
+  "statusPlaying": "ойында",
+  "leave": "Шығу",
+  "chooseGame": "Ойынды таңдау",
+
+  "createRoomFailed": "Бөлмені құру мүмкін болмады",
+  "startGameFailed": "Ойынды іске қосу мүмкін болмады",
+  "roomNotFound": "Бөлме табылмады",
+  "roomAlreadyStarted": "Ойын басталып кетті",
+  "roomIsClosed": "Бөлме жабық",
+  "roomIsFull": "Бос орын жоқ",
+
+  "codeLabel": "Код: {code}",
+  "@codeLabel": {
+    "placeholders": {
+      "code": { "type": "String", "example": "ABC123" }
+    }
+  },
+
+  "createRoomTitle": "Бөлме құру",
+  "participantsLimit": "Қатысушылар шегі",
+  "btnCreate": "Құру",
+  "shareCodeHint": "Құрғаннан кейін, лоббиден бөлме кодын бөлісіңіз.",
+  "owner": "Иесі",
+  "member": "Мүше",
+  "noMembersYet": "Әзірге ешкім жоқ",
+  "joinFailed": "Қосыла алмады",
+  "codeGenerationFailed": "Код жасау сәтсіз аяқталды",
+
+  "gameTitle": "Ойын: {id}",
+  "@gameTitle": {
+    "placeholders": {
+      "id": { "type": "String", "example": "capitals" }
+    }
+  },
+
+  "gameLaunched": "«{subject}» пәні бойынша «{gameId}» ойыны басталды",
+  "@gameLaunched": {
+    "placeholders": {
+      "gameId": { "type": "String", "example": "capitals" },
+      "subject": { "type": "String", "example": "physical" }
+    }
+  },
+
+  "markets": "Нарықтар",
+  "gdpQuiz": "ЖІӨ викторинасы",
+  "tradeRoutes": "Сауда жолдары",
+  "industry": "Өнеркәсіп",
+  "resources": "Ресурстар",
+  "population": "Халық",
+  "capitals": "Астаналар",
+  "flags": "Тулар",
+  "climate": "Климат",
+
+  "factoriesTestTitle": "Зауыттар",
+  "factoriesQ1": "Титан-магний комбинаты қай қалада орналасқан?",
+  "factoriesQ1A1": "Павлодар",
+  "factoriesQ1A2": "Өскемен",
+  "factoriesQ1A3": "Риддер",
+  "factoriesQ1A4": "Жезқазған",
+
+  "factoriesQ2": "Павлодар қаласында қай зауыт орналасқан?",
+  "factoriesQ2A1": "Электролиз зауыты",
+  "factoriesQ2A2": "Полиметалл комбинаты",
+  "factoriesQ2A3": "Мыс қорыту зауыты",
+  "factoriesQ2A4": "Қорғасын-мырыш комбинаты",
+
+  "factoriesQ3": "Теміртаудағы металлургиялық алып?",
+  "factoriesQ3A1": "Балқаш мыс зауыты",
+  "factoriesQ3A2": "Испат-Кармет (АрселорМиттал)",
+  "factoriesQ3A3": "Глинозем зауыты",
+  "factoriesQ3A4": "Ақтөбе ферроқорытпа зауыты",
+
+  "questionOfTotal": "Сұрақ {current}/{total}",
+  "@questionOfTotal": {
+    "placeholders": {
+      "current": { "type": "String", "example": "1" },
+      "total":   { "type": "String", "example": "3" }
+    }
+  },
+
+  "factoriesQ4": "Ферроқорытпа зауыты қай қалада жоқ?",
+  "factoriesQ4A1": "Ақтөбе",
+  "factoriesQ4A2": "Ақсу (Павлодар)",
+  "factoriesQ4A3": "Тараз",
+  "factoriesQ4A4": "Жезқазған",
+
+  "factoriesQ5": "Мыс қорыту зауыты қай қалада?",
+  "factoriesQ5A1": "Балқаш",
+  "factoriesQ5A2": "Ақтөбе",
+  "factoriesQ5A3": "Риддер",
+  "factoriesQ5A4": "Атырау",
+
+  "factoriesQ6": "Қорғасын-мырыш комбинаты қай қалада?",
+  "factoriesQ6A1": "Өскемен",
+  "factoriesQ6A2": "Атырау",
+  "factoriesQ6A3": "Тараз",
+  "factoriesQ6A4": "Алматы",
+
+  "factoriesQ7": "Полиметалл комбинаты қай қалада?",
+  "factoriesQ7A1": "Өскемен",
+  "factoriesQ7A2": "Павлодар",
+  "factoriesQ7A3": "Риддер",
+  "factoriesQ7A4": "Ақтөбе",
+
+  "citiesEgTitle": "Экономикалық география: Қалалар",
+  "findCityPrompt": "Қаланы табыңыз:",
+  "scoreDisplay": "Ұпай: {score}",
+  "@scoreDisplay": {
+    "placeholders": {
+      "score": { "type": "int", "example": "3" }
+    }
+  },
+  "rules": "Ережелер",
+  "citiesEgRulesText": "Картадан берілген қаланы табыңыз. Дұрыс жауап үшін +1 ұпай беріледі.",
+  "playAgain": "Қайта ойнау",
+  "citiesEgFinishTitle": "Аяқталды!",
+  "resultDisplay": "Нәтиже: {score} / {total}",
+  "@resultDisplay": {
+    "placeholders": {
+      "score": { "type": "int", "example": "5" },
+      "total": { "type": "int", "example": "20" }
+    }
+  },
+
+  "cityAstana": "Астана",
+  "cityAlmaty": "Алматы",
+  "cityShymkent": "Шымкент",
+  "cityKaraganda": "Қарағанды",
+  "cityAktobe": "Ақтөбе",
+  "cityTaraz": "Тараз",
+  "cityPavlodar": "Павлодар",
+  "cityOskemen": "Өскемен",
+  "citySemey": "Семей",
+  "cityKostanay": "Қостанай",
+  "cityAtyrau": "Атырау",
+  "cityKyzylorda": "Қызылорда",
+  "cityOral": "Орал",
+  "cityPetropavl": "Петропавл",
+  "cityEkibastuz": "Екібастұз",
+  "cityZhezkazgan": "Жезқазған",
+  "cityTemirtau": "Теміртау",
+  "cityKokshetau": "Көкшетау",
+  "cityTurkistan": "Түркістан",
+  "cityTaldykorgan": "Талдықорған",
+
+  "resultsTitle": "Нәтижелер",
+  "room": "Бөлме",
+  "finished": "Дайын",
+  "scoreShort": "Ұпай",
+  "back": "Артқа",
+  "toMenu": "Басты мәзір",
+  "testFinished": "Тест аяқталды",
+  "result": "Нәтиже",
+  "nextGame": "Келесі ойын",
+  "symbolsQuizTitle": "Таңбалар тесті",
+  "reset": "Қалпына келтіру",
+  "restart": "Қайта бастау",
+  "close": "Жабу",
+  "score": "Ұпай",
+  "next": "Келесі",
+  "showResult": "Нәтижені көрсету",
+  "symbolsResultTitle": "Нәтиже",
+  "correctAnswers": "Дұрыс",
+  "pgRegionsTitle": "Физ.-геогр. аймақтар",
+  "pgFindPrefix": "Тауып басыңыз:",
+  "pgRestart": "Қайтадан",
+  "pgScore": "Ұпай: {value}",
+  "@pgScore": { "placeholders": { "value": { "type": "int" } } },
+  "pgMapNotFound": "Карта табылмады",
+  "pgCalibrateOn": "Калибрлеу: ҚОСУЛЫ",
+  "pgCalibrateOff": "Калибрлеу: ӨШІК",
+  "pgNudgeSaved": "{name} үшін түзету: {delta}",
+  "@pgNudgeSaved": { "placeholders": { "name": {}, "delta": {} } },
+
+  "regEastEuropePlain": "Шығыс Еуропа жазығы",
+  "regNorthKazakhPlain": "Солтүстік Қазақ жазығы",
+  "regTuranLowland": "Тұран жазығы",
+  "regUralMugalzhar": "Орал (Мұғалжар)",
+  "regSaryarka": "Сарыарқа",
+  "regAltai": "Алтай",
+  "regSaurTarbagatai": "Сауыр-Тарбағатай",
+  "regZhetysuAlatau": "Жетісу Алатауы",
+  "regTienShan": "Тянь-Шань",
+  "mountainsTitle": "Қазақстан таулары",
+  "restart": "Қалпына келтіру",
+  "score": "Ұпай: {value}",
+  "@score": { "placeholders": { "value": {} } },
+  "findRange": "Жотаны табыңыз:",
+  "gameFinished": "Ойын аяқталды",
+  "result": "Нәтиже: {score} / {total}",
+  "@result": { "placeholders": { "score": {}, "total": {} } },
+  "ok": "Жабу",
+  "playAgain": "Қайта бастау",
+  "mapNotFound": "Карта табылмады",
+
+  "mountainIleAlatau": "Іле Алатауы",
+  "mountainTienShan": "Тянь-Шань",
+  "mountainZhetysuAlatau": "Жетісу Алатауы",
+  "mountainAltai": "Алтай",
+  "mountainSauyrTarbagatai": "Сауыр-Тарбағатай",
+  "mountainBayanaul": "Баянауыл",
+  "mountainKarkaraly": "Қарқаралы",
+  "mountainUlytau": "Ұлытау",
+  "mountainKokshetau": "Көкшетау таулары",
+  "mountainKaratau": "Қаратау жотасы",
+  "mountainMugodzhary": "Мұғалжар",
+  "mountainMangystau": "Маңғыстау таулары",
+  "mountainKalba": "Қалба жотасы"
+  
+  
 }
