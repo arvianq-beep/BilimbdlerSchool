@@ -149,7 +149,7 @@ class PhysicalGeographyMenuPage extends StatelessWidget {
       if (context.mounted) {
         Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Не удалось запустить игру: $e')),
+          SnackBar(content: Text('Н0е удалось запустить игру: $e')),
         );
       }
     }
