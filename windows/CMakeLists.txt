@@ -2,6 +2,23 @@
 cmake_minimum_required(VERSION 3.14)
 project(flutter_bilimdler LANGUAGES CXX)
 
+# 🔧 Отключаем варнинги на strncpy/sprintf в Firebase C++ SDK
+# Добавляем дефайн только если он ещё не существует
+if (MSVC)
+  if (MSVC)
+  # Не считать предупреждения ошибками
+  add_compile_options(/WX-)
+  # Замолчать про strncpy (4996) и про переопределение макроса (4005)
+  add_compile_options(/wd4996 /wd4005)
+endif()
+
+  add_compile_options(/WX-) # не считать предупреждения ошибками
+endif()
+
+# 🔧 Запрещаем превращать предупреждения в ошибки
+add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/WX->")
+
+
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
 set(BINARY_NAME "flutter_bilimdler")
