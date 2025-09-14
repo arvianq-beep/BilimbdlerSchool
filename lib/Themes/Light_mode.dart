@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-ThemeData lightMode = ThemeData(
+/// Светлая тема приложения
+final ThemeData lightMode = ThemeData(
   useMaterial3: true,
   colorScheme: const ColorScheme.light(
     background: Colors.white, // светлый фон

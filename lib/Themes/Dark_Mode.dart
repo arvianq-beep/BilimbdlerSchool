@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 
-ThemeData darkMode = ThemeData(
+/// Тёмная тема приложения
+final ThemeData darkMode = ThemeData(
   useMaterial3: true,
   colorScheme: const ColorScheme.dark(
-    // Base palette aligned with GeographyPage
+    // Основные цвета
     background: Color(0xFF0A2A52),
     surface: Color(0xFF0A2A52),
     onSurface: Colors.white,
 
-    primary: Color(0xFFF4C542), // yellow accent
-    onPrimary: Color(0xFF0A2A52), // dark-blue text on yellow
+    primary: Color(0xFFF4C542), // жёлтый акцент
+    onPrimary: Color(0xFF0A2A52), // тёмно-синий текст на жёлтом фоне
 
     secondary: Colors.white,
     onSecondary: Color(0xFF0A2A52),
 
-    // Containers used by menu tiles and map fill
+    // Контейнеры для карточек/меню
     primaryContainer: Color(0xFF184567),
     onPrimaryContainer: Colors.white,
     secondaryContainer: Color(0xFF142F4A),
@@ -23,4 +24,3 @@ ThemeData darkMode = ThemeData(
     inversePrimary: Colors.white,
   ),
 );
-

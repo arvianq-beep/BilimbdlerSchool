@@ -4,13 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'package:provider/provider.dart';
-import 'Themes/Themes_Provider.dart';
+import 'themes/themes_provider.dart'; // ✅ имя файла в нижнем регистре
 import 'l10n/locale_provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 
-import 'Pages/splash_page.dart';
+import 'pages/splash_page.dart'; // ✅ тоже в нижнем регистре
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +54,8 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const SplashPage(),
+      // ✅ без const, так как SplashPage — StatefulWidget
+      home: SplashPage(),
     );
   }
 }
