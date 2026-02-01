@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "200422882200",
+    "project_id": "bilimapp-f3fe2",
+    "storage_bucket": "bilimapp-f3fe2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200422882200:android:3f0001a13b39dae18689ed",
+        "android_client_info": {
+          "package_name": "com.bilimdler.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8FJVop3xRJzh7pMw4FUbgqCur_5io-Mw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
