@@ -22,7 +22,7 @@ class _CitiesEconomicGeographyPageState
     extends State<CitiesEconomicGeographyPage>
     with TickerProviderStateMixin {
   // Путь к фоновой картинке Казахстана
-  static const String _mapAssetPath = 'lib/Images/country.png';
+  static const String _mapAssetPath = 'lib/images/country.png';
 
   // Список городов
   static const List<
@@ -364,7 +364,7 @@ class _CitiesEconomicGeographyPageState
                   alignment: Alignment.center,
                   errorBuilder: (context, _, __) => const Center(
                     child: Text(
-                      'Не найдено изображение карты: lib/Images/country.png',
+                      'Не найдено изображение карты: lib/images/country.png',
                     ),
                   ),
                 ),

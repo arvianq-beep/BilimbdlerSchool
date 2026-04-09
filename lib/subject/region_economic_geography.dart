@@ -217,7 +217,7 @@ class _PhysicalGeographyPageState extends State<PhysicalGeographyPage> {
                       maxScale: 4,
                       boundaryMargin: const EdgeInsets.all(48),
                       child: KazakhstanSvgMap(
-                        svgAssetPath: 'lib/Images/kazakhstan.svg',
+                        svgAssetPath: 'lib/images/kazakhstan.svg',
                         onTapRegion: _onTapRegion,
                         colorForRegion: (id) {
                           if (_correct.contains(id)) return cs.primary.withOpacity(0.75);

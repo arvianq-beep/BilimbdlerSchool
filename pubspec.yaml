@@ -36,4 +36,4 @@ flutter:
   generate: true
 
   assets:
-    - lib/Images/     # если используешь эту папку для логотипа
+    - lib/images/     # если используешь эту папку для логотипа

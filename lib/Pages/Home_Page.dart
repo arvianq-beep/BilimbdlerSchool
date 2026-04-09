@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:flutter_bilimdler/Auth/Login_or_Register.dart';
-import 'package:flutter_bilimdler/Themes/Themes_Provider.dart';
+import 'package:flutter_bilimdler/auth/login_or_register.dart';
+import 'package:flutter_bilimdler/themes/themes_provider.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/l10n/language_button.dart';
 import 'edit_profile_page.dart';
@@ -389,7 +389,7 @@ class HomePage extends StatelessWidget {
     width: 190,
     height: 190,
     child: ClipOval(
-      child: Image.asset('lib/Images/Logo.png', fit: BoxFit.cover),
+      child: Image.asset('lib/images/Logo.png', fit: BoxFit.cover),
     ),
   );
 

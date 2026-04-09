@@ -1,4 +1,4 @@
-// lib/Components/my_textfield.dart
+// lib/components/my_textfield.dart
 import 'package:flutter/material.dart';
 
 class MyTextfield extends StatelessWidget {

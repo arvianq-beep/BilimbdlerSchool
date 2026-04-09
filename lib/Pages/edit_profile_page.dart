@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Auth/auth_service.dart';
+import 'package:flutter_bilimdler/auth/auth_service.dart';
 import 'home_page.dart';
 import '../l10n/app_localizations.dart';
 

@@ -19,7 +19,7 @@ class SymbolsEconomicGeographyPage extends StatefulWidget {
 class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyPage>
     with TickerProviderStateMixin {
   // Карта (та же, что и в озёрах/реках)
-  static const String _mapAssetPath = 'lib/Images/country_symbols.png';
+  static const String _mapAssetPath = 'lib/images/country_symbols.png';
   // Геобокс Казахстана для проекции lat/lng → XY
   static const double _bboxMinLat = 40.56;
   static const double _bboxMaxLat = 55.59;
@@ -263,7 +263,7 @@ class _SymbolsEconomicGeographyPageState extends State<SymbolsEconomicGeographyP
               _mapAssetPath,
               fit: BoxFit.contain,
               alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/Images/lakes_counrty.png')),
+              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/images/lakes_counrty.png')),
             ),
           ),
           if (_mapSizeResolved && _mapImageSize != null)

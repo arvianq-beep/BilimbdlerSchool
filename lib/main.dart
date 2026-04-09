@@ -4,13 +4,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 import 'package:provider/provider.dart';
-import 'Themes/Themes_Provider.dart';
+import 'themes/themes_provider.dart';
 import 'l10n/locale_provider.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'l10n/app_localizations.dart';
 
-import 'Pages/splash_page.dart';
+import 'pages/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

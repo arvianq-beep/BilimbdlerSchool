@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Services/room_services.dart';
-import 'package:flutter_bilimdler/Pages/room_results_page.dart';
+import 'package:flutter_bilimdler/services/room_services.dart';
+import 'package:flutter_bilimdler/pages/room_results_page.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 
 class GameResult {

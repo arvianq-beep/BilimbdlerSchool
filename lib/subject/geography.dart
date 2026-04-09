@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // для FirebaseException
-import 'package:flutter_bilimdler/Services/room_services.dart';
+import 'package:flutter_bilimdler/services/room_services.dart';
 
 import '../l10n/app_localizations.dart';
 import 'physical_geography_menu.dart';
 import 'economic_geography_menu.dart';
-import '../Pages/room_lobby_page.dart';
+import '../pages/room_lobby_page.dart';
 
 enum _Mode { solo, group }
 

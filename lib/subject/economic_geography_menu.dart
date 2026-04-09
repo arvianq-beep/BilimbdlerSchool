@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
-import 'package:flutter_bilimdler/Services/room_services.dart';
+import 'package:flutter_bilimdler/pages/factories_pages_geography.dart';
+import 'package:flutter_bilimdler/services/room_services.dart';
 import '../l10n/app_localizations.dart';
 
 import 'economic_test_page.dart';

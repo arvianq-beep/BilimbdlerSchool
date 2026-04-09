@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bilimdler/Services/room_services.dart';
+import 'package:flutter_bilimdler/services/room_services.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/rooms/game_picker_page.dart';
 

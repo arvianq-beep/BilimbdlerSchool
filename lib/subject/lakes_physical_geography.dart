@@ -15,7 +15,7 @@ class LakesPhysicalGeographyPage extends StatefulWidget {
 
 class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
     with TickerProviderStateMixin {
-  static const String _mapAssetPath = 'lib/Images/lakes_counrty.png';
+  static const String _mapAssetPath = 'lib/images/lakes_counrty.png';
 
   // Bounding box of Kazakhstan used to project lat/lng to image
   static const double _bboxMinLat = 40.56;
@@ -292,7 +292,7 @@ class _LakesPhysicalGeographyPageState extends State<LakesPhysicalGeographyPage>
               _mapAssetPath,
               fit: BoxFit.contain,
               alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Изображение карты не найдено: lib/Images/lakes_counrty.png')),
+              errorBuilder: (context, _, __) => const Center(child: Text('Изображение карты не найдено: lib/images/lakes_counrty.png')),
             ),
           ),
           if (_mapSizeResolved && _mapImageSize != null)

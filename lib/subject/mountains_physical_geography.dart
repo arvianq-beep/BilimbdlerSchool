@@ -14,7 +14,7 @@ class MountainsPhysicalGeographyPage extends StatefulWidget {
 class _MountainsPhysicalGeographyPageState extends State<MountainsPhysicalGeographyPage>
     with TickerProviderStateMixin {
   // Карта (как в физ. экранах с озерами)
-  static const String _mapAssetPath = 'lib/Images/lakes_counrty.png';
+  static const String _mapAssetPath = 'lib/images/lakes_counrty.png';
   static const double _bboxMinLat = 40.56;
   static const double _bboxMaxLat = 55.59;
   static const double _bboxMinLng = 46.50;
@@ -162,7 +162,7 @@ class _MountainsPhysicalGeographyPageState extends State<MountainsPhysicalGeogra
               fit: BoxFit.contain,
               alignment: Alignment.center,
               errorBuilder: (context, _, __) => const Center(
-                child: Text('Не найдено: lib/Images/lakes_counrty.png'),
+                child: Text('Не найдено: lib/images/lakes_counrty.png'),
               ),
             ),
           ),

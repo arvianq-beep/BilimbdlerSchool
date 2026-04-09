@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bilimdler/Pages/FactoriesPagesGeography.dart';
-import 'package:flutter_bilimdler/Pages/Symbols_test_page.dart';
+import 'package:flutter_bilimdler/pages/factories_pages_geography.dart';
+import 'package:flutter_bilimdler/pages/symbols_test_page.dart';
 import 'package:flutter_bilimdler/subject/economic_placeholders.dart';
 import 'package:flutter_bilimdler/subject/physical_test_page.dart';
 import 'package:flutter_bilimdler/subject/region_economic_geography.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
-import '../Services/room_services.dart';
+import '../services/room_services.dart';
 import 'package:flutter_bilimdler/subject/cities_economic_geography.dart';
 import 'package:flutter_bilimdler/subject/symbols_economic_geography.dart';
 import 'package:flutter_bilimdler/subject/economic_test_page.dart';

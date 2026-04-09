@@ -1,4 +1,4 @@
-// lib/Pages/FactoriesPagesGeography.dart
+// lib/pages/factories_pages_geography.dart
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bilimdler/rooms/game_result.dart';

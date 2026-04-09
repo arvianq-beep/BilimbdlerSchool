@@ -25,7 +25,7 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
       ConfettiController(duration: const Duration(seconds: 3));
 
   // Map configuration (same as lakes screen)
-  static const String _mapAssetPath = 'lib/Images/lakes_counrty.png';
+  static const String _mapAssetPath = 'lib/images/lakes_counrty.png';
   static const double _bboxMinLat = 40.56;
   static const double _bboxMaxLat = 55.59;
   static const double _bboxMinLng = 46.50;
@@ -231,7 +231,7 @@ class _RiversPhysicalGeographyPageState extends State<RiversPhysicalGeographyPag
               _mapAssetPath,
               fit: BoxFit.contain,
               alignment: Alignment.center,
-              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/Images/lakes_counrty.png')),
+              errorBuilder: (context, _, __) => const Center(child: Text('Карта не найдена: lib/images/lakes_counrty.png')),
             ),
           ),
           if (_mapSizeResolved && _mapImageSize != null)

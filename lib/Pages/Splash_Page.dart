@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../Auth/Login_or_Register.dart';
+import '../auth/login_or_register.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -124,7 +124,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
                       ),
                     ),
                     child: Image.asset(
-                      'lib/Images/Logo.png',
+                      'lib/images/Logo.png',
                       width: 220,
                       fit: BoxFit.contain,
                     ),

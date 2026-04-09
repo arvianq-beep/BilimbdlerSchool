@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bilimdler/Auth/auth_service.dart';
+import 'package:flutter_bilimdler/auth/auth_service.dart';
 
-import '../Components/my_button.dart';
-import '../Components/my_textfield.dart';
+import '../components/my_button.dart';
+import '../components/my_textfield.dart';
 import 'home_page.dart';
 import 'edit_profile_page.dart'; // гость пойдёт сюда
 import '../l10n/app_localizations.dart';

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter_bilimdler/Auth/auth_service.dart'; // ⬅️ используем сервис
-import 'package:flutter_bilimdler/Auth/header.dart';
-import 'package:flutter_bilimdler/Components/My_Button.dart';
-import 'package:flutter_bilimdler/Components/My_Textfield.dart';
+import 'package:flutter_bilimdler/auth/auth_service.dart'; // ⬅️ используем сервис
+import 'package:flutter_bilimdler/auth/header.dart';
+import 'package:flutter_bilimdler/components/my_button.dart';
+import 'package:flutter_bilimdler/components/my_textfield.dart';
 import 'package:flutter_bilimdler/l10n/app_localizations.dart';
 import 'package:flutter_bilimdler/l10n/language_button.dart';
 
